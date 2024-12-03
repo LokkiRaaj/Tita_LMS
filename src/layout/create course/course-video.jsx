@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CourseVideo({onContinue}) {
+function CourseVideo({onContinue , onBack}) {
     const [uploadedVideoName, setUploadedVideoName] = useState("");
 
     const handleDrop = (event) => {
@@ -46,7 +46,18 @@ function CourseVideo({onContinue}) {
                                 <p className="text-15 text-gray-500">
                                     Drag &amp; drop your single/multiple videos of course, or
                                     <label htmlFor="video" className="text-main-600 cursor-pointer">Browse</label>
-                                    <input type="file" id="video" accept="video/mp4,video/x-m4v,video/*" hidden />
+                                    <input 
+                                        type="file" 
+                                        id="video" 
+                                        accept="video/mp4,video/x-m4v,video/*" 
+                                        hidden 
+                                        onChange={(e) => {
+                                            const files = e.target.files;
+                                            if (files.length > 0) {
+                                                setUploadedVideoName(files[0].name);
+                                            }
+                                        }} 
+                                    />
                                     {displayUploadedVideoName()}
                                 </p>
                                 <p className="text-13 text-gray-600">Mp4 format with 16:9 aspect ratio (max file size 100mb each)</p>
@@ -96,10 +107,16 @@ function CourseVideo({onContinue}) {
                         <p className="mt-20 pt-20 border-top border-main-200">Build beautifully designed web and mobile projects for your customers using modern tools used by top companies in 2024. Includes 100+ assets and premium design templates that you can keep and use to customize for all your future projects. Learn to design for all types of devices using Figma and other tools used by some of the top designers in the world. Get hired as a Designer or become a freelancer that can work from anywhere and for anyone. Designers are in high demand!</p>
                     </div>
                     {/* Upload Card item End */}
-                    <div className="flex-align justify-content-end gap-8 mt-20">
-                        <a href="" className="btn btn-outline-main rounded-pill py-9">Back</a>
-                        <a href="" className="btn btn-main rounded-pill py-9" onClick={onContinue}>Continue</a>
-                    </div>
+                    <div className="flex-align justify-content-end gap-8">
+                                <a href="" className="btn btn-outline-main rounded-pill py-9" onClick={onBack}>BACK</a>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-main rounded-pill py-9" 
+                                    onClick={onContinue}
+                                >
+                                    Continue
+                                </button>
+                            </div>
                 </div>
             </div>
         </>

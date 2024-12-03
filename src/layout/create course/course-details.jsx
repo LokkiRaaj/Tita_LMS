@@ -87,7 +87,7 @@ function CourseDetails({ onContinue }) {
                                 </div>
                             </div>
                             <div className="flex-align justify-content-end gap-8">
-                                <a href="" className="btn btn-outline-main rounded-pill py-9">Cancel</a>
+                                
                                 <button 
                                     type="button" 
                                     className="btn btn-main rounded-pill py-9" 
