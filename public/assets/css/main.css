@@ -429,6 +429,7 @@
 .select-has-icon select {
     background-image: none;
     -webkit-appearance: none;
+    appearance:none;
     padding: 20px 24px;
     font-size: 18px;
 }
@@ -488,6 +489,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: none;
 }
 
 /* Custom Checkbox & Radio Css Start */
@@ -8567,6 +8569,7 @@ button:focus {
 .text-line-1 {
     display: -webkit-box !important;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -8575,6 +8578,7 @@ button:focus {
 .text-line-2 {
     display: -webkit-box !important;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -8583,6 +8587,7 @@ button:focus {
 .text-line-3 {
     display: -webkit-box !important;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -9015,7 +9020,7 @@ button:focus {
 }
 
 .sidebar-menu__link:hover {
-    color: hsl(var(--main));
+    color: #FF001E;
     background-color: var(--main-50);
 }
 
@@ -9048,10 +9053,11 @@ button:focus {
 
 .sidebar-submenu__item {
     margin-bottom: 12px;
+    
 }
 
 .sidebar-submenu__item.activePage .sidebar-submenu__link {
-    color: var(--main-600);
+    color: #FF001E;
     font-weight: 600;
 }
 
@@ -9061,12 +9067,15 @@ button:focus {
 
 .sidebar-submenu__link {
     padding: 2px 18px;
-    color: var(--gray-200);
+    color: var(--gray-300);
     font-size: 0.8125rem;
     display: block;
     position: relative;
 }
-
+.sidebar-submenu__link:hover {
+    color: #FF001E;
+    background-color: var(--main-50);
+}
 .sidebar-submenu__link::before {
     position: absolute;
     content: "";
@@ -9076,6 +9085,17 @@ button:focus {
     width: 10px;
     height: 2px;
     background-color: var(--gray-100);
+    border-radius: 30px;
+}
+.sidebar-submenu__link:hover::before {
+    position: absolute;
+    content: "";
+    inset-inline-start: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 2px;
+    background-color: #FF001E;
     border-radius: 30px;
 }
 
