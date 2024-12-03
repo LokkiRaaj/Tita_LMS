@@ -38,7 +38,7 @@ function DashboardSidebar() {
                       
                         <ul class="sidebar-submenu">
                             <li class="sidebar-submenu__item">
-                                <a href="#" class="sidebar-submenu__link"> Create Courses </a>
+                                <a href="/create-courses" class="sidebar-submenu__link"> Create Courses </a>
                             </li>
                             <li class="sidebar-submenu__item">
                                 <a href="#" class="sidebar-submenu__link"> Edit Courses </a>
@@ -77,7 +77,7 @@ function DashboardSidebar() {
                       
                         <ul class="sidebar-submenu">
                             <li class="sidebar-submenu__item">
-                                <a href="#" class="sidebar-submenu__link"> My Meeting </a>
+                                <a href="/my-meeting" class="sidebar-submenu__link"> My Meeting </a>
                             </li>
                             <li class="sidebar-submenu__item">
                                 <a href="#" class="sidebar-submenu__link"> New Schedule </a>

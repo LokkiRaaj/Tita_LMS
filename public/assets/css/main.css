@@ -9074,7 +9074,7 @@ button:focus {
 }
 .sidebar-submenu__link:hover {
     color: #FF001E;
-    background-color: var(--main-50);
+    
 }
 .sidebar-submenu__link::before {
     position: absolute;
