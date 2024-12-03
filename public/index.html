@@ -9,15 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-
   <!-- Title -->
-  <title> React App</title>
+  <title>React App</title>
   <!-- Favicon -->
   <link rel="shortcut icon" href="assets/images/logo/favicon.png">
   <!-- Bootstrap -->
@@ -42,24 +37,19 @@
   <link rel="stylesheet" href="assets/css/jquery-jvectormap-2.0.5.css">
   <!-- Main css -->
   <link rel="stylesheet" href="assets/css/main.css">
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>React App</title>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-
-
-
+  <div id="root">
+    <!-- Add chart containers -->
+    <div id="complete-course" style="width: 100%; height: 300px;"></div>
+    <div id="earned-certificate" style="width: 100%; height: 300px;"></div>
+    <div id="course-progress" style="width: 100%; height: 300px;"></div>
+    <div id="community-support" style="width: 100%; height: 300px;"></div>
+    <div id="doubleLineChart" style="width: 100%; height: 300px;"></div>
+    <div id="radialMultipleBar" style="width: 100%; height: 300px;"></div>
+  </div>
 
   <!-- Jquery js -->
   <script src="assets/js/jquery-3.7.1.min.js"></script>
@@ -89,11 +79,8 @@
   <!-- main js -->
   <script src="assets/js/main.js"></script>
 
-
-
   <script>
     function createChart(chartId, chartColor) {
-
       let currentYear = new Date().getFullYear();
 
       var options = {
@@ -108,9 +95,8 @@
           width: 80,
           height: 42,
           sparkline: {
-            enabled: true // Remove whitespace
+            enabled: true
           },
-
           toolbar: {
             show: false
           },
@@ -162,19 +148,18 @@
         },
         fill: {
           type: 'gradient',
-          colors: [chartColor], // Set the starting color (top color) here
+          colors: [chartColor],
           gradient: {
-            shade: 'light', // Gradient shading type
-            type: 'vertical',  // Gradient direction (vertical)
-            shadeIntensity: 0.5, // Intensity of the gradient shading
-            gradientToColors: [`${chartColor}00`], // Bottom gradient color (with transparency)
-            inverseColors: false, // Do not invert colors
-            opacityFrom: .5, // Starting opacity
-            opacityTo: 0.3,  // Ending opacity
+            shade: 'light',
+            type: 'vertical',
+            shadeIntensity: 0.5,
+            gradientToColors: [`${chartColor}00`],
+            inverseColors: false,
+            opacityFrom: .5,
+            opacityTo: 0.3,
             stops: [0, 100],
           },
         },
-        // Customize the circle marker color on hover
         markers: {
           colors: [chartColor],
           strokeWidth: 2,
@@ -204,18 +189,23 @@
         },
       };
 
-      var chart = new ApexCharts(document.querySelector(`#${chartId}`), options);
-      chart.render();
+      var chartElement = document.querySelector(`#${chartId}`);
+      if (!chartElement) {
+        console.error(`Element not found: #${chartId}`);
+        return;
+      }
+
+      var chart = new ApexCharts(chartElement, options);
+      chart.render().catch(function (error) {
+        console.error("Error rendering chart:", error);
+      });
     }
 
-    // Call the function for each chart with the desired ID and color
     createChart('complete-course', '#2FB2AB');
     createChart('earned-certificate', '#27CFA7');
     createChart('course-progress', '#6142FF');
     createChart('community-support', '#FA902F');
 
-
-    // =========================== Double Line Chart Start ===============================
     function createLineChart(chartId, chartColor) {
       var options = {
         series: [
@@ -233,7 +223,7 @@
           width: '100%',
           height: 300,
           sparkline: {
-            enabled: false // Remove whitespace
+            enabled: false
           },
           toolbar: {
             show: false
@@ -245,7 +235,7 @@
             bottom: 0
           }
         },
-        colors: ['#3D7FF9', chartColor],  // Set the color of the series
+        colors: ['#3D7FF9', chartColor],
         dataLabels: {
           enabled: false,
         },
@@ -259,8 +249,8 @@
           type: 'gradient',
           gradient: {
             shadeIntensity: 1,
-            opacityFrom: 0.9,  // Decrease this value to reduce opacity
-            opacityTo: 0.2,    // Decrease this value to reduce opacity
+            opacityFrom: 0.9,
+            opacityTo: 0.2,
             stops: [0, 100]
           }
         },
@@ -294,7 +284,6 @@
             left: 0
           },
         },
-        // Customize the circle marker color on hover
         markers: {
           colors: ["#3D7FF9", chartColor],
           strokeWidth: 3,
@@ -344,13 +333,20 @@
         }
       };
 
-      var chart = new ApexCharts(document.querySelector(`#${chartId}`), options);
-      chart.render();
-    }
-    createLineChart('doubleLineChart', '#27CFA7');
-    // =========================== Double Line Chart End ===============================
+      var chartElement = document.querySelector(`#${chartId}`);
+      if (!chartElement) {
+        console.error(`Element not found: #${chartId}`);
+        return;
+      }
 
-    // ================================= Multiple Radial Bar Chart Start =============================
+      var chart = new ApexCharts(chartElement, options);
+      chart.render().catch(function (error) {
+        console.error("Error rendering chart:", error);
+      });
+    }
+
+    createLineChart('doubleLineChart', '#27CFA7');
+
     var options = {
       series: [100, 60, 25],
       chart: {
@@ -364,7 +360,7 @@
       plotOptions: {
         radialBar: {
           hollow: {
-            size: '30%',  // Adjust this value to control the bar width
+            size: '30%',
           },
           dataLabels: {
             name: {
@@ -385,155 +381,17 @@
       labels: ['Completed', 'In Progress', 'Not Started'],
     };
 
-    var chart = new ApexCharts(document.querySelector("#radialMultipleBar"), options);
-    chart.render();
-    // ================================= Multiple Radial Bar Chart End =============================
-
-    // ========================== Export Js Start ==============================
-    document.addEventListener('DOMContentLoaded', function () {
-      const exportOptions = document.getElementById('exportOptions');
-
-      if (exportOptions) {
-        exportOptions.addEventListener('change', function () {
-          const format = this.value;
-          const table = document.getElementById('assignmentTable');
-          let data = [];
-          const headers = [];
-
-          // Get the table headers
-          table.querySelectorAll('thead th').forEach(th => {
-            headers.push(th.innerText.trim());
-          });
-
-          // Get the table rows
-          table.querySelectorAll('tbody tr').forEach(tr => {
-            const row = {};
-            tr.querySelectorAll('td').forEach((td, index) => {
-              row[headers[index]] = td.innerText.trim();
-            });
-            data.push(row);
-          });
-
-          if (format === 'csv') {
-            downloadCSV(data);
-          } else if (format === 'json') {
-            downloadJSON(data);
-          }
-        });
-      }
-    });
-
-    function downloadCSV(data) {
-      const csv = data.map(row => Object.values(row).join(',')).join('\n');
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'students.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-    function downloadJSON(data) {
-      const json = JSON.stringify(data, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'students.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-    
-
-
-   
-    let display = document.querySelector(".display");
-    let days = document.querySelector(".days");
-    let previous = document.querySelector(".left");
-    let next = document.querySelector(".right");
-
-    let date = new Date();
-
-    let year = date.getFullYear();
-    let month = date.getMonth();
-
-    function displayCalendar() {
-      const firstDay = new Date(year, month, 1);
-
-      const lastDay = new Date(year, month + 1, 0);
-
-      const firstDayIndex = firstDay.getDay(); //4
-
-      const numberOfDays = lastDay.getDate(); //31
-
-      let formattedDate = date.toLocaleString("en-US", {
-        month: "long",
-        year: "numeric"
+    var radialChartElement = document.querySelector("#radialMultipleBar");
+    if (!radialChartElement) {
+      console.error("Element not found: #radialMultipleBar");
+    } else {
+      var chart = new ApexCharts(radialChartElement, options);
+      chart.render().catch(function (error) {
+        console.error("Error rendering radial chart:", error);
       });
-
-      display.innerHTML = `${formattedDate}`;
-
-      for (let x = 1; x <= firstDayIndex; x++) {
-        const div = document.createElement("div");
-        div.innerHTML += "";
-
-        days.appendChild(div);
-      }
-
-      for (let i = 1; i <= numberOfDays; i++) {
-        let div = document.createElement("div");
-        let currentDate = new Date(year, month, i);
-
-        div.dataset.date = currentDate.toDateString();
-
-        div.innerHTML += i;
-        days.appendChild(div);
-        if (
-          currentDate.getFullYear() === new Date().getFullYear() &&
-          currentDate.getMonth() === new Date().getMonth() &&
-          currentDate.getDate() === new Date().getDate()
-        ) {
-          div.classList.add("current-date");
-        }
-      }
     }
-
-    // Call the function to display the calendar
-    displayCalendar();
-
-    previous.addEventListener("click", () => {
-      days.innerHTML = "";
-
-      if (month < 0) {
-        month = 11;
-        year = year - 1;
-      }
-      month = month - 1;
-      date.setMonth(month);
-      displayCalendar();
-    });
-
-    next.addEventListener("click", () => {
-      days.innerHTML = "";
-
-      if (month > 11) {
-        month = 0;
-        year = year + 1;
-      }
-
-      month = month + 1;
-      date.setMonth(month);
-
-      displayCalendar();
-    });
-
-
   </script>
-
-
 </body>
 
 </html>
+
