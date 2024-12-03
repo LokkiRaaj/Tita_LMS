@@ -42,7 +42,7 @@ function Header() {
                                                 <img src="assets/images/thumbs/notification-img1.png" alt className="w-48 h-48 rounded-circle object-fit-cover" />
                                                 <div className="border-bottom border-gray-100 mb-24 pb-24">
                                                     <div className="flex-align gap-4">
-                                                        <a href="#" className="fw-medium text-15 mb-0 text-gray-300 hover-text-main-600 text-line-2">Ashwin Bose is requesting access to Design File - Final Project. </a>
+                                                        <a href="" className="fw-medium text-15 mb-0 text-gray-300 hover-text-main-600 text-line-2">Ashwin Bose is requesting access to Design File - Final Project. </a>
                                                         {/* Three Dot Dropdown Start */}
                                                         <div className="dropdown flex-shrink-0">
                                                             <button className="text-gray-200 rounded-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,17 +54,17 @@ function Header() {
                                                                         <div className="max-h-200 overflow-y-auto scroll-sm pe-8">
                                                                             <ul>
                                                                                 <li className="mb-0">
-                                                                                    <a href="#" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
+                                                                                    <a href="" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
                                                                                         <span className="text">Mark as read</span>
                                                                                     </a>
                                                                                 </li>
                                                                                 <li className="mb-0">
-                                                                                    <a href="#" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
+                                                                                    <a href="" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
                                                                                         <span className="text">Delete Notification</span>
                                                                                     </a>
                                                                                 </li>
                                                                                 <li className="mb-0">
-                                                                                    <a href="#" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
+                                                                                    <a href="" className="py-6 text-15 px-8 hover-bg-gray-50 text-gray-300 rounded-8 fw-normal text-xs d-block">
                                                                                         <span className="text">Report</span>
                                                                                     </a>
                                                                                 </li>
@@ -93,12 +93,12 @@ function Header() {
                                             <div className="d-flex align-items-start gap-12">
                                                 <img src="assets/images/thumbs/notification-img2.png" alt className="w-48 h-48 rounded-circle object-fit-cover" />
                                                 <div className>
-                                                    <a href="#" className="fw-medium text-15 mb-0 text-gray-300 hover-text-main-600 text-line-2">Patrick added a comment on Design Assets - Smart Tags file:</a>
+                                                    <a href="" className="fw-medium text-15 mb-0 text-gray-300 hover-text-main-600 text-line-2">Patrick added a comment on Design Assets - Smart Tags file:</a>
                                                     <span className="text-gray-200 text-13">2 mins ago</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#" className="py-13 px-24 fw-bold text-center d-block text-primary-600 border-top border-gray-100 hover-text-decoration-underline"> View All </a>
+                                        <a href="" className="py-13 px-24 fw-bold text-center d-block text-primary-600 border-top border-gray-100 hover-text-decoration-underline"> View All </a>
                                     </div>
                                 </div>
                             </div>
@@ -176,37 +176,37 @@ function Header() {
                                     </div>
                                     <ul className="max-h-270 overflow-y-auto scroll-sm pe-4">
                                         <li className="mb-4">
-                                            <a href="setting.html" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-gear" /></span>
                                                 <span className="text">Account Settings</span>
                                             </a>
                                         </li>
                                         <li className="mb-4">
-                                            <a href="pricing-plan.html" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-chart-bar" /></span>
                                                 <span className="text">Upgrade Plan</span>
                                             </a>
                                         </li>
                                         <li className="mb-4">
-                                            <a href="analytics.html" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-chart-line-up" /></span>
                                                 <span className="text">Daily Activity</span>
                                             </a>
                                         </li>
                                         <li className="mb-4">
-                                            <a href="message.html" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-chats-teardrop" /></span>
                                                 <span className="text">Inbox</span>
                                             </a>
                                         </li>
                                         <li className="mb-4">
-                                            <a href="email.html" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-envelope-simple" /></span>
                                                 <span className="text">Email</span>
                                             </a>
                                         </li>
                                         <li className="pt-8 border-top border-gray-100">
-                                            <a href="sign-in.html" className="py-12 text-15 px-20 hover-bg-danger-50 text-gray-300 hover-text-danger-600 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <a href="" className="py-12 text-15 px-20 hover-bg-danger-50 text-gray-300 hover-text-danger-600 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-danger-600 d-flex"><i className="ph ph-sign-out" /></span>
                                                 <span className="text">Log Out</span>
                                             </a>

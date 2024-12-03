@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardSidebar from "../common/sidebar";
+import TrainerSidebar from "../common/sidebar";
 import Header from "../common/header";
 import Homebody1 from "../layout/home/homebody1";
 import Homebody2 from "../layout/home/homebody2";
@@ -8,7 +8,7 @@ function Home() {
     return (
         <>
             <div>
-                <DashboardSidebar />
+                <TrainerSidebar />
 
                 <div className="dashboard-main-wrapper">
                     <Header />
@@ -26,10 +26,10 @@ function Home() {
                         <div className="flex-between flex-wrap gap-16">
                             <p className="text-gray-300 text-13 fw-normal"> © Copyright Edmate 2024, All Right Reserverd</p>
                             <div className="flex-align flex-wrap gap-16">
-                                <a href="#" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">License</a>
-                                <a href="#" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">More Themes</a>
-                                <a href="#" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">Documentation</a>
-                                <a href="#" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">Support</a>
+                                <a href="" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">License</a>
+                                <a href="" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">More Themes</a>
+                                <a href="" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">Documentation</a>
+                                <a href="" className="text-gray-300 text-13 fw-normal hover-text-main-600 hover-text-decoration-underline">Support</a>
                             </div>
                         </div>
                     </div>
