@@ -80,7 +80,7 @@ function DashboardSidebar() {
                                 <a href="/my-meeting" class="sidebar-submenu__link"> My Meeting </a>
                             </li>
                             <li class="sidebar-submenu__item">
-                                <a href="#" class="sidebar-submenu__link"> New Schedule </a>
+                                <a href="/new-schedule" class="sidebar-submenu__link"> New Schedule </a>
                             </li>
                             
                         </ul>
