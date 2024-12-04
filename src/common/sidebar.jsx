@@ -40,6 +40,7 @@ function DashboardSidebar() {
                                     </li>
                                 </ul>
                             </li>
+
                             <li class="sidebar-menu__item has-dropdown">
                                 <a href="javascript:void(0)" class="sidebar-menu__link">
                                     <span class="icon"><i class="ph ph-users-three"></i></span>
@@ -56,7 +57,7 @@ function DashboardSidebar() {
                                         <a href="#" class="sidebar-submenu__link"> Admin </a>
                                     </li>
                                 </ul>
-                            </li>
+
                             <li class="sidebar-menu__item has-dropdown">
                                 <a href="javascript:void(0)" class="sidebar-menu__link">
                                     <span class="icon"><i class="ph ph-calendar-blank"></i></span>
@@ -66,9 +67,10 @@ function DashboardSidebar() {
                                     <li class="sidebar-submenu__item">
                                         <a href="/my-meeting" class="sidebar-submenu__link"> My Meeting </a>
                                     </li>
-                                    <li class="sidebar-submenu__item">
-                                        <a href="#" class="sidebar-submenu__link"> New Schedule </a>
-                                    </li>
+                                  <li class="sidebar-submenu__item">
+                                <a href="/new-schedule" class="sidebar-submenu__link"> New Schedule </a>
+
+                            </li>
                                 </ul>
                             </li>
                             <li class="sidebar-menu__item has-dropdown">

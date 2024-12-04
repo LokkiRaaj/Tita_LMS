@@ -995,7 +995,7 @@ table.fc-header {
 .fc-header-title h2 {
     font-size: 24px !important;
     font-weight: 600;
-    padding-left: 144px;
+    padding-left: 0px;
 }
 
 .fc-state-default {
