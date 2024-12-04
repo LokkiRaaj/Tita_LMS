@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './componets/home';
 import CreateCourses from './componets/create-courese';
 import MyMeeting from './componets/mymeeting';
+import NewSchedule from './componets/new-schedule';
 
 
 
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="create-courses" element={<CreateCourses />} />
                 <Route path='my-meeting' element={<MyMeeting/>}/>
+                <Route path='new-schedule' element={<NewSchedule/>}/>
             </Routes>
         </BrowserRouter>
     );
