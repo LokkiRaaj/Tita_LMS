@@ -277,8 +277,8 @@
 }
 
 .btn-main:hover {
-    background-color: var(--main-800) !important;
-    border-color: var(--main-800) !important;
+    background-color: #0A0909 !important;
+    border-color: #0A0909 !important;
 }
 
 .btn-outline-main {
@@ -1597,11 +1597,11 @@ a {
     display: inline-block;
     transition: 0.2s linear;
     text-decoration: none;
-    color: #0661e9;
+    color: #667797;
 }
 
 a:hover {
-    color: #1d72f2;
+    color: #FF001E;
 }
 
 img {

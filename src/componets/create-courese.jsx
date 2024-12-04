@@ -11,11 +11,11 @@ function CreateCourses() {
     const [currentStep, setCurrentStep] = useState(1);
 
     const handleContinue = () => {
-        setCurrentStep( currentStep + 1)
+        setCurrentStep(currentStep + 1)
     };
 
     const handleback = () => {
-        setCurrentStep( currentStep - 1)
+        setCurrentStep(currentStep - 1)
     };
 
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import TrainerSidebar from "../common/sidebar";
+import DashboardSidebar from "../common/sidebar";
 import Header from "../common/header";
 import Homebody1 from "../layout/home/homebody1";
 import Homebody2 from "../layout/home/homebody2";
@@ -8,7 +8,7 @@ function Home() {
     return (
         <>
             <div>
-                <TrainerSidebar />
+                <DashboardSidebar />
 
                 <div className="dashboard-main-wrapper">
                     <Header />
