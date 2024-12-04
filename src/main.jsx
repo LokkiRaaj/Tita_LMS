@@ -6,6 +6,7 @@ import MyMeeting from './componets/mymeeting';
 import TrainerPage from './componets/trainer';
 import CreatenewTrainer from './layout/trainer/createnew-trainer';
 import NewSchedule from './componets/new-schedule';
+import TrainerDashboard from './componets/trainer-dashboardpage';
 
 
 
@@ -18,8 +19,9 @@ function App() {
                 <Route path="create-courses" element={<CreateCourses />} />
                 <Route path='trainer' element={<TrainerPage />} />
                 <Route path='create-new-trainer' element={<CreatenewTrainer />} />
-                <Route path='my-meeting' element={<MyMeeting/>}/>
-                <Route path='new-schedule' element={<NewSchedule/>}/>
+                <Route path='my-meeting' element={<MyMeeting />} />
+                <Route path='new-schedule' element={<NewSchedule />} />
+                <Route path='/trainer-dashboard' element={<TrainerDashboard />} />
 
             </Routes>
         </BrowserRouter>

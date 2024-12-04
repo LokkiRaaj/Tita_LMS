@@ -70,7 +70,6 @@ function DashboardSidebar() {
                                     </li>
                                   <li class="sidebar-submenu__item">
                                 <a href="/new-schedule" class="sidebar-submenu__link"> New Schedule </a>
-
                             </li>
                                 </ul>
                             </li>
