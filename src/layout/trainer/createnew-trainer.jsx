@@ -91,12 +91,13 @@ function CreatenewTrainer() {
 
 
                                                 <div className="col-12">
-                                                    <label htmlFor="fileupload" className="form-label mb-8 h6">Your Resume</label>
+                                                <label htmlFor="fileupload" className="form-label mb-8 h6">Your Resume</label>
                                                     <div className="flex-align gap-22">
                                                         <div className="avatar-upload flex-shrink-0">
-                                                            <div className="avatar-preview d-flex justify-content-center align-items-center">
+                                                        <input type="file" id="fileupload" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
+                                                            <div className="avatar-preview">
                                                                 <div id="profileImagePreview">
-                                                                    {files.length > 0 && (
+                                                                {files.length > 0 && (
                                                                         <>
                                                                             <span className="text-32 icon text-main-600 d-inline-flex">
                                                                                 <i className="ph ph-file-text" />
@@ -108,7 +109,8 @@ function CreatenewTrainer() {
                                                             </div>
                                                         </div>
                                                         <div className="avatar-upload-box text-center position-relative flex-grow-1 py-24 px-4 rounded-16 border border-main-300 border-dashed bg-main-50 hover-bg-main-100 hover-border-main-400 transition-2 cursor-pointer">
-                                                            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
+                                                            <label htmlFor="fileupload" className="position-absolute inset-block-start-0 inset-inline-start-0 w-100 h-100 rounded-16 cursor-pointer z-1" />
+                                                            <span className="text-32 icon text-main-600 d-inline-flex"><i className="ph ph-upload" /></span>
                                                             <span className="text-13 d-block text-gray-400 text my-8">Click to upload or drag and drop</span>
                                                             <span className="text-13 d-block text-main-600"> PDF, DOC, DOCX (max file size 100mb each)</span>
                                                             {files.length > 0 && (
@@ -119,6 +121,8 @@ function CreatenewTrainer() {
                                                         </div>
                                                     </div>
                                                 </div>
+
+
 
                                                 <div className="col-sm-6 col-xs-6">
                                                     <label htmlFor="role" className="form-label mb-8 h6">Role</label>
