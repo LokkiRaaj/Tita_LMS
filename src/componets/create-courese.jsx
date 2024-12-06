@@ -23,6 +23,7 @@ function CreateCourses() {
         courseAttachment: [] // Assuming this is an empty array for now
       });
 
+
     const handleContinue = (data) => {
         setCourseData(prevData => ({
             ...prevData,
@@ -91,6 +92,11 @@ for (const key in courseData) {
             console.error('Error config:', error.config);
           }
           
+
+
+    const handleback = () => {
+        setCurrentStep(currentStep - 1)
+
     };
 
     return (
