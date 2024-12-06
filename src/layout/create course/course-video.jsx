@@ -3,13 +3,13 @@ import React, { useState } from "react";
 function CourseVideo({ onContinue, onBack }) {
     const [uploadedVideoName, setUploadedVideoName] = useState("");
     const [videoFile, setVideoFile] = useState(null);
+    const [error, setError] = useState("");
 
     const handleDrop = (event) => {
         event.preventDefault();
         const files = event.dataTransfer.files;
         if (files.length > 0) {
-            setVideoFile(files[0]);
-            setUploadedVideoName(files[0].name);
+            handleFileUpload(files[0]);
         }
     };
 
@@ -20,8 +20,19 @@ function CourseVideo({ onContinue, onBack }) {
     const handleFileChange = (event) => {
         const files = event.target.files;
         if (files.length > 0) {
-            setVideoFile(files[0]);
-            setUploadedVideoName(files[0].name);
+            handleFileUpload(files[0]);
+        }
+    };
+
+    const handleFileUpload = (file) => {
+        if (file.size > 100 * 1024 * 1024) { // 100MB limit
+            setError("File size exceeds 100MB.");
+            setUploadedVideoName("");
+            setVideoFile(null);
+        } else {
+            setError("");
+            setVideoFile(file);
+            setUploadedVideoName(file.name);
         }
     };
 
@@ -63,16 +74,18 @@ function CourseVideo({ onContinue, onBack }) {
                                     />
                                     {displayUploadedVideoName()}
                                 </p>
-                                <p className="text-13 text-gray-600">Mp4 format with 16:9 aspect ratio (max file size 100mb each)</p>
+                                <p className="text-13 text-gray-600">Mp4 format with 16:9 aspect ratio (max file size 100MB each)</p>
+                                {error && <p className="text-danger">{error}</p>} {/* Display error message */}
                             </div>
                         </div>
                     </div>
                     <div className="flex-align justify-content-end gap-8">
-                        <a href="" className="btn btn-outline-main rounded-pill py-9" onClick={onBack}>BACK</a>
+                        <a href="#" className="btn btn-outline-main rounded-pill py-9" onClick={(e) => { e.preventDefault(); onBack(); }}>BACK</a>
                         <button 
                             type="button" 
                             className="btn btn-main rounded-pill py-9" 
-                            onClick={() => {
+                            onClick={(e)  => {
+                                e.preventDefault();
                                 const videoData = {
                                     courseVideoTitle: uploadedVideoName,
                                     courseVideo: videoFile // This will be a File object
@@ -92,4 +105,3 @@ function CourseVideo({ onContinue, onBack }) {
 }
 
 export default CourseVideo;
-

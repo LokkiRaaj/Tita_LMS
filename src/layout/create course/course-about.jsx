@@ -3,14 +3,36 @@ import React, { useState } from "react";
 function AboutCourse({ onContinue, onBack }) {
     const [files, setFiles] = useState([]);
     const [description, setDescription] = useState('');
+    const [error, setError] = useState('');
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);
-        setFiles(selectedFiles);
+        const validFiles = selectedFiles.filter(file => file.size <= 100 * 1024 * 1024); // 100MB limit
+        if (validFiles.length !== selectedFiles.length) {
+            setError('Some files exceed the maximum size of 100MB.');
+        } else {
+            setError('');
+        }
+        setFiles(validFiles);
     };
 
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
+    };
+
+    const handleContinueClick = (e)  => {
+        e.preventDefault();
+        if (!description) {
+            setError('Course description cannot be empty.');
+            return;
+        }
+        const aboutData = {
+            courseAttachment: files,
+            courseDescription: description
+        };
+        
+        console.log("Course about data:", aboutData);
+        onContinue(aboutData);
     };
 
     return (
@@ -25,8 +47,15 @@ function AboutCourse({ onContinue, onBack }) {
                 <div className="card-body">
                     <h6 className="mb-8 fw-semibold">Document Upload</h6>
                     <div className="p-16 rounded-12 bg-main-50 mb-20">
-                        <input type="file" accept=".pdf,.doc,.docx" className="form-control" onChange={handleFileChange} multiple />
-                        <p className="text-13 text-gray-600">(max file size 100mb each)</p>
+                        <input 
+                            type="file" 
+                            accept=".pdf,.doc,.docx" 
+                            className="form-control" 
+                            onChange={handleFileChange} 
+                            multiple 
+                        />
+                        <p className="text-13 text-gray-600">(max file size 100MB each)</p>
+                        {error && <p className="text-danger">{error}</p>}
                         {files.length > 0 && (
                             <div className="uploaded-files">
                                 <h6 className="mb-8 fw-semibold">Uploaded Files:</h6>
@@ -46,20 +75,13 @@ function AboutCourse({ onContinue, onBack }) {
                         value={description} 
                         onChange={handleDescriptionChange} 
                     />
+                    {error && <p className="text-danger">{error}</p>}
                     <div className="flex-align justify-content-end gap-8">
-                        <a href="" className="btn btn-outline-main rounded-pill py-9" onClick={onBack}>BACK</a>
+                        <a href="#" className="btn btn-outline-main rounded-pill py-9" onClick={(e) => { e.preventDefault(); onBack(); }}>BACK</a>
                         <button 
                             type="button" 
                             className="btn btn-main rounded-pill py-9" 
-                            onClick={() => {
-                                const aboutData = {
-                                    courseAttachment: files,
-                                    courseDescription: description
-                                };
-                                
-                                console.log("Course about data:", aboutData);
-                                onContinue(aboutData);
-                            }}
+                            onClick={handleContinueClick}
                         >
                             Continue
                         </button>
