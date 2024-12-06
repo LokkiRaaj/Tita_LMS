@@ -7,6 +7,7 @@ import TrainerPage from './componets/trainer';
 import CreatenewTrainer from './layout/trainer/createnew-trainer';
 import NewSchedule from './componets/new-schedule';
 import TrainerDashboard from './componets/trainer-dashboardpage';
+import TrainerCourses from './layout/trainer-dashboard/courses';
 
 
 
@@ -22,7 +23,7 @@ function App() {
                 <Route path='my-meeting' element={<MyMeeting />} />
                 <Route path='new-schedule' element={<NewSchedule />} />
                 <Route path='/trainer-dashboard' element={<TrainerDashboard />} />
-
+                <Route path='courses' element={<TrainerCourses />} />
             </Routes>
         </BrowserRouter>
     );

@@ -278,7 +278,7 @@ function Homebody2() {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div className="flex-between flex-wrap gap-8 mt-20">
                         <a href="" className="btn btn-outline-gray rounded-pill py-9 flex-align gap-4">
