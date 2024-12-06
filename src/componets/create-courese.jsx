@@ -51,30 +51,30 @@ function CreateCourses() {
     };
 
     const handleSubmit = async (e) => {
-        console.log(courseData)
         e.preventDefault();
+        if (!validateCourseData()) {
+            return;
+        }
+
         const formData = new FormData();
-for (const key in courseData) {
-  if (Array.isArray(courseData[key])) {
-    courseData[key].forEach(file => {
-      formData.append(key, file);
-    });
-  } else {
-    formData.append(key, courseData[key]);
-  }
-}
-
-    
-        try {
-            
-          const response = await axios.post('http://192.168.1.11:4000/courses/createCourse', formData, {
-
-            headers: {
-              'Content-Type': 'multipart/form-data'
+        for (const key in courseData) {
+            if (Array.isArray(courseData[key])) {
+                courseData[key].forEach(file => {
+                    formData.append(key, file);
+                });
+            } else {
+                formData.append(key, courseData[key]);
             }
-          });
-          console.log('Course submitted successfully:', response.data);
-          // Optionally, reset the form or handle success feedback
+        }
+
+        try {
+            const response = await axios.post('http://192.168.1.11:4000/courses/createCourse', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Course submitted successfully:', response.data);
+            // Optionally, reset the form or handle success feedback
         } catch (error) {
             if (error.response) {
               // The request was made and the server responded with a status code
@@ -91,8 +91,7 @@ for (const key in courseData) {
             }
             console.error('Error config:', error.config);
           }
-          
-
+    };
 
     const handleback = () => {
         setCurrentStep(currentStep - 1)

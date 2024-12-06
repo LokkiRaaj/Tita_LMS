@@ -19,7 +19,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="create-courses" element={<CreateCourses />} />
+                <Route path="/create-courses" element={<CreateCourses />} />
                 <Route path='trainer' element={<TrainerPage />} />
                 <Route path='create-new-trainer' element={<CreatenewTrainer />} />
                 <Route path='my-meeting' element={<MyMeeting />} />
