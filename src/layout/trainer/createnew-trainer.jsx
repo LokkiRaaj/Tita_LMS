@@ -102,7 +102,7 @@ function CreatenewTrainer() {
                                                                             <span className="text-32 icon text-main-600 d-inline-flex">
                                                                                 <i className="ph ph-file-text" />
                                                                             </span>
-                                                                            <p className="text-gray-500">Uploaded your File</p>
+                                                                            <p className="text-gray-500">Upload your File</p>
                                                                         </>
                                                                     )}
                                                                 </div>
@@ -125,21 +125,21 @@ function CreatenewTrainer() {
 
 
                                                 <div className="col-sm-6 col-xs-6">
-                                                    <label htmlFor="role" className="form-label mb-8 h6">Role</label>
-                                                    <input type="text" className="form-control py-11" id="role" placeholder="Enter Role" />
+                                                    <label htmlFor="role" className="form-label mb-8 h6">Course</label>
+                                                    <input type="text" className="form-control py-11" id="role" placeholder="Enter Course" />
                                                 </div>
                                                 <div className="col-sm-6 col-xs-6">
-                                                    <label htmlFor="zip" className="form-label mb-8 h6">ZIP Code</label>
-                                                    <input type="number" className="form-control py-11" id="zip" placeholder="Enter ZIP Code" />
+                                                    <label htmlFor="zip" className="form-label mb-8 h6">City</label>
+                                                    <input type="address" className="form-control py-11" id="zip" placeholder="Enter City" />
                                                 </div>
-                                                <div className="col-12">
+                                                {/* <div className="col-12">
                                                     <div className="editor">
                                                         <label className="form-label mb-8 h6">Bio</label>
                                                         <div id="editor">
                                                         <textarea className="text-counter placeholder-13 form-control py-11 pe-76" maxLength={100} id="courseTitle" placeholder="Your Bio..." rows={4} />
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
                                                 <div className="col-12">
                                                     <div className="flex-align justify-content-end gap-8">
                                                         <button type="reset" className="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Cancel</button>

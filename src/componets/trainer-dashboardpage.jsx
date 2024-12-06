@@ -7,16 +7,13 @@ import Homebody2 from "../layout/home/homebody2";
 function TrainerDashboard() {
     return (
         <>
-
             <div>
                 <TrainerDashboardSidebar />
-
                 <div className="dashboard-main-wrapper">
                     <Header />
                     <div className="dashboard-body">
                         <div className="row gy-4">
                         <Homebody2 />
-                            
                         </div>
                     </div>
                     {/* <div className="dashboard-footer">

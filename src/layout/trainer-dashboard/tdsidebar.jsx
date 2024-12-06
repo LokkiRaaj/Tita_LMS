@@ -22,7 +22,7 @@ function TrainerDashboardSidebar() {
 
                             <a href="javascript:void(0)" class="sidebar-menu__link">
                                 <span class="icon"><i class="ph ph-graduation-cap"></i></span>
-                                <span class="text">My Courses</span>
+                                <a href="/my-courses"> <span class="text">My Courses</span> </a>
                             </a>
 
                             <li class="sidebar-menu__item has-dropdown">
@@ -42,7 +42,7 @@ function TrainerDashboardSidebar() {
 
                             <a href="javascript:void(0)" class="sidebar-menu__link">
                                 <span class="icon"><i class="ph ph-student"></i></span>
-                                <span class="text">My Srudent</span>
+                                <a href="/my-students"> <span class="text">My Student</span> </a>
                             </a>
                         </ul>
                     </div>
