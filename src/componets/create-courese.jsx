@@ -14,85 +14,51 @@ function CreateCourses() {
         courseTitle: '',
         courseDescription: '',
         courseCategory: '',
-        courseImage: '',
         courseDuration: 0,
         courseSeat: 0,
         courseAmount: 0,
         courseVideoTitle: '',
-        courseVideo: '',
-        courseThumbnail: '',
-        courseAttachment: ''
-    });
+        courseVideo: null,
+        courseThumbnail: null,
+        courseAttachment: []
+      });
 
     const handleContinue = (data) => {
         setCourseData(prevData => ({
             ...prevData,
-            ...data // Merge the new data into courseData
+            ...data
         }));
         setCurrentStep(currentStep + 1);
     };
 
-    const validateCourseData = () => {
-        const requiredFields = [
-            'courseTitle',
-            'courseDescription',
-            'courseCategory',
-            'courseAmount'
-        ];
-
-        const missingFields = requiredFields.filter(field => !courseData[field]);
-
-        if (missingFields.length > 0) {
-            console.error("Missing required fields:", missingFields);
-            return false;
-        }
-
-        return true;
-    };
-
-    const handlePublish = async (event) => {
-        event.preventDefault();
-        console.log("Publish button clicked");
-        if (!validateCourseData()) {
-            console.error("Please fill in all required fields");
-            return;
-        }
-        try {
-            // Create FormData object
-            const formData = new FormData();
-
-            // Append all course data
-            Object.keys(courseData).forEach(key => {
-                if (courseData[key] instanceof File) {
-                    formData.append(key, courseData[key]);
-                } else {
-                    formData.append(key, courseData[key]);
-                }
+    const handleSubmit = async (e) => {
+        console.log("clicked");
+        console.log(courseData);
+        e.preventDefault();
+        const formData = new FormData();
+        for (const key in courseData) {
+          if (Array.isArray(courseData[key])) {
+            courseData[key].forEach(file => {
+              formData.append(key, file);
             });
-
-            console.log("Submitting course data:", courseData);
-
-            const response = await axios.post(
-                'https://lms-be-ykft.onrender.com/course/createCourse',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
-
-            console.log("Server response:", response.data);
-
-            if (response.data.success) {
-                console.log("Course created successfully:", response.data.course);
-                // Add success handling here (e.g., redirect or show success message)
-            }
-        } catch (error) {
-            console.error("Error publishing course:", error.response?.data || error.message);
-            // Add error handling here (e.g., show error message)
+          } else {
+            formData.append(key, courseData[key]);
+          }
         }
-    };
+    
+        try {
+          const response = await axios.post('http://192.168.1.11:4000/courses/createCourse', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          console.log('Course submitted successfully:', response.data);
+          // Optionally, reset the form or handle success feedback
+        } catch (error) {
+          console.error('Error submitting course:', error);
+          // Optionally, handle error feedback
+        }
+      };
 
     return (
         <>
@@ -102,10 +68,10 @@ function CreateCourses() {
                     <Header />
                     <div className="dashboard-body">
                         <CreatecourseHead currentStep={currentStep} />
-                        {currentStep === 1 && <CourseDetails onContinue={handleContinue} />}
-                        {currentStep === 2 && <CourseVideo onContinue={handleContinue} onBack={() => setCurrentStep(currentStep - 1)} />}
-                        {currentStep === 3 && <AboutCourse onContinue={handleContinue} onBack={() => setCurrentStep(currentStep - 1)} />}
-                        {currentStep === 4 && <PublishCourse onContinue={handlePublish} />}
+                        {currentStep === 1 && <CourseDetails onContinue={handleContinue} initialData={courseData} />}
+                        {currentStep === 2 && <CourseVideo onContinue={handleContinue} onBack={() => setCurrentStep(currentStep - 1)} initialData={courseData} />}
+                        {currentStep === 3 && <AboutCourse onContinue={handleContinue} onBack={() => setCurrentStep(currentStep - 1)} initialData={courseData} />}
+                        {currentStep === 4 && <PublishCourse onPublish={(e) => handleSubmit(e)} courseData={courseData} />}
                     </div>
                 </div>
             </div>

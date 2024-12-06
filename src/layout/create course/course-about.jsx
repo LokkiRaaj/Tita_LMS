@@ -1,17 +1,40 @@
 import React, { useState } from "react";
 
-function AboutCourse({ onContinue, onBack }) {
-    const [files, setFiles] = useState([]);
-    const [description, setDescription] = useState('');
+function AboutCourse({ onContinue, onBack, initialData }) {
+    const [courseData, setCourseData] = useState({
+        courseAttachment: []
+      });
 
-    const handleFileChange = (event) => {
-        const selectedFiles = Array.from(event.target.files);
-        setFiles(selectedFiles);
-    };
+      const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        if (files) {
+          if (name === 'courseAttachment') {
+            setCourseData({
+              ...courseData,
+              [name]: Array.from(files)
+            });
+          } else {
+            setCourseData({
+              ...courseData,
+              [name]: files[0]
+            });
+          }
+        } else {
+          setCourseData({
+            ...courseData,
+            [name]: value
+          });
+        }
+      };
+    
 
-    const handleDescriptionChange = (event) => {
-        setDescription(event.target.value);
-    };
+      
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onContinue(courseData);
+    
+  };
+   
 
     return (
         <>
@@ -22,53 +45,18 @@ function AboutCourse({ onContinue, onBack }) {
                         <i className="ph-fill ph-question" />
                     </button>
                 </div>
-                <div className="card-body">
-                    <h6 className="mb-8 fw-semibold">Document Upload</h6>
-                    <div className="p-16 rounded-12 bg-main-50 mb-20">
-                        <input type="file" accept=".pdf,.doc,.docx" className="form-control" onChange={handleFileChange} multiple />
-                        <p className="text-13 text-gray-600">(max file size 100mb each)</p>
-                        {files.length > 0 && (
-                            <div className="uploaded-files">
-                                <h6 className="mb-8 fw-semibold">Uploaded Files:</h6>
-                                <ul>
-                                    {files.map((file, index) => (
-                                        <li key={index} className="text-gray-500">{file.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                    <h6 className="mb-8 fw-semibold">Course Description</h6>
-                    <textarea 
-                        className="form-control" 
-                        rows={4} 
-                        placeholder="Enter course description" 
-                        value={description} 
-                        onChange={handleDescriptionChange} 
-                    />
-                    <div className="flex-align justify-content-end gap-8">
-                        <a href="" className="btn btn-outline-main rounded-pill py-9" onClick={onBack}>BACK</a>
-                        <button 
-                            type="button" 
-                            className="btn btn-main rounded-pill py-9" 
-                            onClick={() => {
-                                const aboutData = {
-                                    courseAttachment: files,
-                                    courseDescription: description
-                                };
-                                
-                                console.log("Course about data:", aboutData);
-                                onContinue(aboutData);
-                            }}
-                        >
-                            Continue
-                        </button>
-                    </div>
-                </div>
+
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <input type="file" name="courseAttachment" onChange={handleChange} multiple style={{ margin: '10px', padding: '10px', width: '300px', borderRadius: '5px', border: '1px solid #ccc' }} />
+          <button type="submit" style={{ margin: '10px', padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#61dafb', color: '#282c34', fontWeight: 'bold', cursor: 'pointer' }}>Submit Course</button>
+        </form>
+             
+
             </div>
         </>
     );
 }
 
 export default AboutCourse;
+
 

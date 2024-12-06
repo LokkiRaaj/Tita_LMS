@@ -1,35 +1,41 @@
 import React, { useState } from "react";
 
-function CourseVideo({ onContinue, onBack }) {
-    const [uploadedVideoName, setUploadedVideoName] = useState("");
-    const [videoFile, setVideoFile] = useState(null);
+function CourseVideo({ onContinue, onBack, initialData }) {
+    const [courseData, setCourseData] = useState({
+      
+        courseVideoTitle: '',
+        courseVideo: null,
+      
+      });
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        const files = event.dataTransfer.files;
-        if (files.length > 0) {
-            setVideoFile(files[0]);
-            setUploadedVideoName(files[0].name);
+      const handleChange = (e) => {
+        const { name, value, files } = e.target;
+        if (files) {
+          if (name === 'courseAttachment') {
+            setCourseData({
+              ...courseData,
+              [name]: Array.from(files)
+            });
+          } else {
+            setCourseData({
+              ...courseData,
+              [name]: files[0]
+            });
+          }
+        } else {
+          setCourseData({
+            ...courseData,
+            [name]: value
+          });
         }
-    };
+      
+      };
 
-    const handleDragOver = (event) => {
-        event.preventDefault();
-    };
-
-    const handleFileChange = (event) => {
-        const files = event.target.files;
-        if (files.length > 0) {
-            setVideoFile(files[0]);
-            setUploadedVideoName(files[0].name);
-        }
-    };
-
-    const displayUploadedVideoName = () => {
-        return uploadedVideoName ? (
-            <span className="uploaded-video-name">{uploadedVideoName}</span>
-        ) : null;
-    };
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        onContinue(courseData);
+      };
+    
 
     return (
         <>
@@ -40,56 +46,16 @@ function CourseVideo({ onContinue, onBack }) {
                         <i className="ph-fill ph-question" />
                     </button>
                 </div>
-                <div className="card-body">
-                    <div 
-                        className="upload-card-item p-16 rounded-12 bg-main-50 mb-20" 
-                        onDrop={handleDrop} 
-                        onDragOver={handleDragOver}
-                    >
-                        <div className="flex-align gap-10 flex-wrap">
-                            <span className="w-36 h-36 text-lg rounded-circle bg-white flex-center text-main-600 flex-shrink-0">
-                                <i className="ph-fill ph-video-camera" />
-                            </span>
-                            <div>
-                                <p className="text-15 text-gray-500">
-                                    Drag &amp; drop your single/multiple videos of course, or
-                                    <label htmlFor="video" className="text-main-600 cursor-pointer">Browse</label>
-                                    <input 
-                                        type="file" 
-                                        id="video" 
-                                        accept="video/mp4,video/x-m4v,video/*" 
-                                        hidden 
-                                        onChange={handleFileChange} 
-                                    />
-                                    {displayUploadedVideoName()}
-                                </p>
-                                <p className="text-13 text-gray-600">Mp4 format with 16:9 aspect ratio (max file size 100mb each)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex-align justify-content-end gap-8">
-                        <a href="" className="btn btn-outline-main rounded-pill py-9" onClick={onBack}>BACK</a>
-                        <button 
-                            type="button" 
-                            className="btn btn-main rounded-pill py-9" 
-                            onClick={() => {
-                                const videoData = {
-                                    courseVideoTitle: uploadedVideoName,
-                                    courseVideo: videoFile // This will be a File object
-                                };
-                                
-                                console.log("Video upload data:", videoData);
-                                onContinue(videoData);
-                            }}
-                        >
-                            Continue
-                        </button>
-                    </div>
-                </div>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <input type="text" name="courseVideoTitle" placeholder="Course Video Title" onChange={handleChange} required style={{ margin: '10px', padding: '10px', width: '300px', borderRadius: '5px', border: '1px solid #ccc' }} />
+          <input type="file" name="courseVideo" onChange={handleChange} required style={{ margin: '10px', padding: '10px', width: '300px', borderRadius: '5px', border: '1px solid #ccc' }} />
+          <button type="submit" style={{ margin: '10px', padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#61dafb', color: '#282c34', fontWeight: 'bold', cursor: 'pointer' }}>Submit Course</button>
+        </form>
             </div>
         </>
     );
 }
 
 export default CourseVideo;
+
 
