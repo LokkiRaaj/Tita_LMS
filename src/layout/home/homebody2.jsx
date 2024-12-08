@@ -8,7 +8,7 @@ function Homebody2() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://192.168.1.11:4000/courses/getAllCourses");
+                const response = await axios.get("http://192.168.1.6:4000/courses/getAllCourses");
                 const data = response.data;
                 console.log(data)
                 const uniqueCategories = [...new Set(data.courses.map(course => course.level))];
@@ -27,7 +27,7 @@ function Homebody2() {
             <div className="card mt-24">
                 <div className="card-body">
                     <div className="mb-20 flex-between flex-wrap gap-8">
-                        <h4 className="mb-0">Course Categories</h4>
+                        <h4 className="mb-0">Courses</h4>
                         <div className="flex-align gap-8 flex-wrap">
                             <div className="position-relative">
                                 <select id="courseLevel" className="form-select py-9 placeholder-13 text-15">
