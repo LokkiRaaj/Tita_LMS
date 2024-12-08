@@ -3,12 +3,9 @@ import React, { useState } from "react";
 function CourseDetails({ onContinue }) {
     const [formData, setFormData] = useState({
         title: '',
-        
         category: '',
         level: '',
         time: '',
-        amount: '',
-        seat: '',
         thumbnail: null
     });
 
@@ -20,21 +17,18 @@ function CourseDetails({ onContinue }) {
         }));
     };
 
-    const handleContinue = (e)  => {
+    const handleContinue = (e) => {
         e.preventDefault();
-        if (!formData.title || !formData.category || !formData.level || !formData.time || !formData.amount || !formData.seat) {
+        if (!formData.title || !formData.category || !formData.level || !formData.time) {
             console.error("Please fill in all required fields.");
             return;
         }
 
         const courseDetails = {
             courseTitle: formData.title,
-           
             courseCategory: formData.category,
             courseThumbnail: formData.thumbnail,
             courseDuration: parseInt(formData.time) || 0,
-            courseSeat: parseInt(formData.seat) || 0,
-            courseAmount: parseFloat(formData.amount) || 0
         };
 
         console.log("Course details data:", courseDetails);
@@ -58,35 +52,46 @@ function CourseDetails({ onContinue }) {
                                 <div className="mb-20">
                                     <label className="h5 fw-semibold font-heading mb-0">Thumbnail Image <span className="text-13 text-gray-400 fw-medium">(Required)</span></label>
                                 </div>
-                                <input 
-                                    type="file" 
-                                    id="thumbnail" 
-                                    className="fileUpload image-upload" 
-                                    onChange={handleChange} 
-                                />
+                                <div className="file-upload">
+                                    <input
+                                        type="file"
+                                        id="thumbnail"
+                                        className="form-control"
+                                        onChange={handleChange}
+                                        style={{ display: 'none' }} // Hide the default file input
+                                    />
+                                    <div className="upload-area" onClick={() => document.getElementById('thumbnail').click()}>
+                                        <p>Select File here</p>
+                                        {formData.thumbnail && (
+                                            <img
+                                                src={URL.createObjectURL(formData.thumbnail)}
+                                                alt="Thumbnail Preview"
+                                                style={{ marginTop: '10px', maxWidth: '100%', height: 'auto' }}
+                                            />
+                                        )}
+                                        <button type="button" className="btn btn-primary">Choose File</button>
+                                    </div>
+                                </div>
                             </div>
                             <div className="col-xxl-9 col-md-8 col-sm-7">
                                 <div className="row g-20">
                                     <div className="col-sm-12">
                                         <label htmlFor="title" className="h5 mb-8 fw-semibold font-heading">Course Title <span className="text-13 text-gray-400 fw-medium">(Required)</span></label>
-                                        <input 
-                                            type="text" 
-                                            className="text-counter placeholder-13 form-control py-11 pe-76" 
-                                            maxLength={100} 
-                                            id="title" 
-                                            placeholder="Name of the Lesson" 
-                                            onChange={handleChange} 
+                                        <input
+                                            type="text"
+                                            className="text-counter placeholder-13 form-control py-11 pe-76"
+                                            maxLength={100}
+                                            id="title"
+                                            placeholder="Name of the Lesson"
+                                            onChange={handleChange}
                                         />
                                     </div>
-                                    
-                                    
-
                                     <div className="col-sm-6">
                                         <label htmlFor="category" className="h5 mb-8 fw-semibold font-heading">Course Category</label>
                                         <select id="category" className="form-select py-9 placeholder-13 text-15" value={formData.category} onChange={handleChange}>
                                             <option value="" disabled>Select course category</option>
                                             <option value="Web Development">Web Development</option>
-                                            <option value="Web Designing">Web Designing</option> 
+                                            <option value="Web Designing">Web Designing</option>
                                             <option value="Data Science">Data Science</option>
                                             <option value="Artificial Intelligence">Artificial Intelligence</option>
                                             <option value="Cloud Computing">Cloud Computing</option>
@@ -108,39 +113,19 @@ function CourseDetails({ onContinue }) {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="time" className="h5 mb-8 fw-semibold font-heading">Course Time</label>
+                                        <label htmlFor="time" className="h5 mb-8 fw-semibold font-heading">Course Duration</label>
                                         <select id="time" className="form-select py-9 placeholder-13 text-15" value={formData.time} onChange={handleChange}>
-                                            <option value="" disabled>Select course time</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option value="" disabled>Select Duration</option>
+                                            <option value="2">Week Days</option>
+                                            <option value="3">Week End</option>
                                         </select>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <label htmlFor="amount" className="h5 mb-8 fw-semibold font-heading">Course Amount</label>
-                                        <input 
-                                            type="number" 
-                                            className="text-counter placeholder-13 form-control py-11 pe-76" 
-                                            id="amount" 
-                                            placeholder="Amount" 
-                                            onChange={handleChange} 
-                                        />
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <label htmlFor="seat" className="h5 mb-8 fw-semibold font-heading">Course Seats</label>
-                                        <input 
-                                            type="number" 
-                                            className="text-counter placeholder-13 form-control py-11 pe-76" 
-                                            id="seat" 
-                                            placeholder="Number of Seats" 
-                                            onChange={handleChange} 
-                                        />
                                     </div>
                                 </div>
                             </div>
                             <div className="flex-align justify-content-end gap-8">
-                                <button 
-                                    type="button" 
-                                    className="btn btn-main rounded-pill py-9" 
+                                <button
+                                    type="button"
+                                    className="btn btn-main rounded-pill py-9"
                                     onClick={handleContinue}
                                 >
                                     Continue
@@ -151,6 +136,37 @@ function CourseDetails({ onContinue }) {
                 </div>
             </div>
             {/* Course Tab End */}
+
+            {/* Internal CSS */}
+            <style jsx>{`
+                .file-upload {
+                    position: relative;
+                }
+
+                .upload-area {
+                    border: 2px dashed #ccc;
+                    padding: 20px;
+                    text-align: center;
+                    cursor: pointer;
+                    background-color: #f9f9f9;
+                }
+
+                .upload-area:hover {
+                    border-color: #ff001e;
+                }
+
+                .upload-area p {
+                    margin: 5px 0;
+                }
+
+                .btn-primary {
+                    background-color: #ff001e;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                }
+            `}</style>
         </>
     );
 }
