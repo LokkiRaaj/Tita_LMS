@@ -8,11 +8,7 @@ function Homebody2() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-<<<<<<< HEAD
                 const response = await axios.get("https://lms-guwtz37b.b4a.run/courses/getAllCourses");
-=======
-                const response = await axios.get("http://192.168.1.6:4000/courses/getAllCourses");
->>>>>>> 9603e86c4b3e79dd4c970a2026fc5d564bd6f39b
                 const data = response.data;
                 console.log(data)
                 const uniqueCategories = [...new Set(data.courses.map(course => course.level))];
