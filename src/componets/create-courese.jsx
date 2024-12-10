@@ -15,8 +15,6 @@ function CreateCourses() {
         courseDescription: '',
         courseCategory: '',
         courseDuration: 0,
-        courseSeat: 0,
-        courseAmount: 0,
         courseVideoTitle: '',
         courseVideo: null,
         courseThumbnail: null,
@@ -37,7 +35,6 @@ function CreateCourses() {
             'courseTitle',
             'courseDescription',
             'courseCategory',
-            'courseAmount'
         ];
 
         const missingFields = requiredFields.filter(field => !courseData[field]);
@@ -51,6 +48,7 @@ function CreateCourses() {
     };
 
     const handleSubmit = async (e) => {
+        console.log(courseData)
         e.preventDefault();
         if (!validateCourseData()) {
             return;
@@ -66,9 +64,13 @@ function CreateCourses() {
                 formData.append(key, courseData[key]);
             }
         }
-
+        
         try {
+<<<<<<< HEAD
             const response = await axios.post('https://lms-guwtz37b.b4a.run/courses/createCourse', formData, {
+=======
+            const response = await axios.post('http://192.168.1.6:4000/courses/createCourse', formData, {
+>>>>>>> 9603e86c4b3e79dd4c970a2026fc5d564bd6f39b
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

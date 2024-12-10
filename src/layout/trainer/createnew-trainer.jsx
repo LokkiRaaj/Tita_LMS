@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import DashboardSidebar from "../../common/sidebar";
 import Header from "../../common/header";
+import axios from 'axios';
 
 function CreatenewTrainer() {
     const [image, setImage] = useState(null);
     const [files, setFiles] = useState([]); // Added state for files
     const [uploadedFileName, setUploadedFileName] = useState(""); // Added state for uploaded file name
+    const [selectedCourses, setSelectedCourses] = useState([]); // Added state for selected courses
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setImage(file); // Store the file object
         }
     };
 
@@ -24,6 +22,59 @@ function CreatenewTrainer() {
         setFiles(selectedFiles);
         if (selectedFiles.length > 0) {
             setUploadedFileName(selectedFiles[0].name); // Set the uploaded file name
+        }
+    };
+
+    const handleCourseChange = (course, isChecked) => {
+        if (isChecked) {
+            setSelectedCourses([...selectedCourses, course]);
+        } else {
+            setSelectedCourses(selectedCourses.filter(c => c !== course));
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        // Check if all required fields are filled
+        if (!image || !document.getElementById('fname').value || !document.getElementById('lname').value || !document.getElementById('email').value || !document.getElementById('phone').value || !document.getElementById('zip').value) {
+            alert("Please fill in all required fields before submitting the form."); // Alert user
+            return; // Prevent form submission
+        }
+
+        const formData = new FormData();
+
+        // Append form data according to the specified payload structure
+        formData.append('firstname', document.getElementById('fname').value);
+        formData.append('lastname', document.getElementById('lname').value);
+        formData.append('mobileNumber', document.getElementById('phone').value);
+        formData.append('mailId', document.getElementById('email').value);
+        formData.append('image', image); // Append the image file directly
+        files.forEach(file => {
+            formData.append('resume', file); // Append each file as resume
+        });
+        
+        // Format the selectedCourses array for submission
+        const formattedCourses = selectedCourses.map(course => ({ name: course })); // Example format
+        formData.append('myCourse', JSON.stringify(formattedCourses)); // Send as JSON string
+
+        formData.append('city', document.getElementById('zip').value);
+
+        try{
+            const response = await axios.post('http://192.168.1.6:4000/trainer/createTrainer', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response.data); // Handle success response
+        } catch (error) {
+            if (error.response) {
+                console.error('Error submitting form:', error.response.data); // Log the error response
+                alert(`Error: ${error.response.data.message}`); // Alert user with error message
+            } else {
+                console.error('Error submitting form:', error.message); // Log the error message
+                alert(`Error: ${error.message}`); // Alert user with error message
+            }
         }
     };
 
@@ -51,7 +102,7 @@ function CreatenewTrainer() {
                                         <p className="text-gray-600 text-15">Please fill full details about yourself</p>
                                     </div>
                                     <div className="card-body">
-                                        <form action="#">
+                                        <form action="#" onSubmit={handleSubmit}>
                                             <div className="row gy-4">
                                                 <div className="col-sm-6 col-xs-6">
                                                     <label htmlFor="fname" className="form-label mb-8 h6">First Name</label>
@@ -91,13 +142,13 @@ function CreatenewTrainer() {
 
 
                                                 <div className="col-12">
-                                                <label htmlFor="fileupload" className="form-label mb-8 h6">Your Resume</label>
+                                                    <label htmlFor="fileupload" className="form-label mb-8 h6">Your Resume</label>
                                                     <div className="flex-align gap-22">
                                                         <div className="avatar-upload flex-shrink-0">
-                                                        <input type="file" id="fileupload" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
+                                                            <input type="file" id="fileupload" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
                                                             <div className="avatar-preview">
                                                                 <div id="profileImagePreview">
-                                                                {files.length > 0 && (
+                                                                    {files.length > 0 && (
                                                                         <>
                                                                             <span className="text-32 icon text-main-600 d-inline-flex">
                                                                                 <i className="ph ph-file-text" />
@@ -122,24 +173,26 @@ function CreatenewTrainer() {
                                                     </div>
                                                 </div>
 
-
-
                                                 <div className="col-sm-6 col-xs-6">
-                                                    <label htmlFor="role" className="form-label mb-8 h6">Course</label>
-                                                    <input type="text" className="form-control py-11" id="role" placeholder="Enter Course" />
+                                                    <label htmlFor="course" className="form-label mb-8 h6">Select Course</label>
+                                                    <div className="col-12">
+                                                        {["React js", "Node", "Microsoft office", "AI", "Data science", "Data analytics", "Cyber security"].map((course, index) => (
+                                                            <div key={index} className="form-check">
+                                                                <input 
+                                                                    type="checkbox" 
+                                                                    id={`courseCheckbox${index}`} 
+                                                                    className="form-check-input" 
+                                                                    onChange={(e) => handleCourseChange(course, e.target.checked)}
+                                                                />
+                                                                <label htmlFor={`courseCheckbox${index}`} className="form-check-label">{course}</label>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                                 <div className="col-sm-6 col-xs-6">
                                                     <label htmlFor="zip" className="form-label mb-8 h6">City</label>
                                                     <input type="address" className="form-control py-11" id="zip" placeholder="Enter City" />
                                                 </div>
-                                                {/* <div className="col-12">
-                                                    <div className="editor">
-                                                        <label className="form-label mb-8 h6">Bio</label>
-                                                        <div id="editor">
-                                                        <textarea className="text-counter placeholder-13 form-control py-11 pe-76" maxLength={100} id="courseTitle" placeholder="Your Bio..." rows={4} />
-                                                        </div>
-                                                    </div>
-                                                </div> */}
                                                 <div className="col-12">
                                                     <div className="flex-align justify-content-end gap-8">
                                                         <button type="reset" className="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Cancel</button>

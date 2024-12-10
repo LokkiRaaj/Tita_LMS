@@ -17,11 +17,6 @@ function TrainerDashboardSidebar() {
                         <ul class="sidebar-menu">
                             <a href="javascript:void(0)" class="sidebar-menu__link">
                                 <span class="icon"><i class="ph ph-graduation-cap"></i></span>
-                                <a href="/courses" class="text"><span class="text">Courses</span></a>
-                            </a>
-
-                            <a href="javascript:void(0)" class="sidebar-menu__link">
-                                <span class="icon"><i class="ph ph-graduation-cap"></i></span>
                                 <a href="/my-courses"> <span class="text">My Courses</span> </a>
                             </a>
 
