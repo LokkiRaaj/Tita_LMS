@@ -66,11 +66,7 @@ function CreateCourses() {
         }
         
         try {
-<<<<<<< HEAD
             const response = await axios.post('https://lms-guwtz37b.b4a.run/courses/createCourse', formData, {
-=======
-            const response = await axios.post('http://192.168.1.6:4000/courses/createCourse', formData, {
->>>>>>> 9603e86c4b3e79dd4c970a2026fc5d564bd6f39b
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
