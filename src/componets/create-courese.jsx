@@ -66,7 +66,7 @@ function CreateCourses() {
         }
         
         try {
-            const response = await axios.post('https://lms-guwtz37b.b4a.run/courses/createCourse', formData, {
+            const response = await axios.post('https://lms-backend-ylpd.onrender.com/courses/createCourse', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
