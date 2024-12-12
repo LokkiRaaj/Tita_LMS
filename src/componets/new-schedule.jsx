@@ -1,13 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 import TrainerSidebar from "../common/sidebar";
 import Header from "../common/header";
 
 function NewSchedule() {
- 
+    const [meetingTitle, setMeetingTitle] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [courseCategory, setCourseCategory] = useState("");
+    const [courseLevel, setCourseLevel] = useState("");
+    const [responseMessage, setResponseMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        const meetingData = {
+            meetingTitle,
+            date,
+            time,
+            courseCategory,
+            courseLevel,
+        };
 
-   
+        try {
+            const response = await axios.post("https://lms-backend-ylpd.onrender.com/meeting/createMeeting", meetingData);
+            setResponseMessage("Meeting created successfully!");
+            setShowModal(true);
+        } catch (error) {
+            setResponseMessage("Error creating meeting.");
+            setShowModal(true);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
     return (
         <>
@@ -36,7 +64,7 @@ function NewSchedule() {
                             </ul>
                         </div>
                         <div className="card">
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="modal-content radius-16 bg-base">
                                     <div className="modal-header py-16 px-24 border border-top-0 border-start-0 border-end-0">
                                         <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -53,6 +81,8 @@ function NewSchedule() {
                                                     type="text"
                                                     className="form-control radius-8"
                                                     placeholder="Enter Meeting Title"
+                                                    value={meetingTitle}
+                                                    onChange={(e) => setMeetingTitle(e.target.value)}
                                                 />
                                             </div>
                                             
@@ -66,12 +96,14 @@ function NewSchedule() {
                                                         className="form-control radius-8 bg-base"
                                                         id="startDate"
                                                         type="date"
+                                                        value={date}
+                                                        onChange={(e) => setDate(e.target.value)}
                                                     />
                                                     <span className="position-absolute end-0 top-50 translate-middle-y me-12 line-height-1" />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-20">
-                                                <label htmlFor="Time" className="form-label fw-semibold text-primary-light text-sm mb-8">
+                                                <label htmlFor="time" className="form-label fw-semibold text-primary-light text-sm mb-8">
                                                     Time:
                                                 </label>
                                                 <div className="position-relative">
@@ -79,6 +111,8 @@ function NewSchedule() {
                                                         className="form-control radius-8 bg-base"
                                                         id="time"
                                                         type="time"
+                                                        value={time}
+                                                        onChange={(e) => setTime(e.target.value)}
                                                     />
                                                     <span className="position-absolute end-0 top-50 translate-middle-y me-12 line-height-1" />
                                                 </div>
@@ -86,32 +120,42 @@ function NewSchedule() {
 
 
                                             <div className="col-md-6 mb-20">
-                                        <label htmlFor="courseCategory" className="form-label fw-semibold text-primary-light text-sm mb-8">Course Category </label>
+                                        <label htmlFor="courseCategory" className="form-label fw-semibold text-primary-light text-sm mb-8">Course Category</label>
                                         <div className="position-relative">
-                                            <select id="courseCategory" className="form-select py-9 placeholder-13 text-15">
-                                            <option value={1} disabled selected>Enter course category</option>
-                                                <option value={2}>Web Development</option>
-                                                <option value={2}>Web Designing</option> 
-                                                <option value={2}>Data Science</option>
-                                                <option value={2}>Artificial Intelligence</option>
-                                                <option value={2}>Cloud Computing</option>
-                                                <option value={2}>Database</option>
-                                                <option value={2}>Software Testing</option>
-                                                <option value={2}>Microsoft</option>
-                                                <option value={2}>Data Analytics</option>
-                                                <option value={2}>Mobile App</option>
-                                                <option value={2}>UI/UX</option>
+                                            <select 
+                                                id="courseCategory" 
+                                                className="form-select py-9 placeholder-13 text-15"
+                                                value={courseCategory}
+                                                onChange={(e) => setCourseCategory(e.target.value)}
+                                            >
+                                                <option value="" disabled>Select course category</option>
+                                                <option value="Web Development">Web Development</option>
+                                                <option value="Web Designing">Web Designing</option> 
+                                                <option value="Data Science">Data Science</option>
+                                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                                <option value="Cloud Computing">Cloud Computing</option>
+                                                <option value="Database">Database</option>
+                                                <option value="Software Testing">Software Testing</option>
+                                                <option value="Microsoft">Microsoft</option>
+                                                <option value="Data Analytics">Data Analytics</option>
+                                                <option value="Mobile App">Mobile App</option>
+                                                <option value="UI/UX">UI/UX</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div className="col-md-6 mb-20">
                                         <label htmlFor="courseLevel" className="form-label fw-semibold text-primary-light text-sm mb-8">Course Level</label>
                                         <div className="position-relative">
-                                            <select id="courseLevel" className="form-select py-9 placeholder-13 text-15">
-                                                <option value={1} disabled selected>Select course level</option>
-                                                <option value={2}>Advanced </option>
-                                                <option value={2}>Intermediate </option>
-                                                <option value={2}>Beginner </option>
+                                            <select 
+                                                id="courseLevel" 
+                                                className="form-select py-9 placeholder-13 text-15"
+                                                value={courseLevel}
+                                                onChange={(e) => setCourseLevel(e.target.value)}
+                                            >
+                                                <option value="" disabled>Select course level</option>
+                                                <option value="Advanced">Advanced</option>
+                                                <option value="Intermediate">Intermediate</option>
+                                                <option value="Beginner">Beginner</option>
                                             </select>
                                         </div>
                                     </div>
@@ -148,6 +192,29 @@ function NewSchedule() {
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="modal fade show" style={{ display: "block" }} tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Response</h5>
+                                <button type="button" className="close" onClick={closeModal}>
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>{responseMessage}</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={closeModal}>
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
