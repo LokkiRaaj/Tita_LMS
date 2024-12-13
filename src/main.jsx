@@ -9,6 +9,7 @@ import NewSchedule from './componets/new-schedule';
 import TrainerDashboard from './componets/trainer-dashboardpage';
 import Mystudents from './layout/trainer-dashboard/my students/mystudent';
 import Mycourses from './layout/trainer-dashboard/my courses/mycoursespage';
+import ViewCourse from './componets/view-course';
 
 
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path='/trainer-dashboard' element={<TrainerDashboard />} />
                 <Route path='my-students' element={<Mystudents />} />
                 <Route path='my-courses' element={<Mycourses />} />
+                <Route path='view-course' element={<ViewCourse />} />
             </Routes>
         </BrowserRouter>
     );

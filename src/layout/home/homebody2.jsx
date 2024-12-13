@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Homebody2() {
     const [categories, setCategories] = useState([]);
     const [courses, setCourses] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -21,6 +23,10 @@ function Homebody2() {
 
         fetchCategories();
     }, []);
+
+    const handleViewDetails = (courseId) => {
+        navigate(`/view-course?id=${courseId}`);
+    };
 
     return (
         <>
@@ -44,12 +50,17 @@ function Homebody2() {
                             <div className="col-xxl-3 col-lg-4 col-sm-6" key={index}>
                                 <div className="card border border-gray-100">
                                     <div className="card-body p-8">
-                                        <a href={course.link} className="bg-main-100 rounded-8 overflow-hidden text-center mb-8 h-164 flex-center p-8">
+                                        <div 
+                                            className="bg-main-100 rounded-8 overflow-hidden text-center mb-8 h-164 flex-center p-8"
+                                            onClick={() => handleViewDetails(course._id)}
+                                            style={{ cursor: 'pointer' }}
+                                        >
                                             <img src={course.courseThumbnail} alt="Course Image" />
-                                        </a>
+                                        </div>
                                         <div className="p-8">
                                             <span className="text-13 py-2 px-10 rounded-pill bg-success-50 text-success-600 mb-16">{course.courseCategory}</span>
-                                            <h5 className="mb-0"><a href={course.link} className="hover-text-main-600">{course.courseTitle}</a></h5>
+                                            <h5 className="mb-0"><a href="#" className="hover-text-main-600">{course.courseTitle}</a></h5>
+                                            <span className="text-13 text-gray-600">Level: {course.level}</span>
                                             <div className="flex-align gap-8 mt-12 pt-12 border-top border-gray-100">
                                                 <div className="flex-align gap-4">
                                                     <span className="text-sm text-main-600 d-flex"><i className="ph ph-video-camera" /></span>
@@ -66,7 +77,12 @@ function Homebody2() {
                                                     <span className="text-13 fw-bold text-gray-600">{course.rating}</span>
                                                     <span className="text-13 fw-bold text-gray-600">({course.reviews})</span>
                                                 </div>
-                                                <a href={course.link} className="btn btn-outline-main rounded-pill py-9">View Details</a>
+                                                <button 
+                                                    className="btn btn-outline-main rounded-pill py-9"
+                                                    onClick={() => handleViewDetails(course._id)}
+                                                >
+                                                    View Details
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
