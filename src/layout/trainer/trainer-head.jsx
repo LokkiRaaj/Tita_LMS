@@ -14,28 +14,7 @@ function TrainerHead() {
                 </div>
                 {/* Breadcrumb End */}
                 {/* Breadcrumb Right Start */}
-                <div className="flex-align gap-8 flex-wrap">
-                    <div className="position-relative text-gray-500 flex-align gap-4 text-13">
-                        <span className="text-inherit">Sort by: </span>
-                        <div className="flex-align text-gray-500 text-13 border border-gray-100 rounded-4 ps-20 focus-border-main-600 bg-white">
-                            <span className="text-lg"><i className="ph ph-funnel-simple" /></span>
-                            <select className="form-control ps-8 pe-20 py-16 border-0 text-inherit rounded-4 text-center">
-                                <option value={1} selected>Popular</option>
-                                <option value={1}>Latest</option>
-                                <option value={1}>Trending</option>
-                                <option value={1}>Matches</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="flex-align text-gray-500 text-13 border border-gray-100 rounded-4 ps-20 focus-border-main-600 bg-white">
-                        <span className="text-lg"><i className="ph ph-layout" /></span>
-                        <select className="form-control ps-8 pe-20 py-16 border-0 text-inherit rounded-4 text-center" id="exportOptions">
-                            <option value selected disabled>Export</option>
-                            <option value="csv">CSV</option>
-                            <option value="json">JSON</option>
-                        </select>
-                    </div>
-                </div>
+               
                 {/* Breadcrumb Right End */}
             </div>
         </>

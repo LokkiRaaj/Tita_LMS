@@ -55,13 +55,17 @@ function CreatenewTrainer() {
         });
         
         // Format the selectedCourses array for submission
-        const formattedCourses = selectedCourses.map(course => ({ name: course })); // Example format
-        formData.append('myCourse', JSON.stringify(formattedCourses)); // Send as JSON string
+        const formattedCourses = selectedCourses.map(course => course); // Change to directly map courses
+
+        // Only append the selected courses if there are any
+        if (formattedCourses.length > 0) {
+            formData.append('myCourse', JSON.stringify(formattedCourses)); // Wrap in an array
+        }
 
         formData.append('city', document.getElementById('zip').value);
 
         try{
-            const response = await axios.post('http://192.168.1.6:4000/trainer/createTrainer', formData, {
+            const response = await axios.post('https://lms-backend-ylpd.onrender.com/trainer/createTrainer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
