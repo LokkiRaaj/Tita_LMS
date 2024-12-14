@@ -7,6 +7,8 @@ import CourseVideo from "../layout/create course/course-video";
 import AboutCourse from "../layout/create course/course-about";
 import PublishCourse from "../layout/create course/course-publish";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateCourses() {
     const [currentStep, setCurrentStep] = useState(1);
@@ -72,6 +74,7 @@ function CreateCourses() {
                 }
             });
             console.log('Course submitted successfully:', response.data);
+            toast.success('Course submitted successfully!');
             // Optionally, reset the form or handle success feedback
         } catch (error) {
             if (error.response) {
@@ -88,7 +91,8 @@ function CreateCourses() {
               console.error('Error message:', error.message);
             }
             console.error('Error config:', error.config);
-          }
+            toast.error('Error submitting course. Please try again.');
+        }
     };
 
     const handleback = () => {
@@ -98,6 +102,7 @@ function CreateCourses() {
 
     return (
         <>
+            <ToastContainer />
             <div>
                 <DashboardSidebar />
                 <div className="dashboard-main-wrapper">

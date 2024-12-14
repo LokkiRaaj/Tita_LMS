@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import DashboardSidebar from "../../common/sidebar";
 import Header from "../../common/header";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreatenewTrainer() {
     const [image, setImage] = useState(null);
@@ -38,7 +40,7 @@ function CreatenewTrainer() {
 
         // Check if all required fields are filled
         if (!image || !document.getElementById('fname').value || !document.getElementById('lname').value || !document.getElementById('email').value || !document.getElementById('phone').value || !document.getElementById('zip').value) {
-            alert("Please fill in all required fields before submitting the form."); // Alert user
+            toast.error("Please fill in all required fields before submitting the form."); // Use toast instead of alert
             return; // Prevent form submission
         }
 
@@ -71,19 +73,33 @@ function CreatenewTrainer() {
                 },
             });
             console.log(response.data); // Handle success response
+            toast.success("Trainer created successfully!"); // Success toast
+            
+            // Reset all input fields
+            setImage(null);
+            setFiles([]);
+            setUploadedFileName("");
+            setSelectedCourses([]);
+            document.getElementById('fname').value = "";
+            document.getElementById('lname').value = "";
+            document.getElementById('email').value = "";
+            document.getElementById('phone').value = "";
+            document.getElementById('zip').value = "";
+
         } catch (error) {
             if (error.response) {
                 console.error('Error submitting form:', error.response.data); // Log the error response
-                alert(`Error: ${error.response.data.message}`); // Alert user with error message
+                toast.error(`Error: ${error.response.data.message}`); // Error toast
             } else {
                 console.error('Error submitting form:', error.message); // Log the error message
-                alert(`Error: ${error.message}`); // Alert user with error message
+                toast.error(`Error: ${error.message}`); // Error toast
             }
         }
     };
 
     return (
         <>
+            <ToastContainer />
             <div>
                 <DashboardSidebar />
                 <div className="dashboard-main-wrapper">

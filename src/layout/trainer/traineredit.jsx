@@ -9,8 +9,8 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
         mobileNumber: '',
         city: '',
         myCourse: '',
-        image: '',
-        resume: ''
+        image: null,
+        resume: null
     });
 
     // Animation styles
@@ -53,8 +53,8 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
                 mobileNumber: trainer.mobileNumber || '',
                 city: trainer.city || '',
                 myCourse: trainer.myCourse ? trainer.myCourse.toString() : '',
-                image: trainer.image || '',
-                resume: trainer.resume || ''
+                image: null,
+                resume: null
             });
         }
     }, [trainer]);
@@ -68,13 +68,43 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
         }));
     };
 
+    // Handle file changes
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: files[0]
+        }));
+    };
+
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formDataToSubmit = new FormData();
+
+        // Append form data
+        formDataToSubmit.append('firstname', formData.firstname);
+        formDataToSubmit.append('lastname', formData.lastname);
+        formDataToSubmit.append('mobileNumber', formData.mobileNumber);
+        formDataToSubmit.append('mailId', formData.mailId);
+        formDataToSubmit.append('city', formData.city);
+        formDataToSubmit.append('myCourse', formData.myCourse);
+        if (formData.image) {
+            formDataToSubmit.append('image', formData.image);
+        }
+        if (formData.resume) {
+            formDataToSubmit.append('resume', formData.resume);
+        }
+
         try {
             const response = await axios.put(
                 `https://lms-backend-ylpd.onrender.com/trainer/updateTrainer/${trainer._id}`, 
-                formData
+                formDataToSubmit,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
             );
             
             onUpdateTrainer(response.data);
@@ -165,7 +195,96 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
                             required
                         />
                     </div>
-                    {/* Add more input fields similarly */}
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>Email</label>
+                        <input
+                            type="email"
+                            name="mailId"
+                            value={formData.mailId}
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>Mobile Number</label>
+                        <input
+                            type="text"
+                            name="mobileNumber"
+                            value={formData.mobileNumber}
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>City</label>
+                        <input
+                            type="text"
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>Course</label>
+                        <input
+                            type="text"
+                            name="myCourse"
+                            value={formData.myCourse}
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>Image Upload</label>
+                        <input
+                            type="file"
+                            name="image"
+                            onChange={handleFileChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <label style={{display: 'block', marginBottom: '5px'}}>Resume Upload</label>
+                        <input
+                            type="file"
+                            name="resume"
+                            onChange={handleFileChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px'
+                            }}
+                        />
+                    </div>
                 </form>
 
                 {/* Modal Footer */}
@@ -191,7 +310,7 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
                         onClick={handleSubmit}
                         style={{
                             padding: '10px 20px',
-                            background: '#4CAF50',
+                            background: '#FF001E',
                             color: 'white',
                             border: 'none',
                             borderRadius: '5px'

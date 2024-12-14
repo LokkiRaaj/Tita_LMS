@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import TrainerSidebar from "../common/sidebar";
 import Header from "../common/header";
+import TimezoneSelect from 'react-timezone-select';
 
 function NewSchedule() {
     const [meetingTitle, setMeetingTitle] = useState("");
@@ -11,6 +12,7 @@ function NewSchedule() {
     const [courseLevel, setCourseLevel] = useState("");
     const [responseMessage, setResponseMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [timezone, setTimezone] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +23,7 @@ function NewSchedule() {
             time,
             courseCategory,
             courseLevel,
+            timezone,
         };
 
         try {
@@ -168,6 +171,14 @@ function NewSchedule() {
                                                 <option value={2}>3 Hours</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <div className="col-md-6 mb-20">
+                                        <label htmlFor="timezone" className="form-label fw-semibold text-primary-light text-sm mb-8">Time Zone</label>
+                                        <TimezoneSelect
+                                            value={timezone}
+                                            onChange={setTimezone}
+                                            className="form-select py-9 placeholder-13 text-15"
+                                        />
                                     </div>
 
                                             <div className="d-flex align-items-center justify-content-center gap-8 mt-24">
