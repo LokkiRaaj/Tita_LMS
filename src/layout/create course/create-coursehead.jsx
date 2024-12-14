@@ -22,23 +22,31 @@ function CreatecourseHead({ currentStep }) {
             </div>
             {/* Create Course Step List Start */}
             <ul className="step-list mb-24">
-                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep === 1 ? 'active' : 'completed'}`}>
-                    <span className="icon text-xl d-flex"><i className="ph ph-circle" /></span>
+                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep >= 1 ? 'completed' : ''}`}>
+                    <span className="icon text-xl d-flex">
+                        <i className={`ph ${currentStep >= 1 ? 'ph-check-circle' : 'ph-circle'}`} style={{ color: currentStep >= 1 ? 'white' : 'inherit', backgroundColor: currentStep >= 1 ? '#FF001E' : 'transparent' }} />
+                    </span>
                     Course Details
                     <span className="line position-relative" />
                 </li>
-                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep === 2 ? 'active' : ''}`}>
-                    <span className="icon text-xl d-flex"><i className="ph ph-circle" /></span>
+                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep >= 2 ? 'completed' : ''}`}>
+                    <span className="icon text-xl d-flex">
+                        <i className={`ph ${currentStep >= 2 ? 'ph-check-circle' : 'ph-circle'}`} style={{ color: currentStep >= 2 ? 'white' : 'inherit', backgroundColor: currentStep >= 2 ? '#FF001E' : 'transparent' }} />
+                    </span>
                     Upload Videos
                     <span className="line position-relative" />
                 </li>
-                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep === 3 ? 'active' : ''}`}>
-                    <span className="icon text-xl d-flex"><i className="ph ph-circle" /></span>
+                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep >= 3 ? 'completed' : ''}`}>
+                    <span className="icon text-xl d-flex">
+                        <i className={`ph ${currentStep >= 3 ? 'ph-check-circle' : 'ph-circle'}`} style={{ color: currentStep >= 3 ? 'white' : 'inherit', backgroundColor: currentStep >= 3 ? '#FF001E' : 'transparent' }} />
+                    </span>
                     About Course
                     <span className="line position-relative" />
                 </li>
-                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep === 4 ? 'active' : ''}`}>
-                    <span className="icon text-xl d-flex"><i className="ph ph-circle" /></span>
+                <li className={`step-list__item py-15 px-24 text-15 text-heading fw-medium flex-center gap-6 ${currentStep >= 4 ? 'completed' : ''}`}>
+                    <span className="icon text-xl d-flex">
+                        <i className={`ph ${currentStep >= 4 ? 'ph-check-circle' : 'ph-circle'}`} style={{ color: currentStep >= 4 ? 'white' : 'inherit', backgroundColor: currentStep >= 4 ? '#FF001E' : 'transparent' }} />
+                    </span>
                     Publish Course
                     <span className="line position-relative" />
                 </li>
