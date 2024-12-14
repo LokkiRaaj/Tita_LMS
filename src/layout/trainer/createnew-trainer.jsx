@@ -131,7 +131,7 @@ function CreatenewTrainer() {
                                                             <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onChange={handleImageChange} />
                                                             <div className="avatar-preview">
                                                                 <div id="profileImagePreview">
-                                                                    {image && <img src={image} alt="Profile Preview" className="rounded-16" />}
+                                                                    {image && <img src={URL.createObjectURL(image)} alt="Profile Preview" className="rounded-16" />}
                                                                 </div>
                                                             </div>
                                                         </div>

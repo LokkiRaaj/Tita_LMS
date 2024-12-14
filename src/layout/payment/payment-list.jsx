@@ -1,24 +1,22 @@
 import React from "react";
 
-function MystudentsList() {
-    const students = [
+function PaymentsList() {
+    const Payments = [
         {
-            name: "Lokkesh",
-            email: "example10@mail.com",
+            name: "Ajith",
             mobilenumber: "9876543210",
-            enrollcourses: "AI, Data Science",
-            certificates: 3,
-            status: "In Progress",
-            image: "assets/images/thumbs/student-img1.png",
+            paymentid: "GIC201",
+            amount: "$199",
+            date: "12/05/2024", // Changed to a string
+            status: "Completed",
         },
         {
-            name: "Guy Hawkins",
-            email: "example11@mail.com",
+            name: "Rajesh",
             mobilenumber: "1234567890",
-            enrollcourses: "React js, Node js",
-            certificates: 2,
+            paymentid: "PIC102",
+            amount: "$199",
+            date: "22/08/2024", // Changed to a string
             status: "In Progress",
-            image: "assets/images/thumbs/student-img2.png",
         },
     ];
 
@@ -37,16 +35,16 @@ function MystudentsList() {
                                     />
                                 </div>
                             </th>
-                            <th className="h6 text-gray-300">Students</th>
-                            <th className="h6 text-gray-300">Email ID</th>
+                            <th className="h6 text-gray-300">Student Name</th>
                             <th className="h6 text-gray-300">Mobile Number</th>
-                            <th className="h6 text-gray-300">Enroll Courses</th>
-                            <th className="h6 text-gray-300">Certificates</th>
+                            <th className="h6 text-gray-300">Payment ID</th>
+                            <th className="h6 text-gray-300">Paid Amount</th>
+                            <th className="h6 text-gray-300">Date</th>
                             <th className="h6 text-gray-300">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {students.map((student, index) => (
+                        {Payments.map((payment, index) => (
                             <tr key={index}>
                                 <td className="fixed-width">
                                     <div className="form-check">
@@ -58,52 +56,47 @@ function MystudentsList() {
                                 </td>
                                 <td>
                                     <div className="flex-align gap-8">
-                                        <img
-                                            src={student.image}
-                                            alt={`${student.name}`}
-                                            className="w-40 h-40 rounded-circle"
-                                        />
                                         <span className="h6 mb-0 fw-medium text-gray-300">
-                                            {student.name}
+                                            {payment.name}
                                         </span>
                                     </div>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.email}
+                                        {payment.mobilenumber}
                                     </span>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.mobilenumber}
+                                        {payment.paymentid}
                                     </span>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.enrollcourses}
+                                        {payment.amount}
                                     </span>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.certificates}
+                                        {payment.date}
                                     </span>
                                 </td>
                                 <td>
                                     <span
                                         className={`text-13 py-2 px-8 ${
-                                            student.status === "Completed"
+                                            payment.status === "Completed"
                                                 ? "bg-success-50 text-success-600"
                                                 : "bg-warning-50 text-warning-600"
                                         } d-inline-flex align-items-center gap-8 rounded-pill`}
                                     >
                                         <span
                                             className={`w-6 h-6 ${
-                                                student.status === "Completed"
+                                                payment.status === "Completed"
                                                     ? "bg-success-600"
                                                     : "bg-warning-600"
                                             } rounded-circle flex-shrink-0`}
                                         />
-                                        {student.status}
+                                        {payment.status}
                                     </span>
                                 </td>
                             </tr>
@@ -116,4 +109,4 @@ function MystudentsList() {
     );
 }
 
-export default MystudentsList;
+export default PaymentsList;

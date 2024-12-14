@@ -3,9 +3,9 @@ import React from "react";
 const courses = [
     {
         id: 1,
-        image: "assets/images/thumbs/course-img2.png",
-        category: "Design",
-        title: "UI/UX",
+        image: "assets/images/thumbs/course-img3.png",
+        category: "Web Development",
+        title: "React JS",
         lessons: "24 Lesson",
         hours: "40 Hours",
         rating: "4.9",
@@ -26,8 +26,8 @@ const courses = [
     {
         id: 3,
         image: "assets/images/thumbs/course-img6.png",
-        category: "Cloud",
-        title: "Cloud Computing",
+        category: "Microsoft",
+        title: "Microsoft Office",
         lessons: "24 Lesson",
         hours: "40 Hours",
         rating: "4.9",
@@ -47,7 +47,7 @@ const courses = [
     },
 ];
 
-function MycoursesList() {
+function StudentcourseList() {
     return (
         <div className="card mt-24">
             <div className="card-body">
@@ -100,4 +100,4 @@ function MycoursesList() {
     );
 }
 
-export default MycoursesList;
+export default StudentcourseList;
