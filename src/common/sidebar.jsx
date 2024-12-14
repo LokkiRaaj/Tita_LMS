@@ -48,7 +48,7 @@ function DashboardSidebar() {
                                         <Link to="/trainer" className="sidebar-submenu__link">Trainer</Link>
                                     </li>
                                     <li className="sidebar-submenu__item">
-                                        <Link to="#" className="sidebar-submenu__link">Student</Link>
+                                        <Link to="/students-list" className="sidebar-submenu__link">Student</Link>
                                     </li>
                                     <li className="sidebar-submenu__item">
                                         <Link to="#" className="sidebar-submenu__link">Admin</Link>
@@ -70,29 +70,21 @@ function DashboardSidebar() {
                                     </li>
                                 </ul>
                             </li>
-                            <li className="sidebar-menu__item has-dropdown">
-                                <Link to="#" className="sidebar-menu__link">
+                            <li className="sidebar-menu__item ">
+                                <Link to="/payment-history" className="sidebar-menu__link">
                                     <span className="icon"><i className="ph ph-credit-card"></i></span>
-                                    <span className="text">Payments</span>
+                                    <span className="text">Payment History</span>
                                 </Link>
-                                <ul className="sidebar-submenu">
-                                    <li className="sidebar-submenu__item">
-                                        <Link to="#" className="sidebar-submenu__link">Payment Keys</Link>
-                                    </li>
-                                    <li className="sidebar-submenu__item">
-                                        <Link to="#" className="sidebar-submenu__link">Transactions</Link>
-                                    </li>
-                                </ul>
                             </li>
                             <li className="sidebar-menu__item">
-                                <Link to="/badge" className="sidebar-menu__link">
+                                <Link to="" className="sidebar-menu__link">
                                     <span className="icon"><LuFileBadge2 /></span>
                                     <span className="text">Badge</span>
                                 </Link>
                             </li>
                             <li className="sidebar-menu__item">
-                                <Link to="/certification" className="sidebar-menu__link">
-                                    <span className="icon"><i className="ph ph-certificate"></i></span>
+                                <Link to="" className="sidebar-menu__link">
+                                    <span className="icon"><i className="ph ph-medal"></i></span>
                                     <span className="text">Certification</span>
                                 </Link>
                             </li>

@@ -1,28 +1,28 @@
 import React from "react";
-import TrainerDashboardSidebar from "../tdsidebar";
-import Header from "../../../common/header";
-import StudentsHead from "./mystudent-head";
-import MystudentsList from "./mystudent-list";
-
-function Mystudents() {
+import StudentDashboardSidebar from "../layout/student-dashboard/student-sidebar";
+import Header from "../common/header";
+import Homebody2 from "../layout/home/homebody2";
 
 
+
+
+function StudentDashboard() {
     return (
         <>
             <div>
-                <TrainerDashboardSidebar />
+                <StudentDashboardSidebar />
                 <div className="dashboard-main-wrapper">
                     <Header />
                     <div className="dashboard-body">
-                        <StudentsHead />
                         <div className="row gy-4">
-                            <MystudentsList />
+                            <Homebody2 />
                         </div>
                     </div>
+
                 </div>
             </div>
         </>
     );
 }
 
-export default Mystudents;
+export default StudentDashboard;

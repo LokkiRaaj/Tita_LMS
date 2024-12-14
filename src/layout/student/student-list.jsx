@@ -1,6 +1,6 @@
 import React from "react";
 
-function MystudentsList() {
+function StudentsList() {
     const students = [
         {
             name: "Lokkesh",
@@ -116,4 +116,4 @@ function MystudentsList() {
     );
 }
 
-export default MystudentsList;
+export default StudentsList;
