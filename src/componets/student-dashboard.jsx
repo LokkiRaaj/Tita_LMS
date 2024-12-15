@@ -1,7 +1,7 @@
 import React from "react";
 import StudentDashboardSidebar from "../layout/student-dashboard/student-sidebar";
 import Header from "../common/header";
-import Homebody2 from "../layout/home/homebody2";
+import Categories from "../layout/home/categories";
 
 
 
@@ -15,7 +15,7 @@ function StudentDashboard() {
                     <Header />
                     <div className="dashboard-body">
                         <div className="row gy-4">
-                            <Homebody2 />
+                            <Categories />
                         </div>
                     </div>
 

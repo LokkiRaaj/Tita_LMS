@@ -21,6 +21,7 @@ import Webinar from './layout/student-dashboard/webinar/webinar';
 import DoubtSession from './layout/student-dashboard/doubt session/doubt-session';
 import Tests from './layout/student-dashboard/tests/tests';
 import PaymentHistory from './componets/payment-history';
+import AllcoursesPage from './componets/courses-page';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="all-courses" element={<AllcoursesPage />} />
                 <Route path="create-courses" element={<CreateCourses />} />
                 <Route path='trainer' element={<TrainerPage />} />
                 <Route path='students-list' element={<Studentspage />} />

@@ -4,19 +4,19 @@ function PaymentsList() {
     const Payments = [
         {
             name: "Ajith",
+            emailid: "ajith@gmail,com",
             mobilenumber: "9876543210",
             paymentid: "GIC201",
-            amount: "$199",
-            date: "12/05/2024", // Changed to a string
+            enrolldate: "12/05/2024",
             status: "Completed",
         },
         {
             name: "Rajesh",
+            emailid: "rajesh@gmail.com",
             mobilenumber: "1234567890",
             paymentid: "PIC102",
-            amount: "$199",
-            date: "22/08/2024", // Changed to a string
-            status: "In Progress",
+            enrolldate: "22/08/2024",
+            status: "Un Paid",
         },
     ];
 
@@ -36,10 +36,10 @@ function PaymentsList() {
                                 </div>
                             </th>
                             <th className="h6 text-gray-300">Student Name</th>
+                            <th className="h6 text-gray-300">Email ID</th>
                             <th className="h6 text-gray-300">Mobile Number</th>
                             <th className="h6 text-gray-300">Payment ID</th>
-                            <th className="h6 text-gray-300">Paid Amount</th>
-                            <th className="h6 text-gray-300">Date</th>
+                            <th className="h6 text-gray-300">Enroll Date</th>
                             <th className="h6 text-gray-300">Status</th>
                         </tr>
                     </thead>
@@ -63,6 +63,11 @@ function PaymentsList() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
+                                        {payment.emailid}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className="h6 mb-0 fw-medium text-gray-300">
                                         {payment.mobilenumber}
                                     </span>
                                 </td>
@@ -73,12 +78,7 @@ function PaymentsList() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {payment.amount}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {payment.date}
+                                        {payment.enrolldate}
                                     </span>
                                 </td>
                                 <td>

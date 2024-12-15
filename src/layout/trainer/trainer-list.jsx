@@ -226,7 +226,7 @@ function TrainerList() {
                                                 </button>
                                                 <button 
                                                     onClick={() => handleDeleteTrainer(trainer._id)} 
-                                                    className="btn btn-sm btn-danger"
+                                                    className="btn btn-sm btn-danger" style={{background: "#0A0909"}}
                                                 >
                                                     Delete
                                                 </button>

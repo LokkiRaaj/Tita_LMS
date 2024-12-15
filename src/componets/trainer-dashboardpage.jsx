@@ -1,7 +1,7 @@
 import React from "react";
 import TrainerDashboardSidebar from "../layout/trainer-dashboard/tdsidebar";
 import Header from "../common/header";
-import MycoursesList from "../layout/trainer-dashboard/my courses/mycourses-list";
+import Categories from "../layout/home/categories";
 
 
 function TrainerDashboard() {
@@ -13,7 +13,7 @@ function TrainerDashboard() {
                     <Header />
                     <div className="dashboard-body">
                         <div className="row gy-4">
-                            <MycoursesList />
+                            <Categories />
                         </div>
                     </div>
 

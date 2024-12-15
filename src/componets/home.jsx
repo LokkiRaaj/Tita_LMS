@@ -2,7 +2,7 @@ import React from "react";
 import DashboardSidebar from "../common/sidebar";
 import Header from "../common/header";
 import Homebody1 from "../layout/home/homebody1";
-import Categorys from "../layout/home/categorys";
+import Categories from "../layout/home/categories";
 
 function Home() {
     return (
@@ -16,7 +16,7 @@ function Home() {
                         <div className="row gy-4">
                             <Homebody1 />
                             {/* Top Course Start */}
-                            <Categorys />
+                            <Categories />
                         </div>
                     </div>
                     <div className="dashboard-footer">

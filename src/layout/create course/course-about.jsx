@@ -76,7 +76,7 @@ function AboutCourse({ onContinue, onBack }) {
                         onChange={handleDescriptionChange} 
                     />
                     {error && <p className="text-danger">{error}</p>}
-                    <div className="flex-align justify-content-end gap-8">
+                    <div className="flex-align justify-content-end gap-8" style={{paddingTop: "10px"}}>
                         <a href="#" className="btn btn-outline-main rounded-pill py-9" onClick={(e) => { e.preventDefault(); onBack(); }}>Back</a>
                         <button 
                             type="button" 
