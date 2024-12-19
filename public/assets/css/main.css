@@ -8959,7 +8959,7 @@ button:focus {
     margin-block-end: 12px;
 }
 
-.sidebar-menu__item.activePage .sidebar-menu__link {
+/* .sidebar-menu__item.activePage .sidebar-menu__link {
     background-color: hsl(var(--main));
     color: hsl(var(--white));
 }
@@ -8972,7 +8972,7 @@ button:focus {
 .sidebar-menu__item.activePage .sidebar-menu__link .link-badge {
     background-color: hsl(var(--white));
     color: var(--main-600);
-}
+} */
 
 .sidebar-menu__item:has(.sidebar-submenu__item.activePage) .sidebar-menu__link {
     background-color: var(--main-600);
