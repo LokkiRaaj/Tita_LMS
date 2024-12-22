@@ -1,97 +1,3 @@
-// import React, { useState } from "react";
-// import emailjs from 'emailjs-com'; // Import emailjs
-// import SendIcon from '@mui/icons-material/Send'; // Import SendIcon from Material-UI
-
-// function TrainerTechnicalSupportForm() {
-//     const [message, setMessage] = useState(''); // State to display feedback messages
-//     const [loading, setLoading] = useState(false); // State for the loading status
-//     const [submitted, setSubmitted] = useState(false); // State for form submission status
-
-//     const sendEmail = (e) => {
-//         e.preventDefault();
-//         setLoading(true); // Show loading status
-//         setMessage(''); // Clear any previous message
-//         emailjs
-//             .sendForm(
-//                 'service_iv213rq',
-//                 'template_49hd6gg',
-//                 e.target,
-//                 'KihpimgRRDcpebcJk'
-//             )
-//             .then(
-//                 (result) => {
-//                     setLoading(false); // Stop loading
-//                     setMessage('Email sent successfully!');
-//                     setSubmitted(true); // Mark form as submitted
-//                     e.target.reset(); // Reset form fields
-//                 },
-//                 (error) => {
-//                     setLoading(false); // Stop loading
-//                     setMessage('Error sending email. Please try again later.');
-//                     console.error('Error:', error.text);
-//                 }
-//             );
-//     };
-
-//     return (
-//         <div className="container mt-5">
-//             <div className="card shadow">
-//                 <div className="card-header">
-//                     <h5 className="mb-0">Technical Support</h5>
-//                 </div>
-//                 <div className="card-body">
-//                     {submitted ? (
-//                         <div className="alert alert-success" role="alert">
-//                             Thank you for reaching out! Our support team will contact you shortly.
-//                         </div>
-//                     ) : (
-//                         <form onSubmit={sendEmail}>
-//                             <div className="mb-3">
-//                                 <label htmlFor="email" className="form-label">
-//                                     Email
-//                                 </label>
-//                                 <input
-//                                     type="email"
-//                                     name="email_from"
-//                                     id="emailFrom"
-//                                     className="form-control"
-//                                     placeholder="person@example.com"
-//                                     required
-//                                 />
-//                             </div>
-//                             <div className="mb-3">
-//                                 <label htmlFor="issue" className="form-label">
-//                                     Describe your issue
-//                                 </label>
-//                                 <textarea
-//                                     className="form-control"
-//                                     name="message"
-//                                     id="message"
-//                                     placeholder="Write your message here..."
-//                                     required
-//                                 ></textarea>
-//                             </div>
-//                             <button
-//                                 className="btn btn-primary"
-//                                 type="submit"
-//                                 disabled={loading}
-//                                 style={{ marginTop: '5px' }}
-//                             >
-//                                 {loading ? 'Sending...' : <><SendIcon style={{ marginRight: '5px' }} /> Send</>}
-//                             </button>
-//                             {message && <p className="feedback__message mt-3">{message}</p>} {/* Feedback message */}
-//                         </form>
-//                     )}
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default TrainerTechnicalSupportForm;
-
-
-
 import React, { useState } from "react";
 import emailjs from 'emailjs-com';
 import SendIcon from '@mui/icons-material/Send';
@@ -133,7 +39,7 @@ function TrainerTechnicalSupportForm() {
             );
     };
 
-    const handleViewDetailsClick = () => {
+    const handleViewTicketsClick = () => {
         setShowMessage(false); // Hide message
         setShowData(true); // Show student data
     };
@@ -146,9 +52,9 @@ function TrainerTechnicalSupportForm() {
                     <h5 className="mb-0">Technical Support</h5>
                     <button
                         className="btn btn-primary btn-sm float-end"
-                        onClick={handleViewDetailsClick}
+                        onClick={handleViewTicketsClick}
                     >
-                        View Details
+                        View Tickets
                     </button>
                 </div>
                 <div className="card-body py-10">

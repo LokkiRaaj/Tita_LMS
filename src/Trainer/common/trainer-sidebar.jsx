@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function TrainerSidebar() {
     const [isMeetingOpen, setIsMeetingOpen] = useState(false);
     const [isMaterialsOpen, setIsMaterialsOpen] = useState(false);
+    const [isTestsOpen, setIsTestsOpen] = useState(false);
 
     const toggleMeetingDropdown = () => {
         setIsMeetingOpen((prevState) => !prevState);
@@ -13,11 +14,15 @@ function TrainerSidebar() {
         setIsMaterialsOpen((prevState) => !prevState);
     };
 
+    const toggleTestsDropdown = () => {
+        setIsTestsOpen((prevState) => !prevState);
+    };
+
     const submenuLinkStyle = {
         textDecoration: "none",
         padding: "8px 15px",
         display: "block",
-        color: "#333",
+        color: "333",
     };
 
     return (
@@ -68,7 +73,7 @@ function TrainerSidebar() {
                                         paddingLeft: "20px",
                                         listStyle: "none",
                                         margin: "0",
-                                        backgroundColor: "#f4f4f4",
+                                        backgroundColor: "f4f4f4",
                                         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                                         borderRadius: "4px",
                                     }}
@@ -95,7 +100,7 @@ function TrainerSidebar() {
 
                             <li className="sidebar-menu__item">
                                 <a
-                                    href="#"
+                                    href=""
                                     className="sidebar-menu__link"
                                     onClick={(e) => {
                                         e.preventDefault();
@@ -103,7 +108,7 @@ function TrainerSidebar() {
                                     }}
                                 >
                                     <span className="icon"><i className="ph ph-book-open"></i></span>
-                                    <span className="text">Readung Materials</span>
+                                    <span className="text">Reading Materials</span>
                                 </a>
                                 <ul
                                     className="sidebar-submenu"
@@ -112,7 +117,7 @@ function TrainerSidebar() {
                                         paddingLeft: "20px",
                                         listStyle: "none",
                                         margin: "0",
-                                        backgroundColor: "#f4f4f4",
+                                        backgroundColor: "f4f4f4",
                                         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                                         borderRadius: "4px",
                                     }}
@@ -145,6 +150,43 @@ function TrainerSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
+                                <a
+                                    href=""
+                                    className="sidebar-menu__link"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        toggleTestsDropdown();
+                                    }}
+                                >
+                                    <span className="icon"><i className="ph ph-file"></i></span>
+                                    <span className="text">Tests</span>
+                                </a>
+                                <ul
+                                    className="sidebar-submenu"
+                                    style={{
+                                        display: isTestsOpen ? "block" : "none",
+                                        paddingLeft: "20px",
+                                        listStyle: "none",
+                                        margin: "0",
+                                        backgroundColor: "f4f4f4",
+                                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                                        borderRadius: "4px",
+                                    }}
+                                >
+                                    <li className="sidebar-submenu__item">
+                                        <Link to="/trainer-createtests" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                            Create Tests
+                                        </Link>
+                                    </li>
+                                    <li className="sidebar-submenu__item">
+                                        <Link to="/trainer-viewtests" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                            View Tests
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li className="sidebar-menu__item">
                                 <Link
                                     to="/trainer-badges"
                                     className="sidebar-menu__link"
@@ -163,13 +205,6 @@ function TrainerSidebar() {
                                     onClick={(e) => e.preventDefault()}>
                                     <span className="icon"><i className="ph ph-certificate"></i></span>
                                     <span className="text">Certificates <span>(coming soon)</span> </span>
-                                </Link>
-                            </li>
-
-                            <li className="sidebar-menu__item">
-                                <Link to="" className="sidebar-menu__link">
-                                    <span className="icon"><i className="ph ph-file"></i></span>
-                                    <span className="text">Tests</span>
                                 </Link>
                             </li>
 

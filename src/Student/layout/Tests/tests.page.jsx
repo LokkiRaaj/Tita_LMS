@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // Sample test data
 const tests = [
     {
         id: 1,
-        title: "React js",
-        category: "Web Development",
-        description: "",
+        title: "Node js",
+        trainerName: "Mani",
+        batch: "Batch 1",
         duration: "1 hour",
-        questions: "20",
+        questions: "25",
         difficulty: "Medium",
         image: "assets/images/thumbs/course-img3.png",
     },
     {
         id: 2,
-        title: "UI/UX",
-        category: "Web Design",
-        description: "",
+        title: "React js",
+        trainerName: "Monish",
+        batch: "Batch 1",
         duration: "1.5 hours",
         questions: "25",
         difficulty: "Hard",
@@ -25,6 +26,27 @@ const tests = [
 ];
 
 function StudenttestPage() {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedTest, setSelectedTest] = useState(null);
+    const [completedTests, setCompletedTests] = useState(0); // Track completed tests
+    const navigate = useNavigate();
+
+    const handleStartTest = (test) => {
+        setSelectedTest(test);
+        setShowModal(true);
+    };
+
+    const handleStartTestAction = () => {
+        // Increment completed tests count
+        setCompletedTests((prevCount) => prevCount + 1);
+        // Navigate to the test page
+        navigate("/student-starttests");
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className="card mt-24">
             <div className="card-body">
@@ -40,19 +62,18 @@ function StudenttestPage() {
                                         <img src={test.image} alt="Test Image" />
                                     </a>
                                     <div className="p-8">
-                                        <span className={`text-13 py-2 px-10 rounded-pill bg-${test.category.toLowerCase()}-50 text-${test.category.toLowerCase()}-600 mb-16`}>
-                                            {test.category}
-                                        </span>
+                                        <h4 className={`text-13 py-2 px-10 rounded-pill bg-${test.trainerName.toLowerCase()}-50 text-${test.trainerName.toLowerCase()}-600 mb-16`}>
+                                            {test.trainerName}
+                                        </h4>
                                         <h5 className="mb-0">
                                             <a href={test.buttonLink} className="hover-text-main-600">
                                                 {test.title}
                                             </a>
                                         </h5>
-                                        <p className="text-13 text-gray-600 mb-12">{test.description}</p>
                                         <div className="flex-align gap-8 mt-12 pt-12 border-top border-gray-100">
                                             <div className="flex-align gap-4">
-                                                <span className="text-sm text-main-600 d-flex"><i className="ph ph-clock" /></span>
-                                                <span className="text-13 text-gray-600">{test.duration}</span>
+                                                <span className="text-sm text-main-600 d-flex"><i className="ph ph-shield-check" /></span>
+                                                <span className="text-13 text-gray-600">{test.batch}</span>
                                             </div>
                                             <div className="flex-align gap-4">
                                                 <span className="text-sm text-main-600 d-flex"><i className="ph ph-question" /></span>
@@ -60,11 +81,12 @@ function StudenttestPage() {
                                             </div>
                                         </div>
                                         <div className="flex-between gap-4 flex-wrap mt-24">
-                                            <div className="flex-align gap-4">
-                                                <span className="text-15 fw-bold text-warning-600 d-flex"><i className="ph-fill ph-star" /></span>
-                                                <span className="text-13 fw-bold text-gray-600">{test.difficulty}</span>
-                                            </div>
-                                            <a href={test.buttonLink} className="btn btn-outline-main rounded-pill py-9">Start Test</a>
+                                            <button
+                                                onClick={() => handleStartTest(test)}
+                                                className="btn btn-outline-main rounded-pill py-9"
+                                            >
+                                                Start Test
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -73,6 +95,49 @@ function StudenttestPage() {
                     ))}
                 </div>
             </div>
+
+            {/* Modal */}
+            {showModal && (
+                <div className="modal show" style={{ display: "block" }} role="dialog">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header" style={{ position: "relative" }}>
+                                <h5 className="modal-title">Test Information</h5>
+                                <button
+                                    type="button"
+                                    className="close"
+                                    onClick={handleCloseModal}
+                                    style={{
+                                        position: "absolute",
+                                        top: "10px",
+                                        right: "10px",
+                                        background: "none",
+                                        border: "none",
+                                        fontSize: "1.5rem",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <div className="mb-4">
+                                    <strong>Completed Tests:</strong> {completedTests}
+                                </div>
+                                <div className="flex justify-end">
+                                    <button
+                                        onClick={handleStartTestAction}
+                                        className="btn btn-primary rounded-pill"
+                                    >
+                                        Start Test
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            )}
         </div>
     );
 }

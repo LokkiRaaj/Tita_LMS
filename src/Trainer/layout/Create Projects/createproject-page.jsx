@@ -3,18 +3,46 @@ import React, { useState } from "react";
 function CreateProjectPage({ onContinue }) {
     const [formData, setFormData] = useState({
         title: '',
-        group: '',
-        level: '',
+        course: '',
+        courseLevel: '',
+        batch: '',
+        type: '',
+        file: null,
         description: '',
     });
-    const [showSuccessModal, setShowSuccessModal] = useState(false); // State to show/hide modal
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [uploadedDocumentName, setUploadedDocumentName] = useState("");
+    const [error, setError] = useState(""); // State for handling errors
+
+    const handleDocumentChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const fileType = file.type.includes("pdf") || file.type.includes("document")
+                ? "pdf"
+                : "unsupported";
+
+            if (fileType === "unsupported") {
+                setError("Only document files (PDF or text) are allowed.");
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) { // Set a size limit for documents (10MB)
+                setError("File size exceeds 10MB limit.");
+                return;
+            }
+
+            setFormData((prev) => ({ ...prev, file }));
+            setUploadedDocumentName(file.name); // Set uploaded file name
+            setError(""); // Clear error on successful file selection
+        }
+    };
 
     // Handle form input changes
     const handleChange = (e) => {
-        const { id, value, type, files } = e.target;
+        const { id, value } = e.target;
         setFormData(prevData => ({
             ...prevData,
-            [id]: type === 'file' ? files[0] : value
+            [id]: value
         }));
     };
 
@@ -29,24 +57,28 @@ function CreateProjectPage({ onContinue }) {
         // Reset form data to initial state
         setFormData({
             title: '',
-            group: '',
-            level: '',
+            course: '',
+            courseLevel: '',
+            batch: '',
+            type: '',
+            file: null,
             description: '',
         });
+        setUploadedDocumentName(""); // Reset uploaded file name
+        setError(""); // Clear errors
     };
 
     // Check if all fields are filled
-    const isFormValid = formData.title && formData.group && formData.level && formData.description;
+    const isFormValid = formData.title && formData.course && formData.courseLevel && formData.batch && formData.type && formData.file && formData.description;
 
     return (
         <>
-            {/* Form to create a project */}
             <div className="card">
                 <div className="card-header border-bottom border-gray-100 flex-align gap-8">
-                    <h5 className="mb-0">Create a New Project</h5>
+                    <h5 className="mb-0">Create New Project</h5>
                 </div>
                 <div className="card-body">
-                    <form action="">
+                    <form>
                         <div className="row gy-20">
                             <div className="col-xxl-9 col-md-8 col-sm-7">
                                 <div className="row g-20">
@@ -63,21 +95,65 @@ function CreateProjectPage({ onContinue }) {
                                         />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="category" className="h5 mb-8 fw-semibold font-heading">Project Group</label>
-                                        <select id="group" className="form-select py-9 placeholder-13 text-15" value={formData.group} onChange={handleChange}>
-                                            <option value="" disabled>Select Group</option>
-                                            <option value="Web Development">Team Projects</option>
-                                            <option value="Web Designing">Single Projects</option>
+                                        <label htmlFor="course" className="h5 mb-8 fw-semibold font-heading">Course</label>
+                                        <select id="course" className="form-select py-9 placeholder-13 text-15" value={formData.course} onChange={handleChange}>
+                                            <option value="" disabled>Select Course</option>
+                                            <option value="React Js">React Js</option>
+                                            <option value="Node Js">Node Js</option>
+                                            <option value="Java">Java</option>
+                                            <option value="Python">Python</option>
+                                            <option value="AI">AI</option>
+                                            <option value="Data Science">Data Science</option>
+                                            <option value="Data Analytics">Data Analytics</option>
+                                            <option value="Cyber Security">Cyber Security</option>
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="level" className="h5 mb-8 fw-semibold font-heading">Project Level</label>
-                                        <select id="level" className="form-select py-9 placeholder-13 text-15" value={formData.level} onChange={handleChange}>
-                                            <option value="" disabled>Select Level</option>
+                                        <label htmlFor="courseLevel" className="h5 mb-8 fw-semibold font-heading">Course Level</label>
+                                        <select id="courseLevel" className="form-select py-9 placeholder-13 text-15" value={formData.courseLevel} onChange={handleChange}>
+                                            <option value="" disabled>Select Course Level</option>
                                             <option value="Advanced">Advanced</option>
-                                            <option value="Intermediate">Intermediate</option>
                                             <option value="Beginner">Beginner</option>
+                                            <option value="Intermediate">Intermediate</option>
                                         </select>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label htmlFor="type" className="h5 mb-8 fw-semibold font-heading">Project Type</label>
+                                        <select id="type" className="form-select py-9 placeholder-13 text-15" value={formData.type} onChange={handleChange}>
+                                            <option value="" disabled>Select Type</option>
+                                            <option value="Team Project">Team Project</option>
+                                            <option value="Single Project">Single Project</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label htmlFor="batch" className="h5 mb-8 fw-semibold font-heading">Batch</label>
+                                        <select id="batch" className="form-select py-9 placeholder-13 text-15" value={formData.batch} onChange={handleChange}>
+                                            <option value="" disabled>Select Batch</option>
+                                            <option value="Batch 1">Batch 1</option>
+                                            <option value="Batch 2">Batch 2</option>
+                                            <option value="Batch 3">Batch 3</option>
+                                            <option value="Batch 4">Batch 4</option>
+                                            <option value="Batch 5">Batch 5</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-12">
+                                        <label htmlFor="file" className="h5 mb-8 fw-semibold font-heading">Upload Document</label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            id="file"
+                                            accept="application/pdf,.doc,.docx,.txt"
+                                            onChange={handleDocumentChange}
+                                        />
+                                        {uploadedDocumentName && (
+                                            <span className="uploaded-document-name">
+                                                {uploadedDocumentName}
+                                            </span>
+                                        )}
+                                        <p className="text-13 text-gray-600">
+                                            Only PDF, DOC, DOCX, or TXT formats are allowed (max file size 10MB).
+                                        </p>
+                                        {error && <p className="text-danger">{error}</p>}
                                     </div>
                                     <div className="col-sm-12">
                                         <label htmlFor="description" className="h5 mb-8 fw-semibold font-heading">Project Description</label>
@@ -107,7 +183,6 @@ function CreateProjectPage({ onContinue }) {
                 </div>
             </div>
 
-            {/* Success Modal */}
             {showSuccessModal && (
                 <div className="modal fade show" style={{ display: "block" }} tabIndex="-1" aria-hidden="true" onClick={closeModal}>
                     <div className="modal-dialog">

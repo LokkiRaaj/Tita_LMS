@@ -45,28 +45,6 @@ function StudentSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
-                                <Link
-                                    to="/trainer-badges"
-                                    className="sidebar-menu__link"
-                                    style={{ pointerEvents: 'none', opacity: 0.6, cursor: 'not-allowed' }}
-                                    onClick={(e) => e.preventDefault()}>
-                                    <span className="icon"><i className="ph ph-medal"></i></span>
-                                    <span className="text">Badges <span>(coming soon)</span></span>
-                                </Link>
-                            </li>
-
-                            <li className="sidebar-menu__item">
-                                <Link
-                                    to=""
-                                    className="sidebar-menu__link"
-                                    style={{ pointerEvents: 'none', opacity: 0.6, cursor: 'not-allowed' }}
-                                    onClick={(e) => e.preventDefault()}>
-                                    <span className="icon"><i className="ph ph-certificate"></i></span>
-                                    <span className="text">Certificates <span>(coming soon)</span> </span>
-                                </Link>
-                            </li>
-
-                            <li className="sidebar-menu__item">
                                 <Link to="/student-calendar" className="sidebar-menu__link">
                                     <span className="icon"><i className="ph ph-calendar"></i></span>
                                     <span className="text">Calendar</span>
@@ -91,6 +69,28 @@ function StudentSidebar() {
                                 <Link to="/student-tests" className="sidebar-menu__link">
                                     <span class="icon"><i className="ph ph-file"></i></span>
                                     <span className="text">Tests</span>
+                                </Link>
+                            </li>
+
+                            <li className="sidebar-menu__item">
+                                <Link
+                                    to="/trainer-badges"
+                                    className="sidebar-menu__link"
+                                    style={{ pointerEvents: 'none', opacity: 0.6, cursor: 'not-allowed' }}
+                                    onClick={(e) => e.preventDefault()}>
+                                    <span className="icon"><i className="ph ph-medal"></i></span>
+                                    <span className="text">Badges <span>(coming soon)</span></span>
+                                </Link>
+                            </li>
+
+                            <li className="sidebar-menu__item">
+                                <Link
+                                    to=""
+                                    className="sidebar-menu__link"
+                                    style={{ pointerEvents: 'none', opacity: 0.6, cursor: 'not-allowed' }}
+                                    onClick={(e) => e.preventDefault()}>
+                                    <span className="icon"><i className="ph ph-certificate"></i></span>
+                                    <span className="text">Certificates <span>(coming soon)</span> </span>
                                 </Link>
                             </li>
 
