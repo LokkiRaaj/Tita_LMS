@@ -10,6 +10,7 @@ import StudentWebinar from "./componets/webinar";
 import StudentDoubtSession from "./componets/doubt-session";
 import StudentTests from "./componets/tests";
 import StudentTechnicalSupport from "./componets/technical-support";
+import StudentviewTest from "./componets/view-test";
 
 
 function Students() {
@@ -26,6 +27,7 @@ function Students() {
                 <Route path="/student-doubtsession" element={<StudentDoubtSession />} />
                 <Route path="/student-tests" element={<StudentTests />} />
                 <Route path="/student-technicalsupport" element={<StudentTechnicalSupport />} />
+                <Route path="/student-starttests" element={<StudentviewTest />} />
             </Routes>
         </Router>
     );

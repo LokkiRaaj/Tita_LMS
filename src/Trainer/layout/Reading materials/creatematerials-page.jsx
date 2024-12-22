@@ -113,7 +113,7 @@ function TrainerMaterialsPage() {
     return (
         <div className="card">
             <div className="card-header border-bottom border-gray-100 flex-align gap-8">
-                <h5 className="mb-0">Upload Videos</h5>
+                <h5 className="mb-0">Create Materials</h5>
             </div>
             <div className="card-body">
                 <form onSubmit={handleUpload}>

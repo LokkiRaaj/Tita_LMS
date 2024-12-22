@@ -8,7 +8,7 @@ function StudentTechnicalSupportForm() {
     const [submittedData, setSubmittedData] = useState(null); // To store form data
     const [showMessage, setShowMessage] = useState(false); // Show message after form submission
     const [showData, setShowData] = useState(false); // Show student data after clicking "OK"
-    const [viewDetailsClicked, setViewDetailsClicked] = useState(false); // Track if the "View Details" button was clicked
+    const [viewTicketsClicked, setViewTicketsClicked] = useState(false); // Track if the "View Details" button was clicked
 
     const sendEmail = (e) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ function StudentTechnicalSupportForm() {
             );
     };
 
-    const handleViewDetailsClick = () => {
+    const handleViewTicketsClick = () => {
         setShowMessage(false); // Hide message
         setShowData(true); // Show student data
     };
@@ -52,13 +52,13 @@ function StudentTechnicalSupportForm() {
                     <h5 className="mb-0">Technical Support</h5>
                     <button
                         className="btn btn-primary btn-sm float-end"
-                        onClick={handleViewDetailsClick}
+                        onClick={handleViewTicketsClick}
                     >
-                        View Details
+                        View Tickets
                     </button>
                 </div>
                 <div className="card-body py-10">
-                    {viewDetailsClicked && !showMessage ? (
+                    {viewTicketsClicked && !showMessage ? (
                         <div className="text-center">
                             <div className="alert alert-info" role="alert">
                                 Please fill out the form below, and click "Send" when done. You will see your details after submission.
