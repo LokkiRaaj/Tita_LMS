@@ -143,6 +143,13 @@ function TrainerSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
+                                <Link to="/trainer-doubtsession" className="sidebar-menu__link">
+                                    <span className="icon"><i className="ph ph-chat-dots"></i></span>
+                                    <span className="text">Doubt Session</span>
+                                </Link>
+                            </li>
+
+                            <li className="sidebar-menu__item">
                                 <Link to="/trainer-webinar" className="sidebar-menu__link">
                                     <span className="icon"><i className="ph ph-monitor-play"></i></span>
                                     <span className="text">Webinar</span>
@@ -179,7 +186,7 @@ function TrainerSidebar() {
                                         </Link>
                                     </li>
                                     <li className="sidebar-submenu__item">
-                                        <Link to="/trainer-viewtests" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                        <Link to="" className="sidebar-submenu__link" style={submenuLinkStyle}>
                                             View Tests
                                         </Link>
                                     </li>

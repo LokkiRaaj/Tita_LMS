@@ -18,7 +18,7 @@ function CreateTestPage() {
     const [selectedCourse, setSelectedCourse] = useState("");
     const [selectedLevel, setSelectedLevel] = useState("");
     const [selectedBatch, setSelectedBatch] = useState("");
-
+    const [selectedTimer, setSelectedTimer] = useState(""); // Timer state
     const [isSelectionCompleted, setIsSelectionCompleted] = useState(false); // Track if selection is done
     const [showPopup, setShowPopup] = useState(false); // Popup for successful submission
 
@@ -37,6 +37,7 @@ function CreateTestPage() {
         "Batch 1", "Batch 2", "Batch 3", "Batch 4", "Batch 5",
         "Batch 6", "Batch 7", "Batch 8", "Batch 9", "Batch 10"
     ];
+    const timerOptions = ["5 minutes", "10 minutes", "15 minutes", "30 minutes", "60 minutes"];
 
     const handleQuestionChange = (e) => {
         setNewQuestion({ ...newQuestion, question: e.target.value });
@@ -59,44 +60,41 @@ function CreateTestPage() {
             newQuestion.correctOption === null ||
             !selectedCourse ||
             !selectedLevel ||
-            !selectedBatch
+            !selectedBatch ||
+            !selectedTimer // Ensure a timer is selected
         ) {
-            setError("Please fill out the question, all options, select a correct answer, and select course, level, and batch.");
+            setError("Please fill out the question, all options, select a correct answer, and select course, level, batch, and timer.");
             return;
         }
 
-        // Add the new question to the list
         setQuestions([...questions, newQuestion]);
 
-        // Clear the form for adding new questions
         setNewQuestion({
             question: "",
             options: ["", "", "", ""],
             correctOption: null,
         });
-        setShowModal(false); // Close the modal after adding the question
+        setShowModal(false); 
     };
 
     const handleCourseLevelBatchSelection = () => {
-        if (!selectedCourse || !selectedLevel || !selectedBatch) {
-            setError("Please select the course, level, and batch before adding questions.");
+        if (!selectedCourse || !selectedLevel || !selectedBatch || !selectedTimer) {
+            setError("Please select the course, level, batch, and timer before adding questions.");
             return;
         }
 
-        // Set the confirmation details and allow question creation
         setConfirmationDetails({
             course: selectedCourse,
             level: selectedLevel,
             batch: selectedBatch,
+            timer: selectedTimer, // Store the selected timer
         });
 
-        // Hide the selection fields and show the question creation form
         setIsSelectionCompleted(true);
     };
 
     const handleSubmit = () => {
         if (questions.length > 0) {
-            // Trigger the popup if questions are created
             setShowPopup(true);
         } else {
             setError("Please add at least one question.");
@@ -104,7 +102,6 @@ function CreateTestPage() {
     };
 
     const handleClosePopup = () => {
-        // Close the success popup
         setShowPopup(false);
     };
 
@@ -121,12 +118,7 @@ function CreateTestPage() {
                             <div style={{ display: "flex", gap: "1rem" }}>
                                 <div style={{ flex: 1 }}>
                                     <label className="form-label">Course</label>
-                                    <select
-                                        className="form-select"
-                                        value={selectedCourse}
-                                        onChange={(e) => setSelectedCourse(e.target.value)}
-                                        style={{ width: "100%" }}
-                                    >
+                                    <select className="form-select" value={selectedCourse} onChange={(e) => setSelectedCourse(e.target.value)} style={{ width: "100%" }}>
                                         <option value="" disabled>
                                             Select Course
                                         </option>
@@ -140,12 +132,7 @@ function CreateTestPage() {
 
                                 <div style={{ flex: 1 }}>
                                     <label className="form-label">Course Level</label>
-                                    <select
-                                        className="form-select"
-                                        value={selectedLevel}
-                                        onChange={(e) => setSelectedLevel(e.target.value)}
-                                        style={{ width: "100%" }}
-                                    >
+                                    <select className="form-select" value={selectedLevel} onChange={(e) => setSelectedLevel(e.target.value)} style={{ width: "100%" }}>
                                         <option value="" disabled>
                                             Select Course Level
                                         </option>
@@ -159,12 +146,7 @@ function CreateTestPage() {
 
                                 <div style={{ flex: 1 }}>
                                     <label className="form-label">Batch</label>
-                                    <select
-                                        className="form-select"
-                                        value={selectedBatch}
-                                        onChange={(e) => setSelectedBatch(e.target.value)}
-                                        style={{ width: "100%" }}
-                                    >
+                                    <select className="form-select" value={selectedBatch} onChange={(e) => setSelectedBatch(e.target.value)} style={{ width: "100%" }}>
                                         <option value="" disabled>
                                             Select Batch
                                         </option>
@@ -175,11 +157,22 @@ function CreateTestPage() {
                                         ))}
                                     </select>
                                 </div>
+
+                                <div style={{ flex: 1 }}>
+                                    <label className="form-label">Timer</label>
+                                    <select className="form-select" value={selectedTimer} onChange={(e) => setSelectedTimer(e.target.value)} style={{ width: "100%" }}>
+                                        <option value="" disabled>
+                                            Select Timer
+                                        </option>
+                                        {timerOptions.map((option, index) => (
+                                            <option key={index} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
-                            <button
-                                className="btn btn-main rounded-pill py-9 mt-6"
-                                onClick={handleCourseLevelBatchSelection}
-                            >
+                            <button className="btn btn-main rounded-pill py-9 mt-6" onClick={handleCourseLevelBatchSelection}>
                                 Create Questions
                             </button>
                             {error && <p className="text-danger">{error}</p>}
@@ -187,7 +180,6 @@ function CreateTestPage() {
                     </div>
                 ) : (
                     <div>
-
                         <div className="mb-2">
                             {confirmationDetails.course && (
                                 <div className="mt-4">
@@ -200,13 +192,7 @@ function CreateTestPage() {
                                                 <strong>Options:</strong>
                                                 {question.options.map((option, optIndex) => (
                                                     <div key={optIndex} className="form-check">
-                                                        <input
-                                                            type="checkbox"
-                                                            className="form-check-input"
-                                                            id={`option-${optIndex}`}
-                                                            checked={question.correctOption === optIndex}
-                                                            disabled
-                                                        />
+                                                        <input type="checkbox" className="form-check-input" id={`option-${optIndex}`} checked={question.correctOption === optIndex} disabled />
                                                         <label className="form-check-label" htmlFor={`option-${optIndex}`}>
                                                             {option}
                                                         </label>
@@ -216,17 +202,11 @@ function CreateTestPage() {
                                                 <br />
                                             </li>
                                         ))}
-                                    <button
-                                        className="btn btn-main rounded-pill py-9 mt-4"
-                                        onClick={() => setShowModal(true)}
-                                    >
+                                    <button className="btn btn-main rounded-pill py-9 mt-4" onClick={() => setShowModal(true)}>
                                         Create Questions
                                     </button>
 
-                                    <button
-                                        className="btn btn-main rounded-pill py-9 mt-4 float-end"
-                                        onClick={handleSubmit}
-                                    >
+                                    <button className="btn btn-main rounded-pill py-9 mt-4 float-end" onClick={handleSubmit}>
                                         Submit
                                     </button>
                                 </div>
@@ -253,28 +233,16 @@ function CreateTestPage() {
                                 {error && <p className="text-danger">{error}</p>}
                                 <div className="mb-3">
                                     <label className="form-label">Question</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Enter your question"
-                                        value={newQuestion.question}
-                                        onChange={handleQuestionChange}
-                                        style={{ width: "100%" }}
-                                    />
+                                    <input type="text" className="form-control" placeholder="Enter your question" value={newQuestion.question} onChange={handleQuestionChange} style={{ width: "100%" }} />
                                 </div>
 
                                 <div style={{ display: "flex", gap: "1rem" }}>
                                     {newQuestion.options.map((option, index) => (
                                         <div key={index} style={{ flex: 1 }}>
                                             <label className="form-label">Option {index + 1}</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder={`Enter option ${index + 1}`}
-                                                value={option}
+                                            <input type="text" className="form-control" placeholder={`Enter option ${index + 1}`} value={option}
                                                 onChange={(e) => handleOptionChange(index, e.target.value)}
-                                                style={{ height: "30px" }}
-                                            />
+                                                style={{ height: "30px" }} />
                                         </div>
                                     ))}
                                 </div>
@@ -282,12 +250,7 @@ function CreateTestPage() {
                                 {/* Correct Answer Dropdown */}
                                 <div className="mb-3">
                                     <label className="form-label">Correct Answer</label>
-                                    <select
-                                        className="form-select"
-                                        value={newQuestion.correctOption ?? ""}
-                                        onChange={(e) => handleCorrectOptionChange(Number(e.target.value))}
-                                        style={{ width: "100%" }}
-                                    >
+                                    <select className="form-select" value={newQuestion.correctOption ?? ""} onChange={(e) => handleCorrectOptionChange(Number(e.target.value))} style={{ width: "100%" }}>
                                         <option value="" disabled>
                                             Select the correct answer
                                         </option>
@@ -300,18 +263,10 @@ function CreateTestPage() {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={() => setShowModal(false)}
-                                >
+                                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>
                                     Close
                                 </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-main"
-                                    onClick={handleAddQuestion}
-                                >
+                                <button type="button" className="btn btn-main" onClick={handleAddQuestion}>
                                     Create Question
                                 </button>
                             </div>
@@ -327,21 +282,13 @@ function CreateTestPage() {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">Success</h5>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    onClick={handleClosePopup}
-                                ></button>
+                                <button type="button" className="btn-close" onClick={handleClosePopup}></button>
                             </div>
                             <div className="modal-body">
                                 <p>Your questions have been successfully created!</p>
                             </div>
                             <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={handleClosePopup}
-                                >
+                                <button type="button" className="btn btn-secondary" onClick={handleClosePopup}>
                                     Close
                                 </button>
                             </div>
