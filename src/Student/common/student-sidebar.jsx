@@ -104,7 +104,7 @@ function StudentSidebar() {
                             <li className="sidebar-menu__item">
                                 <Link to="" className="sidebar-menu__link">
                                     <span class="icon"><i className="ph ph-sign-out"></i></span>
-                                    <span className="text">Long Out</span>
+                                    <span className="text">Log Out</span>
                                 </Link>
                             </li>
                         </ul>

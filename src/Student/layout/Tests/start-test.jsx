@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FaClock } from "react-icons/fa"; // Import the clock icon from react-icons
 
 const questionsData = [
     {
@@ -97,21 +98,45 @@ function StartTestpage() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState(Array(questionsData.length).fill(null));
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes in seconds
+    const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime <= 0) {
+                    clearInterval(timer);
+                    setIsSubmitted(true); // Auto-submit when time runs out
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000); // Update every second
+
+        return () => clearInterval(timer); // Cleanup the interval on unmount
+    }, []);
 
     const handleOptionChange = (index) => {
         const updatedAnswers = [...selectedAnswers];
         updatedAnswers[currentQuestionIndex] = index;
         setSelectedAnswers(updatedAnswers);
+        setErrorMessage(""); // Reset error message on selection change
     };
 
     const handleNext = () => {
+        // Check if the current answer is correct or not
+        if (selectedAnswers[currentQuestionIndex] !== null) {
+            const correctAnswer = questionsData[currentQuestionIndex].correctAnswer;
+           
+        }
+
         if (currentQuestionIndex < questionsData.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
     };
 
     const handleBack = () => {
-        if (currentQuestionIndex > 0) {  // Ensure we don't go below 0
+        if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
         }
     };
@@ -130,8 +155,17 @@ function StartTestpage() {
         return { attempted, correct };
     };
 
+    const formatTime = (timeInSeconds) => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    };
+
     if (isSubmitted) {
         const { attempted, correct } = getResults();
+        const scorePercentage = (correct / questionsData.length) * 100;
+        const isPass = scorePercentage >= 80;
+
         return (
             <div
                 style={{
@@ -145,8 +179,23 @@ function StartTestpage() {
                 }}
             >
                 <h2 style={{ textAlign: "center", color: "#0A0909" }}>Test Results</h2>
-                <p>Questions Attempted : {attempted}</p>
-                <p>Correct Answers : {correct}</p>
+                <p>Questions Attempted: {attempted}</p>
+                <p>Correct Answers: {correct}</p>
+                <p>Score: {scorePercentage.toFixed(2)}%</p>
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                    <button
+                        style={{
+                            backgroundColor: isPass ? "green" : "red",
+                            color: "white",
+                            padding: "10px 20px",
+                            fontSize: "16px",
+                            border: "none",
+                            borderRadius: "5px",
+                        }}
+                    >
+                        {isPass ? "PASS" : "FAIL"}
+                    </button>
+                </div>
             </div>
         );
     }
@@ -154,56 +203,70 @@ function StartTestpage() {
     const currentQuestion = questionsData[currentQuestionIndex];
 
     return (
-        <div className="card mt-24">
-            <div className="card-body">
-                <div className="mb-20 flex-between flex-wrap gap-8">
-                    <h4 className="mb-0"></h4>
-                </div>
-                <div className="row">
-                    <div>
-                        <h2 style={{ textAlign: "center", color: "#FF001E" }}>
-                            Question {currentQuestionIndex + 1}
-                        </h2>
-                        <h2>{currentQuestion.question}</h2>
+        <div>
+            <div className="card mt-24">
+                <div className="card-body">
+                    <div className="mb-20 flex-between flex-wrap gap-8">
+                        <h4 className="mb-0"></h4>
+                    </div>
+                    <div className="row">
                         <div>
-                            {currentQuestion.options.map((option, index) => (
-                                <label
-                                    key={index}
-                                    style={{
-                                        display: "block",
-                                        margin: "10px 0",
-                                        cursor: "pointer",
-                                    }}
+                            {/* Timer section */}
+                            <div style={{ position: "fixed", right: "50px", display: "flex", alignItems: "center" }}>
+                                <FaClock style={{ marginRight: "5px", color: "#FF001E" }} />
+                                <span style={{ fontSize: "18px", fontWeight: "bold", color: "#FF001E" }}>
+                                    {formatTime(timeLeft)}
+                                </span>
+                            </div>
+
+                            <h2 style={{ textAlign: "center", color: "#FF001E" }}>
+                                Question {currentQuestionIndex + 1}
+                            </h2>
+
+                            <h2>{currentQuestion.question}</h2>
+                            <div>
+                                {currentQuestion.options.map((option, index) => (
+                                    <label
+                                        key={index}
+                                        style={{ display: "block", margin: "10px 0", cursor: "pointer" }}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedAnswers[currentQuestionIndex] === index}
+                                            onChange={() => handleOptionChange(index)}
+                                            style={{ marginRight: "10px" }}
+                                        />
+                                        {option}
+                                    </label>
+                                ))}
+                            </div>
+                            
+                            {/* Display error message */}
+                            {errorMessage && <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>}
+
+                            <div style={{ textAlign: "right", paddingTop: "5px" }}>
+                                <button
+                                    className="btn btn-primary btn-sm float-start"
+                                    onClick={handleBack}
                                 >
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedAnswers[currentQuestionIndex] === index}
-                                        onChange={() => handleOptionChange(index)}
-                                        style={{ marginRight: "10px" }}
-                                    />
-                                    {option}
-                                </label>
-                            ))}
-                        </div>
-                        <div style={{ textAlign: "right", paddingTop: '5px'}}>
-                            <button
-                                className="btn btn-primary btn-sm float-start"
-                                onClick={handleBack} >
-                                Back
-                            </button>
-                            {currentQuestionIndex < questionsData.length - 1 ? (
-                                <button
-                                    className="btn btn-primary btn-sm float-end"
-                                    onClick={handleNext} >
-                                    Next
+                                    Back
                                 </button>
-                            ) : (
-                                <button
-                                    className="btn btn-primary btn-sm float-end"
-                                    onClick={handleSubmit} >
-                                    Submit
-                                </button>
-                            )}
+                                {currentQuestionIndex < questionsData.length - 1 ? (
+                                    <button
+                                        className="btn btn-primary btn-sm float-end"
+                                        onClick={handleNext}
+                                    >
+                                        Next
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="btn btn-primary btn-sm float-end"
+                                        onClick={handleSubmit}
+                                    >
+                                        Submit
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
