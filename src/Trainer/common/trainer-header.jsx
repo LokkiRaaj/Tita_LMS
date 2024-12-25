@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function TrainerHeader() {
     return (
@@ -27,10 +28,10 @@ function TrainerHeader() {
                                     </div>
                                     <ul className="max-h-270 overflow-y-auto scroll-sm pe-4">
                                         <li className="mb-4">
-                                            <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
+                                            <Link to="/trainer-profilesettings" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
                                                 <span className="text-2xl text-primary-600 d-flex"><i className="ph ph-user-circle" /></span>
                                                 <span className="text">Profile</span>
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="mb-4">
                                             <a href="" className="py-12 text-15 px-20 hover-bg-gray-50 text-gray-300 rounded-8 flex-align gap-8 fw-medium text-15">
