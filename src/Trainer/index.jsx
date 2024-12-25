@@ -10,9 +10,12 @@ import TrainerWebinarPage from "./components/webinar-page";
 import TrainerTeachnicalsupports from "./components/technical-support";
 import TrainerMaterials from "./components/materials";
 import TrainercreateProjects from "./components/create-projects";
+import SubmittedProjects from "./components/submit-projects";
 import TrainerviewMaterials from "./components/view-materilas";
 import CreateTest from "./components/create-test";
 import Trainerviewcourse from "./components/trainercourseview";
+import DoubtSession from "./components/doubt-session";
+import TrainerprofileSettings from "./components/profile-settings";
 
 
 
@@ -31,9 +34,11 @@ function Trainer() {
                 <Route path="trainer-creatematerials" element={<TrainerMaterials />} />
                 <Route path="trainer-readingmaterials" element={<TrainerviewMaterials />} />
                 <Route path="trainer-createprojects" element={<TrainercreateProjects />} />
+                <Route path="trainer-submittedprojects" element={<SubmittedProjects />} />
                 <Route path="trainer-createtests" element={<CreateTest />} />
                 <Route path="/trainer-viewcourses" element={<Trainerviewcourse />} />
-
+                <Route path="trainer-doubtsession" element={<DoubtSession />} />
+                <Route path="trainer-profilesettings" element={<TrainerprofileSettings />} />
             </Routes>
         </Router>
     );

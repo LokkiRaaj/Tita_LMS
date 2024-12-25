@@ -1,36 +1,16 @@
 import React from "react";
 
-function TrainerMystudentsList() {
+function SubmitprojectPage() {
+
     const students = [
         {
             name: "Lokkesh",
-            email: "lokkesh@gmail.com",
-            mobilenumber: "9876543210",
+            course: "React Js",
             batch: "Batch 1",
-            enrollcourses: "React js, Node js",
-            certificates: 2,
+            document: "",
+            submitDate: "12-12-2024",
             status: "In Progress",
             image: "assets/images/thumbs/student-img1.png",
-        },
-        {
-            name: "Santhosh",
-            email: "santhosh@gmail.com",
-            mobilenumber: "7373864699",
-            batch: "Batch 2",
-            enrollcourses: "AI, Data Science",
-            certificates: 2,
-            status: "Completed",
-            image: "assets/images/thumbs/student-img3.png",
-        },
-        {
-            name: "Guy Hawkins",
-            email: "example11@gmail.com",
-            mobilenumber: "1234567890",
-            batch: "Batch 2",
-            enrollcourses: "AI, Data Science",
-            certificates: 2,
-            status: "In Progress",
-            image: "assets/images/thumbs/student-img2.png",
         },
     ];
 
@@ -41,11 +21,10 @@ function TrainerMystudentsList() {
                     <thead>
                         <tr style={{ borderBottom: "1px solid #ccc" }}>
                             <th className="h6 text-gray-300">Students</th>
-                            <th className="h6 text-gray-300">Email ID</th>
-                            <th className="h6 text-gray-300">Mobile Number</th>
-                            <th className="h6 text-gray-300">Batch</th>
-                            <th className="h6 text-gray-300">Enroll Courses</th>
-                            <th className="h6 text-gray-300">Certificates</th>
+                            <th className="h6 text-gray-300">Course</th>
+                            <th className="h6 text-gray-300"> Batch</th>
+                            <th className="h6 text-gray-300">Submit Date</th>
+                            <th className="h6 text-gray-300"> File</th>
                             <th className="h6 text-gray-300">Status</th>
                         </tr>
                     </thead>
@@ -66,12 +45,7 @@ function TrainerMystudentsList() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.email}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.mobilenumber}
+                                        {student.course}
                                     </span>
                                 </td>
                                 <td>
@@ -81,28 +55,24 @@ function TrainerMystudentsList() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.enrollcourses}
+                                        {student.submitDate}
                                     </span>
                                 </td>
                                 <td>
-                                    <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {student.certificates}
-                                    </span>
+                                    <a href={student.document} target="_blank" rel="noopener noreferrer" className="bg-main-50 text-main-600 py-2 px-14 rounded-pill hover-bg-main-600 hover-text-white">View File</a>
                                 </td>
                                 <td>
                                     <span
-                                        className={`text-13 py-2 px-8 ${
-                                            student.status === "Completed"
-                                                ? "bg-success-50 text-success-600"
-                                                : "bg-warning-50 text-warning-600"
-                                        } d-inline-flex align-items-center gap-8 rounded-pill`}
+                                        className={`text-13 py-2 px-8 ${student.status === "Completed"
+                                            ? "bg-success-50 text-success-600"
+                                            : "bg-warning-50 text-warning-600"
+                                            } d-inline-flex align-items-center gap-8 rounded-pill`}
                                     >
                                         <span
-                                            className={`w-6 h-6 ${
-                                                student.status === "Completed"
-                                                    ? "bg-success-600"
-                                                    : "bg-warning-600"
-                                            } rounded-circle flex-shrink-0`}
+                                            className={`w-6 h-6 ${student.status === "Completed"
+                                                ? "bg-success-600"
+                                                : "bg-warning-600"
+                                                } rounded-circle flex-shrink-0`}
                                         />
                                         {student.status}
                                     </span>
@@ -117,4 +87,4 @@ function TrainerMystudentsList() {
     );
 }
 
-export default TrainerMystudentsList;
+export default SubmitprojectPage;

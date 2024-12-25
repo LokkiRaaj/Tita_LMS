@@ -1,43 +1,20 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
 
 function CreateProjectPage({ onContinue }) {
     const [formData, setFormData] = useState({
         title: '',
-        desc: '',
-        courseLevel: '',
         course: '',
-        projectType: '',
+        courseLevel: '',
         batch: '',
-        projectTime: 0,
-        projectSubmission: '',
-        projectEndDate: '',
+        type: '',
+        file: null,
+        description: '',
+        submitDate: '',
+        time: ''
     });
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [uploadedDocumentName, setUploadedDocumentName] = useState("");
     const [error, setError] = useState(""); // State for handling errors
-    const [course, setCourse] = useState("");
-
-    const [courses, setCourses] = useState([]);
-    
-    // New state variables for selected IDs
-    const [selectedCourseId, setSelectedCourseId] = useState("");
-
-
-    useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}courses/getAllCourses`);
-                setCourses(response.data.courses);
-            } catch (error) {
-                console.error("Error fetching courses:", error);
-            }
-        };
-
-        fetchCourses();
-    }, []);
 
     const handleDocumentChange = (e) => {
         const file = e.target.files[0];
@@ -72,33 +49,8 @@ function CreateProjectPage({ onContinue }) {
     };
 
     // Handle continue button click
-    const handleContinue = async () => {
-        if (!isFormValid) return; // Ensure the form is valid before proceeding
-
-        // Prepare the data to match the backend schema
-        const dataToSend = {
-            title: formData.title,
-            desc: formData.desc,
-            courseLevel: formData.courseLevel,
-            course: selectedCourseId, // Use the selected course ID
-            projectType: formData.projectType, // Corrected spelling from projectTpye to projectType
-            batch: formData.batch, // Ensure this is set correctly
-            projectTime: formData.projectTime, // Ensure this is set correctly
-            projectSubmission: formData.projectSubmission, // Optional field
-            projectEndDate: formData.projectEndDate, // Ensure this is set correctly
-        };
-
-        console.log("Data to send:", dataToSend); // Log the data being sent
-
-        try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}project/createProject`, dataToSend);
-            console.log("Project created successfully:", response.data);
-            toast.success("Project created successfully!"); // Show success toast
-            setShowSuccessModal(true);
-        } catch (error) {
-            console.error("Error creating project:", error);
-            toast.error("Failed to create project. Please try again."); // Show error toast
-        }
+    const handleContinue = () => {
+        setShowSuccessModal(true);
     };
 
     // Close the success modal and reset form
@@ -107,25 +59,23 @@ function CreateProjectPage({ onContinue }) {
         // Reset form data to initial state
         setFormData({
             title: '',
-            desc: '',
-            courseLevel: '',
             course: '',
-            projectType: '',
+            courseLevel: '',
             batch: '',
-            projectTime: 0,
-            projectSubmission: '',
-            projectEndDate: '',
+            type: '',
+            file: null,
+            description: '',
+            submitDate: '',
+            time: ''
         });
         setUploadedDocumentName(""); // Reset uploaded file name
         setError(""); // Clear errors
     };
 
-    // Check if all fields are filled
-    const isFormValid = formData.title && formData.desc && formData.courseLevel && formData.course && formData.projectType && formData.batch && formData.projectTime && formData.projectEndDate;
+    const isFormValid = formData.title && formData.course && formData.courseLevel && formData.batch && formData.type && formData.file && formData.description && formData.submitDate && formData.time;
 
     return (
         <>
-            <ToastContainer />
             <div className="card">
                 <div className="card-header border-bottom border-gray-100 flex-align gap-8">
                     <h5 className="mb-0">Create New Project</h5>
@@ -137,49 +87,30 @@ function CreateProjectPage({ onContinue }) {
                                 <div className="row g-20">
                                     <div className="col-sm-12">
                                         <label htmlFor="title" className="h5 mb-8 fw-semibold font-heading">Project Title</label>
-                                        <input
-                                            type="text"
-                                            className="text-counter placeholder-13 form-control py-11 pe-76"
-                                            maxLength={100}
+                                        <input type="text" className="text-counter  form-control py-11 pe-76" maxLength={100}
                                             id="title"
                                             placeholder="Project Title"
                                             value={formData.title}
                                             onChange={handleChange}
                                         />
                                     </div>
-                                    <div className="col-sm-12">
-                                        <label htmlFor="desc" className="h5 mb-8 fw-semibold font-heading">Project Description</label>
-                                        <textarea
-                                            className="form-control"
-                                            id="desc"
-                                            placeholder="Write your project description here..."
-                                            value={formData.desc}
-                                            onChange={handleChange}
-                                            required
-                                        ></textarea>
+                                    <div className="col-sm-6">
+                                        <label htmlFor="course" className="h5 mb-8 fw-semibold font-heading">Course</label>
+                                        <select id="course" className="text-counter placeholder-13 form-control py-11 pe-76" value={formData.course} onChange={handleChange}>
+                                            <option value="" disabled>Select Course</option>
+                                            <option value="React Js">React Js</option>
+                                            <option value="Node Js">Node Js</option>
+                                            <option value="Java">Java</option>
+                                            <option value="Python">Python</option>
+                                            <option value="AI">AI</option>
+                                            <option value="Data Science">Data Science</option>
+                                            <option value="Data Analytics">Data Analytics</option>
+                                            <option value="Cyber Security">Cyber Security</option>
+                                        </select>
                                     </div>
-                                    <div className="col-md-6 mb-20">
-                                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">Course:</label>
-                                    <select
-                                        className="form-select py-9 text-15"
-                                        value={course}
-                                        onChange={(e) => {
-                                            setCourse(e.target.value);
-                                            const selectedCourse = courses.find(courseItem => courseItem.courseTitle === e.target.value);
-                                            setSelectedCourseId(selectedCourse ? selectedCourse._id : "");
-                                        }}
-                                    >
-                                        <option value="" disabled>
-                                            Select Course
-                                        </option>
-                                        {courses.map((courseItem) => (
-                                            <option key={courseItem._id} value={courseItem.courseTitle}>{courseItem.courseTitle}</option>
-                                        ))}
-                                    </select>
-                                </div>
                                     <div className="col-sm-6">
                                         <label htmlFor="courseLevel" className="h5 mb-8 fw-semibold font-heading">Course Level</label>
-                                        <select id="courseLevel" className="form-select py-9 placeholder-13 text-15" value={formData.courseLevel} onChange={handleChange}>
+                                        <select id="courseLevel" className="text-counter placeholder-13 form-control py-11 pe-76" value={formData.courseLevel} onChange={handleChange}>
                                             <option value="" disabled>Select Course Level</option>
                                             <option value="Advanced">Advanced</option>
                                             <option value="Beginner">Beginner</option>
@@ -187,16 +118,16 @@ function CreateProjectPage({ onContinue }) {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="projectType" className="h5 mb-8 fw-semibold font-heading">Project Type</label>
-                                        <select id="projectType" className="form-select py-9 placeholder-13 text-15" value={formData.projectType} onChange={handleChange}>
+                                        <label htmlFor="type" className="h5 mb-8 fw-semibold font-heading">Project Type</label>
+                                        <select id="type" className="text-counter placeholder-13 form-control py-11 pe-76" value={formData.type} onChange={handleChange}>
                                             <option value="" disabled>Select Type</option>
-                                            <option value="Individual">Individual</option>
-                                            <option value="Group">Group</option>
+                                            <option value="Team Project">Team Project</option>
+                                            <option value="Single Project">Single Project</option>
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
                                         <label htmlFor="batch" className="h5 mb-8 fw-semibold font-heading">Batch</label>
-                                        <select id="batch" className="form-select py-9 placeholder-13 text-15" value={formData.batch} onChange={handleChange}>
+                                        <select id="batch" className="text-counter placeholder-13 form-control py-11 pe-76" value={formData.batch} onChange={handleChange}>
                                             <option value="" disabled>Select Batch</option>
                                             <option value="Batch 1">Batch 1</option>
                                             <option value="Batch 2">Batch 2</option>
@@ -206,48 +137,36 @@ function CreateProjectPage({ onContinue }) {
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="projectTime" className="h5 mb-8 fw-semibold font-heading">Project Time (in hours)</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="projectTime"
-                                            placeholder="Enter project time"
-                                            value={formData.projectTime}
-                                            onChange={handleChange}
-                                            required
-                                        />
+                                        <label htmlFor="submitDate" className="h5 mb-8 fw-semibold font-heading">Submit Date</label>
+                                        <input type="date" className="form-control" id="submitDate" value={formData.submitDate} onChange={handleChange} />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label htmlFor="projectSubmission" className="h5 mb-8 fw-semibold font-heading">Project Submission</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="projectSubmission"
-                                            placeholder="Enter project submission details"
-                                            value={formData.projectSubmission}
-                                            onChange={handleChange}
-                                        />
+                                        <label htmlFor="time" className="h5 mb-8 fw-semibold font-heading">Time</label>
+                                        <input type="time" className="form-control" id="time" value={formData.time} onChange={handleChange} />
                                     </div>
-                                    <div className="col-sm-6">
-                                        <label htmlFor="projectEndDate" className="h5 mb-8 fw-semibold font-heading">Project End Date</label>
-                                        <input
-                                            type="date"
-                                            className="form-control"
-                                            id="projectEndDate"
-                                            value={formData.projectEndDate}
+                                    <div className="col-sm-12">
+                                        <label htmlFor="file" className="h5 mb-8 fw-semibold font-heading">Upload Document</label>
+                                        <input type="file" className="form-control" id="file" accept="application/pdf,.doc,.docx,.txt" onChange={handleDocumentChange} />
+                                        {uploadedDocumentName && (
+                                            <span className="uploaded-document-name">
+                                                {uploadedDocumentName}
+                                            </span>
+                                        )}
+                                        <p className="text-13 text-gray-600">
+                                            Only PDF, DOC, DOCX, or TXT formats are allowed (max file size 10MB).
+                                        </p>
+                                        {error && <p className="text-danger">{error}</p>}
+                                    </div>
+                                    <div className="col-sm-12">
+                                        <label htmlFor="description" className="h5 mb-8 fw-semibold font-heading">Project Description</label>
+                                        <textarea className="form-control" id="description" placeholder="Write your project description here..." value={formData.description}
                                             onChange={handleChange}
-                                            required
-                                        />
+                                            required ></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex-align justify-content-end gap-8">
-                                <button
-                                    type="button"
-                                    className={`btn btn-main rounded-pill py-9 ${!isFormValid ? 'disabled' : ''}`}
-                                    onClick={handleContinue}
-                                    disabled={!isFormValid} // Disable button if form is incomplete
-                                >
+                                <button type="button" className={`btn btn-main rounded-pill py-9 ${!isFormValid ? 'disabled' : ''}`} onClick={handleContinue} disabled={!isFormValid} >
                                     Continue
                                 </button>
                             </div>

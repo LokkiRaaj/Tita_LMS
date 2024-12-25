@@ -7,6 +7,7 @@ function TrainerSidebar() {
     const [isMeetingOpen, setIsMeetingOpen] = useState(false);
     const [isMaterialsOpen, setIsMaterialsOpen] = useState(false);
     const [isTestsOpen, setIsTestsOpen] = useState(false);
+    const [isProjectopen, setIsProjectopen] = useState(false)
 
     const toggleMeetingDropdown = () => {
         setIsMeetingOpen((prevState) => !prevState);
@@ -18,6 +19,10 @@ function TrainerSidebar() {
 
     const toggleTestsDropdown = () => {
         setIsTestsOpen((prevState) => !prevState);
+    };
+
+    const toggleProjectDropdown = () => {
+        setIsProjectopen((prevState) => !prevState);
     };
 
     const submenuLinkStyle = {
@@ -136,9 +141,43 @@ function TrainerSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
-                                <Link to="/trainer-createprojects" className="sidebar-menu__link">
-                                    <span class="icon"><i className="ph ph-clipboard-text"></i></span>
-                                    <span className="text">Create Projects</span>
+                                <a href="" className="sidebar-menu__link"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        toggleProjectDropdown();
+                                    }}
+                                >
+                                    <span className="icon"><i className="ph ph-clipboard-text"></i></span>
+                                    <span className="text">Projects</span>
+                                </a>
+                                <ul className="sidebar-submenu"
+                                    style={{
+                                        display: isProjectopen ? "block" : "none",
+                                        paddingLeft: "20px",
+                                        listStyle: "none",
+                                        margin: "0",
+                                        backgroundColor: "f4f4f4",
+                                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                                        borderRadius: "4px",
+                                    }}
+                                >
+                                    <li className="sidebar-submenu__item">
+                                        <Link to="/trainer-createprojects" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                            Create Projects
+                                        </Link>
+                                    </li>
+                                    <li className="sidebar-submenu__item">
+                                        <Link to="/trainer-submittedprojects" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                            Submitted Projects
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li className="sidebar-menu__item">
+                                <Link to="/trainer-doubtsession" className="sidebar-menu__link">
+                                    <span className="icon"><i className="ph ph-chat-dots"></i></span>
+                                    <span className="text">Doubt Session</span>
                                 </Link>
                             </li>
 
@@ -150,9 +189,7 @@ function TrainerSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
-                                <a
-                                    href=""
-                                    className="sidebar-menu__link"
+                                <a href="" className="sidebar-menu__link"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         toggleTestsDropdown();
@@ -161,8 +198,7 @@ function TrainerSidebar() {
                                     <span className="icon"><i className="ph ph-file"></i></span>
                                     <span className="text">Tests</span>
                                 </a>
-                                <ul
-                                    className="sidebar-submenu"
+                                <ul className="sidebar-submenu"
                                     style={{
                                         display: isTestsOpen ? "block" : "none",
                                         paddingLeft: "20px",
@@ -179,7 +215,7 @@ function TrainerSidebar() {
                                         </Link>
                                     </li>
                                     <li className="sidebar-submenu__item">
-                                        <Link to="/trainer-viewtests" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                        <Link to="" className="sidebar-submenu__link" style={submenuLinkStyle}>
                                             View Tests
                                         </Link>
                                     </li>
