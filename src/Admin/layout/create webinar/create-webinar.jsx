@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TimezoneSelect from "react-timezone-select";
 
@@ -13,33 +13,65 @@ function CreateWebinarPage() {
     const [responseMessage, setResponseMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [timezone, setTimezone] = useState("");
+    const [courseLevel, setCourseLevel] = useState("");
+    const [trainers, setTrainers] = useState([]);
+    const [courses, setCourses] = useState([]);
+    
+    // New state variables for selected IDs
+    const [selectedTrainerId, setSelectedTrainerId] = useState("");
+    const [selectedCourseId, setSelectedCourseId] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const meetingData = {
-            webinarTitle,
-            trainerName,
-            startDate,
-            startTime,
-            endTime,
-            category,
-            course,
-            timezone,
+    useEffect(() => {
+        const fetchTrainers = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}trainer/getTrainers`);
+                setTrainers(response.data.trainers);
+            } catch (error) {
+                console.error("Error fetching trainers:", error);
+            }
         };
 
-        try {
-            const response = await axios.post("https://lms-backend-ylpd.onrender.com/meeting/createMeeting", meetingData);
-            setResponseMessage("Meeting created successfully!");
-            setShowModal(true);
-        } catch (error) {
-            setResponseMessage("Error creating meeting.");
-            setShowModal(true);
-        }
-    };
+        fetchTrainers();
+    }, []);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BASE_URL}courses/getAllCourses`);
+                setCourses(response.data.courses);
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+            }
+        };
+
+        fetchCourses();
+    }, []);
 
     const closeModal = () => {
         setShowModal(false);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent the default form submission
+        const webinarData = {
+            webinarTitle: webinarTitle,
+            date: startDate,
+            time: startTime,
+            course: selectedCourseId,
+            courseLevel: courseLevel,
+            timeZone: timezone,
+            trainerName: selectedTrainerId
+        };
+
+        try {
+            const response = await axios.post("http://192.168.1.12:4000/webinar/createWebinar", webinarData);
+            setResponseMessage("created webinar");
+            setShowModal(true);
+        } catch (error) {
+            console.error("Error creating webinar:", error);
+            setResponseMessage("Failed to create webinar.");
+            setShowModal(true);
+        }
     };
 
     return (
@@ -71,13 +103,20 @@ function CreateWebinarPage() {
                                     <label className="form-label fw-semibold text-primary-light text-sm mb-8">
                                         Trainer Name:
                                     </label>
-                                    <input
-                                        type="text"
-                                        className="form-control radius-8"
-                                        placeholder="Enter Trainer Name"
+                                    <select
+                                        className="form-select radius-8"
                                         value={trainerName}
-                                        onChange={(e) => setTrainerName(e.target.value)}
-                                    />
+                                        onChange={(e) => {
+                                            setTrainerName(e.target.value);
+                                            const selectedTrainer = trainers.find(trainer => trainer.firstname === e.target.value);
+                                            setSelectedTrainerId(selectedTrainer ? selectedTrainer._id : "");
+                                        }}
+                                    >
+                                        <option value="" disabled>Select Trainer</option>
+                                        {trainers.map((trainer) => (
+                                            <option key={trainer._id} value={trainer.firstname}>{trainer.firstname}&nbsp;{trainer.lastname}</option>
+                                        ))}
+                                    </select>
                                 </div>
 
                                 {/* Start Date */}
@@ -119,30 +158,6 @@ function CreateWebinarPage() {
                                     />
                                 </div>
 
-                                {/* Categories */}
-                                <div className="col-md-6 mb-20">
-                                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">Category:</label>
-                                    <select
-                                        className="form-select py-9 text-15"
-                                        value={category}
-                                        onChange={(e) => setCategory(e.target.value)}
-                                    >
-                                        <option value="" disabled>
-                                            Select Category
-                                        </option>
-                                            <option value="Web Development">Web Development</option>
-                                            <option value="Web Designing">Web Designing</option>
-                                            <option value="Data Science">Data Science</option>
-                                            <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                            <option value="Cloud Computing">Cloud Computing</option>
-                                            <option value="Database">Database</option>
-                                            <option value="Software Testing">Software Testing</option>
-                                            <option value="Data Analytics">Data Analytics</option>
-                                            <option value="Mobile App">Mobile App</option>
-                                            <option value="UI/UX">UI/UX</option>
-                                            <option value="UI/UX">Cyber Security</option>
-                                    </select>
-                                </div>
 
                                 {/* Courses */}
                                 <div className="col-md-6 mb-20">
@@ -150,20 +165,31 @@ function CreateWebinarPage() {
                                     <select
                                         className="form-select py-9 text-15"
                                         value={course}
-                                        onChange={(e) => setCourse(e.target.value)}
+                                        onChange={(e) => {
+                                            setCourse(e.target.value);
+                                            const selectedCourse = courses.find(courseItem => courseItem.courseTitle === e.target.value);
+                                            setSelectedCourseId(selectedCourse ? selectedCourse._id : "");
+                                        }}
                                     >
                                         <option value="" disabled>
                                             Select Course
                                         </option>
-                                        <option value="React Js">React Js</option>
-                                        <option value="Node Js">Node Js</option>
-                                        <option value="Java">Java</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                        <option value="Data Science">Data Science</option>
-                                        <option value="Data Analytics">Data Analytics</option>
-                                        <option value="Cyber Security">Cyber Security</option>
+                                        {courses.map((courseItem) => (
+                                            <option key={courseItem._id} value={courseItem.courseTitle}>{courseItem.courseTitle}</option>
+                                        ))}
                                     </select>
+                                </div>
+
+                                {/* Course Level */}
+                                <div className="col-md-6 mb-20">
+                                    <label className="form-label fw-semibold text-primary-light text-sm mb-8">Course Level:</label>
+                                    <input
+                                        type="text"
+                                        className="form-control radius-8"
+                                        placeholder="Enter Course Level"
+                                        value={courseLevel}
+                                        onChange={(e) => setCourseLevel(e.target.value)}
+                                    />
                                 </div>
 
                                 {/* Time Zone */}

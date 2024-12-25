@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 
+
 function AdminCoursesList() {
     const [categories, setCategories] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -10,12 +11,13 @@ function AdminCoursesList() {
     const location = useLocation();
     const selectedCategory = location.state?.selectedCategory || null;
 
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(
-                    "https://lms-backend-ylpd.onrender.com/courses/getAllCourses"
-                );
+                const response = await axios.get(`${baseURL}courses/getAllCourses`);
                 const data = response.data;
                 const uniqueCategories = [
                     ...new Set(data.courses.map((course) => course.level)),
@@ -108,7 +110,7 @@ function AdminCoursesList() {
                                                         ({course.reviews})
                                                     </span>
                                                 </div>
-                                                <Link to="/admin-viewcourses"
+                                                <Link to={`/admin-viewcourses?id=${course._id}`}
                                                     className="btn btn-outline-main rounded-pill py-9"
                                                 >
                                                     View Details

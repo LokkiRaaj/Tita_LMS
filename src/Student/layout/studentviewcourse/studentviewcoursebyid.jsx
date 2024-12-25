@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Certi from "../../../Dummy.jpg"
 
-function AdminviewCoursesPage() {
+function Studentviewcoursebyid() {
     const [courseDetails, setCourseDetails] = useState(null); // State to hold course details
     const query = new URLSearchParams(useLocation().search); // Get query parameters
     const courseId = query.get("id"); // Extract the course ID from the query parameters
@@ -238,4 +238,4 @@ function AdminviewCoursesPage() {
     );
 }
 
-export default AdminviewCoursesPage;
+export default Studentviewcoursebyid;

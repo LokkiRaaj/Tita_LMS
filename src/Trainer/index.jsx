@@ -12,6 +12,7 @@ import TrainerMaterials from "./components/materials";
 import TrainercreateProjects from "./components/create-projects";
 import TrainerviewMaterials from "./components/view-materilas";
 import CreateTest from "./components/create-test";
+import Trainerviewcourse from "./components/trainercourseview";
 
 
 
@@ -31,6 +32,8 @@ function Trainer() {
                 <Route path="trainer-readingmaterials" element={<TrainerviewMaterials />} />
                 <Route path="trainer-createprojects" element={<TrainercreateProjects />} />
                 <Route path="trainer-createtests" element={<CreateTest />} />
+                <Route path="/trainer-viewcourses" element={<Trainerviewcourse />} />
+
             </Routes>
         </Router>
     );
