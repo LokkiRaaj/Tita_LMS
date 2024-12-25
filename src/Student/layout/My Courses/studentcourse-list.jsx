@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const courses = [
     {
@@ -87,7 +88,7 @@ function StudentmyCoursesList() {
                                                 <span className="text-13 fw-bold text-gray-600">{course.rating}</span>
                                                 <span className="text-13 fw-bold text-gray-600">{course.reviews}</span>
                                             </div>
-                                            <a href={course.buttonLink} className="btn btn-outline-main rounded-pill py-9">View Details</a>
+                                            <Link to={`/student-viewcourses?id=${course._id}`}>   <a  className="btn btn-outline-main rounded-pill py-9">View Details</a></Link> 
                                         </div>
                                     </div>
                                 </div>

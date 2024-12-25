@@ -17,6 +17,8 @@ function AdminSidebar() {
         setIsWebinarOpen((prevState) => !prevState);
     };
 
+
+
     const toggleCouresDropdown = () => {
         setIsCourseOpen((prevState) => !prevState);
     };

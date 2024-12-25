@@ -1,12 +1,20 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 function AdminHeader() {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
     return (
         <>
             <div className="top-navbar flex-between gap-16">
                 <div className="flex-align gap-16">
-                    <button type="button" className="toggle-btn d-xl-none d-flex text-26 text-gray-500"><i className="ph ph-list" /></button>
+                    <button type="button" className="toggle-btn d-xl-none d-flex text-26 text-gray-500" onClick={toggleSidebar}><i className="ph ph-list" /></button>
                 </div>
                 <div className="flex-align gap-16">
                     <div className="dropdown">
@@ -53,6 +61,12 @@ function AdminHeader() {
                     {/* User Profile Start */}
                 </div>
             </div>
+            {isSidebarOpen && (
+                <div className="sidebar">
+                    {/* Sidebar content goes here */}
+                    <button onClick={toggleSidebar}>Close Sidebar</button>
+                </div>
+            )}
         </>
     );
 }

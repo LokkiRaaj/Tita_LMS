@@ -11,6 +11,7 @@ import StudentDoubtSession from "./componets/doubt-session";
 import StudentTests from "./componets/tests";
 import StudentTechnicalSupport from "./componets/technical-support";
 import StudentviewTest from "./componets/view-test";
+import Studentviewcourse from "./componets/studentviewcourse";
 import StudentprofileSettings from "./componets/profile-settings";
 
 
@@ -30,6 +31,7 @@ function Students() {
                 <Route path="student-technicalsupport" element={<StudentTechnicalSupport />} />
                 <Route path="student-starttests" element={<StudentviewTest />} />
                 <Route path="student-profilesettings" element={<StudentprofileSettings />} />
+                <Route path="/student-viewcourses" element={<Studentviewcourse/>} />
             </Routes>
         </Router>
     );

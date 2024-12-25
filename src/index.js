@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import App from './main';
+
 import Admin from './Admin';
 import Trainer from './Trainer';
 import Students from './Student/indext';
@@ -10,7 +10,7 @@ import Students from './Student/indext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+   
     <Admin />
     <Trainer />
     <Students />
