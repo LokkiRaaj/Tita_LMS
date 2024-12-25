@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import DashboardSidebar from "../../common/sidebar";
-import Header from "../../common/header";
+import AdminSidebar from "../../common/sidebar";
+import AdminHeader from "../../common/header";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function CreatenewTrainer() {
     const [image, setImage] = useState(null);
@@ -55,7 +56,7 @@ function CreatenewTrainer() {
         files.forEach(file => {
             formData.append('resume', file); // Append each file as resume
         });
-        
+
         // Format the selectedCourses array for submission
         const formattedCourses = selectedCourses.map(course => course); // Change to directly map courses
 
@@ -66,7 +67,7 @@ function CreatenewTrainer() {
 
         formData.append('city', document.getElementById('zip').value);
 
-        try{
+        try {
             const response = await axios.post('https://lms-backend-ylpd.onrender.com/trainer/createTrainer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -74,7 +75,7 @@ function CreatenewTrainer() {
             });
             console.log(response.data); // Handle success response
             toast.success("Trainer created successfully!"); // Success toast
-            
+
             // Reset all input fields
             setImage(null);
             setFiles([]);
@@ -101,9 +102,9 @@ function CreatenewTrainer() {
         <>
             <ToastContainer />
             <div>
-                <DashboardSidebar />
+                <AdminSidebar />
                 <div className="dashboard-main-wrapper">
-                    <Header />
+                    <AdminHeader/>
                     <div className="dashboard-body">
 
                         <div className="breadcrumb mb-24">
@@ -196,12 +197,12 @@ function CreatenewTrainer() {
                                                 <div className="col-sm-6 col-xs-6">
                                                     <label htmlFor="course" className="form-label mb-8 h6">Select Course</label>
                                                     <div className="col-12">
-                                                        {["React js", "Node", "Microsoft office", "AI", "Data science", "Data analytics", "Cyber security"].map((course, index) => (
+                                                        {["React Js", "Node Js", "Java", "Python", "AI", "Data science", "Data analytics", "Cyber security"].map((course, index) => (
                                                             <div key={index} className="form-check">
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    id={`courseCheckbox${index}`} 
-                                                                    className="form-check-input" 
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={`courseCheckbox${index}`}
+                                                                    className="form-check-input"
                                                                     onChange={(e) => handleCourseChange(course, e.target.checked)}
                                                                 />
                                                                 <label htmlFor={`courseCheckbox${index}`} className="form-check-label">{course}</label>
