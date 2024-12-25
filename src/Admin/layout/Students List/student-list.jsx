@@ -6,6 +6,7 @@ function StudentsList() {
             name: "Lokkesh",
             email: "lokkesh@gmail.com",
             mobilenumber: "9876543210",
+            batch: "Batch 1",
             enrollcourses: "AI, Data Science",
             certificates: 2,
             status: "Completed",
@@ -15,6 +16,7 @@ function StudentsList() {
             name: "Guy Hawkins",
             email: "example11@mail.com",
             mobilenumber: "1234567890",
+            batch: "Batch 2",
             enrollcourses: "React js, Node js, AI",
             certificates: 3,
             status: "In Progress",
@@ -28,18 +30,10 @@ function StudentsList() {
                 <table id="studentTable" className="table table-striped">
                     <thead>
                         <tr style={{ borderBottom: "1px solid #ccc" }}>
-                            <th className="fixed-width">
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input border-gray-200 rounded-4"
-                                        type="checkbox"
-                                        id="selectAll"
-                                    />
-                                </div>
-                            </th>
                             <th className="h6 text-gray-300">Students</th>
                             <th className="h6 text-gray-300">Email ID</th>
                             <th className="h6 text-gray-300">Mobile Number</th>
+                            <th className="h6 text-gray-300">Batch</th>
                             <th className="h6 text-gray-300">Enroll Courses</th>
                             <th className="h6 text-gray-300">Certificates</th>
                             <th className="h6 text-gray-300">Status</th>
@@ -48,14 +42,6 @@ function StudentsList() {
                     <tbody>
                         {students.map((student, index) => (
                             <tr key={index}>
-                                <td className="fixed-width">
-                                    <div className="form-check">
-                                        <input
-                                            className="form-check-input border-gray-200 rounded-4"
-                                            type="checkbox"
-                                        />
-                                    </div>
-                                </td>
                                 <td>
                                     <div className="flex-align gap-8">
                                         <img
@@ -80,6 +66,11 @@ function StudentsList() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
+                                        {student.batch}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className="h6 mb-0 fw-medium text-gray-300">
                                         {student.enrollcourses}
                                     </span>
                                 </td>
@@ -90,18 +81,16 @@ function StudentsList() {
                                 </td>
                                 <td>
                                     <span
-                                        className={`text-13 py-2 px-8 ${
-                                            student.status === "Completed"
+                                        className={`text-13 py-2 px-8 ${student.status === "Completed"
                                                 ? "bg-success-50 text-success-600"
                                                 : "bg-warning-50 text-warning-600"
-                                        } d-inline-flex align-items-center gap-8 rounded-pill`}
+                                            } d-inline-flex align-items-center gap-8 rounded-pill`}
                                     >
                                         <span
-                                            className={`w-6 h-6 ${
-                                                student.status === "Completed"
+                                            className={`w-6 h-6 ${student.status === "Completed"
                                                     ? "bg-success-600"
                                                     : "bg-warning-600"
-                                            } rounded-circle flex-shrink-0`}
+                                                } rounded-circle flex-shrink-0`}
                                         />
                                         {student.status}
                                     </span>

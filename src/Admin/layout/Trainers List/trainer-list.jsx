@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { 
-    ChevronLeftIcon, 
-    ChevronRightIcon 
+import {
+    ChevronLeftIcon,
+    ChevronRightIcon
 } from '@heroicons/react/24/outline';
 import TrainerEditModal from '../Trainers List/traineredit';
 
@@ -25,7 +25,7 @@ function TrainerList() {
                     limit: itemsPerPage
                 }
             });
-            
+
             setTrainers(response.data.trainers);
             setTotalPages(Math.ceil(response.data.total / itemsPerPage));
             setCurrentPage(page);
@@ -51,14 +51,14 @@ function TrainerList() {
     const handleDeleteTrainer = async (trainerId) => {
         try {
             await axios.delete(`https://lms-backend-ylpd.onrender.com/trainer/deleteTrainer/${trainerId}`);
-            
+
             // Refresh the list
             if (trainers.length === 1 && currentPage > 1) {
                 fetchTrainers(currentPage - 1);
             } else {
                 fetchTrainers(currentPage);
             }
-            
+
             alert("Trainer deleted successfully");
         } catch (error) {
             console.error("Error deleting trainer:", error);
@@ -68,8 +68,8 @@ function TrainerList() {
 
     // Handler to update trainer in the list after edit
     const handleUpdateTrainer = (updatedTrainer) => {
-        setTrainers(prevTrainers => 
-            prevTrainers.map(trainer => 
+        setTrainers(prevTrainers =>
+            prevTrainers.map(trainer =>
                 trainer._id === updatedTrainer._id ? updatedTrainer : trainer
             )
         );
@@ -101,8 +101,8 @@ function TrainerList() {
                         onClick={() => handlePageChange(i)}
                         className={`
                             px-4 py-2 mx-1 rounded-md 
-                            ${currentPage === i 
-                                ? 'bg-primary text-white' 
+                            ${currentPage === i
+                                ? 'bg-primary text-white'
                                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}
                             transition-colors duration-200 ease-in-out
                         `}
@@ -123,8 +123,8 @@ function TrainerList() {
                     className={`
                         flex items-center justify-center 
                         p-2 rounded-md 
-                        ${currentPage === 1 
-                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                        ${currentPage === 1
+                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                         transition-colors duration-200 ease-in-out
                     `}
@@ -145,8 +145,8 @@ function TrainerList() {
                     className={`
                         flex items-center justify-center 
                         p-2 rounded-md 
-                        ${currentPage === totalPages 
-                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                        ${currentPage === totalPages
+                            ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
                         transition-colors duration-200 ease-in-out
                     `}
@@ -166,11 +166,6 @@ function TrainerList() {
                         <table id="studentTable" className="table table-striped">
                             <thead>
                                 <tr style={{ borderBottom: '1px solid #ccc' }}>
-                                    <th className="fixed-width">
-                                        <div className="form-check">
-                                            <input className="form-check-input border-gray-200 rounded-4" type="checkbox" id="selectAll" />
-                                        </div>
-                                    </th>
                                     <th className="h6 text-gray-300">Trainer Name</th>
                                     <th className="h6 text-gray-300">Email ID</th>
                                     <th className="h6 text-gray-300">Phone</th>
@@ -183,11 +178,6 @@ function TrainerList() {
                             <tbody>
                                 {trainers.map((trainer) => (
                                     <tr key={trainer._id}>
-                                        <td className="fixed-width">
-                                            <div className="form-check">
-                                                <input className="form-check-input border-gray-200 rounded-4" type="checkbox" />
-                                            </div>
-                                        </td>
                                         <td>
                                             <div className="flex-align gap-8">
                                                 <img src={trainer.image} alt={trainer.firstname} className="w-40 h-40 rounded-circle" />
@@ -205,12 +195,12 @@ function TrainerList() {
                                         </td>
                                         <td>
                                             <ul className="list-unstyled mb-0">
-                                                {trainer.myCourse && 
-                                                 trainer.myCourse.toString().split(',').map((course, index) => (
-                                                    <li key={index} className="h6 mb-0 fw-medium text-gray-300">
-                                                        {course.trim().replace(/["\[\]]/g, '')}
-                                                    </li>
-                                                ))}
+                                                {trainer.myCourse &&
+                                                    trainer.myCourse.toString().split(',').map((course, index) => (
+                                                        <li key={index} className="h6 mb-0 fw-medium text-gray-300">
+                                                            {course.trim().replace(/["\[\]]/g, '')}
+                                                        </li>
+                                                    ))}
                                             </ul>
                                         </td>
                                         <td>
@@ -218,15 +208,15 @@ function TrainerList() {
                                         </td>
                                         <td>
                                             <div className="d-flex gap-2">
-                                                <button 
-                                                    onClick={() => handleEditTrainer(trainer)} 
+                                                <button
+                                                    onClick={() => handleEditTrainer(trainer)}
                                                     className="btn btn-sm btn-primary"
                                                 >
                                                     Edit
                                                 </button>
-                                                <button 
-                                                    onClick={() => handleDeleteTrainer(trainer._id)} 
-                                                    className="btn btn-sm btn-danger" style={{background: "#0A0909"}}
+                                                <button
+                                                    onClick={() => handleDeleteTrainer(trainer._id)}
+                                                    className="btn btn-sm btn-danger" style={{ background: "#0A0909" }}
                                                 >
                                                     Delete
                                                 </button>
@@ -241,7 +231,7 @@ function TrainerList() {
                         <Link to="/admin-createtrainer">
                             <button className="btn btn-primary">Create New Trainer</button>
                         </Link>
-                        
+
                         {/* Pagination Component */}
                         {totalPages > 1 && renderPagination()}
                     </div>
