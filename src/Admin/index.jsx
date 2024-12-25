@@ -13,6 +13,7 @@ import AdminWebinarPage from "./componets/webinar";
 import AdmincreateWebinar from "./componets/createnew-webinar";
 import AdminTechnicalSupport from "./componets/technical-support";
 import AdminviewCourses from "./componets/view-courses";
+import ProfileSettings from "./componets/profile-settings";
 
 
 function Admin() {
@@ -32,6 +33,7 @@ function Admin() {
                 <Route path="admin-createwebinar" element={<AdmincreateWebinar />} />
                 <Route path="admin-technicalsupport" element={<AdminTechnicalSupport />} />
                 <Route path="admin-viewcourses" element={<AdminviewCourses />} />
+                <Route path="admin-profilesettings" element={<ProfileSettings />} />
             </Routes>
         </Router>
     );
