@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
-function StudentWebinarCalendar() {
+function WebinarCalendar() {
     const [webinars, setWebinars] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [isPopupVisible, setPopupVisible] = useState(false);
@@ -13,7 +13,7 @@ function StudentWebinarCalendar() {
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                const response = await fetch("https://lms-backend-ylpd.onrender.com/meeting/getMeeting");
+                const response = await fetch(`http://192.168.1.12:4000/webinar/getWebinar`);
                 if (!response.ok) throw new Error("Failed to fetch meetings");
                 const data = await response.json();
                 setWebinars(data);
@@ -27,7 +27,7 @@ function StudentWebinarCalendar() {
     // Transform webinars data to fit the calendar format
     const events = webinars.map(webinar => ({
         id: webinar._id,
-        title: webinar.meetingTitle,
+        title: webinar.webinarTitle,
         start: new Date(webinar.date),
         end: new Date(new Date(webinar.date).getTime() + 60 * 60 * 1000), // Assuming 1-hour duration
         allDay: false,
@@ -151,4 +151,4 @@ function StudentWebinarCalendar() {
     );
 }
 
-export default StudentWebinarCalendar;
+export default WebinarCalendar;

@@ -1,49 +1,72 @@
-import React, { useState } from "react";
-import emailjs from 'emailjs-com';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import SendIcon from "@mui/icons-material/Send";
 
 function StudentTechnicalSupportForm() {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const [submittedData, setSubmittedData] = useState(null); // To store form data
-    const [showMessage, setShowMessage] = useState(false); // Show message after form submission
-    const [showData, setShowData] = useState(false); // Show student data after clicking "OK"
-    const [viewTicketsClicked, setViewTicketsClicked] = useState(false); // Track if the "View Details" button was clicked
+    const [submittedData, setSubmittedData] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
+    const [showData, setShowData] = useState(false);
+    const [ticketsData, setTicketsData] = useState([]);
+    const [viewTicketsClicked, setViewTicketsClicked] = useState(false);
 
-    const sendEmail = (e) => {
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: '2-digit' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options).replace(',', '');
+    };
+
+    const sendSupportRequest = async (e) => {
         e.preventDefault();
         setLoading(true);
         setMessage('');
+
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        emailjs
-            .sendForm(
-                'service_iv213rq',
-                'template_49hd6gg',
-                e.target,
-                'KihpimgRRDcpebcJk'
-            )
-            .then(
-                () => {
-                    setLoading(false);
-                    setMessage('Email sent successfully!');
-                    setSubmittedData(data); // Store submitted data
-                    setShowMessage(true); // Show message after successful submission
-                },
-                (error) => {
-                    setLoading(false);
-                    setMessage('Error sending email. Please try again later.');
-                    console.error('Error:', error.text);
-                }
+        const payload = {
+            clientId: data.client_id,
+            firstname: data.first_name,
+            lastname: data.last_name,
+            emailId: data.email_from,
+            message: data.message,
+        };
+console.log(payload)
+        try {
+            const response = await axios.post(`${baseURL}technicalSupport/createTechnicalSupport`,
+          
+                payload
             );
-    };
+            setLoading(false);
+            setMessage('Technical support request submitted successfully!');
+            setSubmittedData(data);
+            setShowMessage(true);
 
-    const handleViewTicketsClick = () => {
-        setShowMessage(false); // Hide message
-        setShowData(true); // Show student data
+        } catch (error) {
+            setLoading(false);
+            setMessage('Error submitting the support request. Please try again later.');
+            console.error('Error:', error.response?.data || error.message);
+        }
     };
+    console.log(submittedData, "check")
 
+    const handleViewTicketsClick = async () => {
+        setViewTicketsClicked(true);
+        setShowMessage(false); // Hide submission success message
+        setShowData(true); // Show table data
+
+        try {
+            const response = await axios.get(`${baseURL}technicalSupport/getTechnicalSupports`);
+            console.log("Fetched tickets data:", response.data); // Log the entire response
+            setTicketsData(response.data.tickets || []);
+        } catch (error) {
+            console.error("Error fetching tickets:", error.response?.data || error.message);
+        }
+    };
+    console.log(ticketsData)
 
     return (
         <div className="container my-20">
@@ -59,9 +82,50 @@ function StudentTechnicalSupportForm() {
                 </div>
                 <div className="card-body py-10">
                     {viewTicketsClicked && !showMessage ? (
-                        <div className="text-center">
-                            <div className="alert alert-info" role="alert">
-                                Please fill out the form below, and click "Send" when done. You will see your details after submission.
+                        <div className="card overflow-hidden">
+                            <div className="card-body p-0 overflow-x-auto">
+                                <table id="studentTable" className="table table-striped">
+                                    <thead>
+                                        <tr style={{ borderBottom: "1px solid #ccc" }}>
+                                            <th>Client Id</th>
+                                            <th>Name</th>
+                                            <th>Email ID</th>
+                                            <th>Issues</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        {Array.isArray(ticketsData) && ticketsData.length > 0 ? ticketsData.map((ticket) => (
+                                            <tr key={ticket._id}>
+                                                <td style={{ color: 'black' }}>{ticket.clientId}</td>
+                                                <td style={{ color: 'black' }}>{ticket.firstname}&nbsp;{ticket.lastname}</td>
+                                                <td style={{ color: 'black' }}>{ticket.emailId}</td>
+                                                <td style={{ color: 'black' }}>{formatDate(ticket.createdAt)}</td>
+
+                                                <td>
+                                                    <span
+                                                        className={`text-13 py-2 px-8 ${ticket.status === "Created"
+                                                            ? "bg-success-50 text-success-600"
+                                                            : "bg-warning-50 text-warning-600"
+                                                            } d-inline-flex align-items-center gap-8 rounded-pill`}
+                                                    >
+                                                        <span
+                                                            className={`w-6 h-6 ${ticket.status === "Created"
+                                                                ? "bg-danger-600"
+                                                                : "bg-warning-600"
+                                                                } rounded-circle flex-shrink-0`}
+                                                        />
+                                                        {ticket.status }
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr>
+                                                <td colSpan="6" className="text-center">No tickets available.</td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     ) : showMessage ? (
@@ -70,74 +134,8 @@ function StudentTechnicalSupportForm() {
                                 Thank you for reaching out! Our support team will contact you shortly.
                             </div>
                         </div>
-                    ) : showData ? (
-                        <div className="card overflow-hidden">
-                            <div className="card-body p-0 overflow-x-auto">
-                                <table id="studentTable" className="table table-striped">
-                                    <thead>
-                                        <tr style={{ borderBottom: "1px solid #ccc" }}>
-
-                                            <th className="h6 text-gray-300">First Name</th>
-                                            <th className="h6 text-gray-300">Last Name</th>
-                                            <th className="h6 text-gray-300">Batch</th>
-                                            <th className="h6 text-gray-300">Email ID</th>
-                                            <th className="h6 text-gray-300">Issues</th>
-                                            <th className="h6 text-gray-300">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr>
-
-                                            <td>
-                                                <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.first_name}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.last_name}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.batch}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.email_from}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.message}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    className={`text-13 py-2 px-8 ${submittedData?.status === "Solve the Issue"
-                                                        ? "bg-success-50 text-success-600"
-                                                        : "bg-warning-50 text-warning-600"
-                                                        } d-inline-flex align-items-center gap-8 rounded-pill`}
-                                                >
-                                                    <span
-                                                        className={`w-6 h-6 ${submittedData?.status === "Solve the Issue"
-                                                            ? "bg-success-600"
-                                                            : "bg-warning-600"
-                                                            } rounded-circle flex-shrink-0`}
-                                                    />
-                                                    {submittedData?.status}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="card-footer flex-between flex-wrap"></div>
-                        </div>
                     ) : (
-                        <form onSubmit={sendEmail}>
+                        <form onSubmit={sendSupportRequest}>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="firstName" className="form-label">First Name :</label>
@@ -164,32 +162,28 @@ function StudentTechnicalSupportForm() {
                             </div>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
-                                    <label htmlFor="batch" className="form-label">Your Batch :</label>
-                                    <select
-                                        name="batch"
-                                        id="batch"
-                                        className="form-control"
-                                        required
-                                    >
-                                        <option value="">Select Your Batch</option>
-                                        <option value="Batch 1">Batch 1</option>
-                                        <option value="Batch 2">Batch 2</option>
-                                        <option value="Batch 3">Batch 3</option>
-                                        <option value="Batch 4">Batch 4</option>
-                                        <option value="Batch 5">Batch 5</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-6 mb-3">
-                                    <label htmlFor="email" className="form-label">Your Email ID :</label>
+                                    <label htmlFor="clientid" className="form-label">Your Client ID :</label>
                                     <input
-                                        type="email"
-                                        name="email_from"
-                                        id="email"
+                                        type="text"
+                                        name="client_id"
+                                        id="clientid"
                                         className="form-control"
-                                        placeholder="person@example.com"
+                                        placeholder="Enter Your Client ID"
                                         required
                                     />
                                 </div>
+                          
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Your Email ID :</label>
+                                <input
+                                    type="email"
+                                    name="email_from"
+                                    id="email"
+                                    className="form-control"
+                                    placeholder="person@example.com"
+                                    required
+                                />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="message" className="form-label">Describe your issue :</label>
@@ -202,7 +196,7 @@ function StudentTechnicalSupportForm() {
                                 ></textarea>
                             </div>
                             <button
-                                className="btn btn-primary  my-5"
+                                className="btn btn-primary my-5"
                                 type="submit"
                                 disabled={loading}
                             >

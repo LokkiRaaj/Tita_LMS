@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function TrainerCoursesList() {
     const [categories, setCategories] = useState([]);
@@ -108,12 +108,11 @@ function TrainerCoursesList() {
                                                         ({course.reviews})
                                                     </span>
                                                 </div>
-                                                <a
-                                                    href={course.link}
+                                                <Link to={`/trainer-viewcourses?id=${course._id}`}
                                                     className="btn btn-outline-main rounded-pill py-9"
                                                 >
                                                     View Details
-                                                </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>

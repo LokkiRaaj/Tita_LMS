@@ -69,7 +69,7 @@ function AdmincreateCourses() {
         }
 
         try {
-            const response = await axios.post('https://lms-backend-ylpd.onrender.com/courses/createCourse', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}courses/createCourse`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

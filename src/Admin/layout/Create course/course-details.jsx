@@ -29,6 +29,7 @@ function CourseDetails({ onContinue }) {
             courseCategory: formData.category,
             courseThumbnail: formData.thumbnail,
             courseDuration: parseInt(formData.time) || 0,
+            courseLevel: formData.level,
         };
 
         console.log("Course details data:", courseDetails);
@@ -99,8 +100,7 @@ function CourseDetails({ onContinue }) {
                                             <option value="Software Testing">Software Testing</option>
                                             <option value="Data Analytics">Data Analytics</option>
                                             <option value="Mobile App">Mobile App</option>
-                                            <option value="UI/UX">UI/UX</option>
-                                            <option value="UI/UX">Cyber Security</option>
+                                            <option value="Cyber Security">Cyber Security</option>
                                         </select>
                                     </div>
                                     <div className="col-sm-6">
