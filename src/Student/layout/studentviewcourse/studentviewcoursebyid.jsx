@@ -29,7 +29,7 @@ function Studentviewcoursebyid() {
             <div className="row gy-4">
                 {/* Left Section for Course Details */}
                 <div className="col-md-8">
-                    <div className="card">
+                    <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-lg-20 p-sm-3">
                             {/* Course Header */}
                             <div className="flex-between flex-wrap gap-12 mb-20">
@@ -51,6 +51,7 @@ function Studentviewcoursebyid() {
                                         className="player"
                                         playsInline
                                         controls
+                                        controlsList="nodownload"
                                         style={{ width: "100%", height: "auto", objectFit: "cover" }}
                                     >
                                         <source src={courseDetails.courseVideo} type="video/mp4" />
@@ -69,10 +70,29 @@ function Studentviewcoursebyid() {
                                     <h5 className="mb-12 fw-bold">About this course</h5>
                                     <p className="text-gray-300 text-15">{courseDetails?.courseDescription}</p>
                                 </div>
+                            </div>
+
+                            <div className="mt-24">
+                                <div className="mb-24 pb-24 border-bottom border-gray-100">
+                                    <h5 className="mb-12 fw-bold">Why You Should Join: </h5>
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> Introduction to React and JSX</li>
+                                        <li> Components, Props, and State</li>
+                                        <li> React Hooks (useState, useEffect, etc.)</li>
+                                        <li> State management with Redux</li>
+                                        <li> Optimizing performance in React applications</li>
+                                        <li> Integration with APIs and backend systems</li>
+
+                                    </ul>
+                                </div>
 
                                 {/* Certification */}
                                 <div className="mb-24 pb-24 border-bottom border-gray-100">
                                     <h5 className="mb-12 fw-bold">Certification</h5>
+                                    <p style={{ marginBottom: '20px' }}>
+                                        Upon course completion, participants will receive a React.js Developer Certification
+                                        from TITA Technologies.
+                                    </p>
                                     <img
                                         src={Certi}
                                         alt="Certification"
@@ -169,11 +189,8 @@ function Studentviewcoursebyid() {
                                             <h6 className="text-15 fw-bold mb-0">Testing</h6>
                                             <span className="text-13 text-gray-300">Web Design Instructor</span>
                                             <div className="flex-align gap-4 mt-4">
-                                                <span className="text-15 fw-bold text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-13 fw-bold text-gray-600">4.9</span>
-                                                <span className="text-13 fw-bold text-gray-300">(12k)</span>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -186,7 +203,7 @@ function Studentviewcoursebyid() {
                 {/* Right Section for Next Batch and Study Materials */}
                 <div className="col-md-4">
                     {/* Study Materials Section */}
-                    <div className="card">
+                    <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-0">
                             <div className="course-item">
                                 <button
@@ -230,9 +247,113 @@ function Studentviewcoursebyid() {
                                     </ul>
                                 </div>
                             </div>
+
+                        </div>
+
+
+
+                       
+                    </div>
+
+                    {/* SKey feature */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
+                        <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">Key Features</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> Introduction to React and JSX</li>
+                                        <li> Components, Props, and State</li>
+                                        <li> React Hooks (useState, useEffect, etc.)</li>
+                                        <li> State management with Redux</li>
+                                        <li> Optimizing performance in React applications</li>
+                                        <li> Integration with APIs and backend systems</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                         {/*who can enroll */}
+                         <div className="card" style={{ marginBottom: '20px' }}>
+                     <div className="card-body p-0">
+                        <div className="course-item">
+                            <button
+                                type="button"
+                                className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                            >
+                                <span className="d-block text-start">
+                                    <span className="d-block h5 mb-0 text-line-1">Who can enroll</span>
+                                </span>
+                                <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                    <i className="ph ph-arrow-right" />
+                                </span>
+                            </button>
+                            <div className="course-item-dropdown active border-bottom border-gray-100">
+                            <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                <li> Frontend developers</li>
+                                <li> Web developers looking to upgrade skills</li>
+                                <li> Students aspiring to build dynamic web applications</li>
+                               
+
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+
+
+                     {/* IT Skills Covered */}
+                     <div className="card" style={{ marginBottom: '20px' }}>
+                     <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">   IT Skills Covered</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> React.js</li>
+                                        <li> Redux</li>
+                                        <li>JavaScript</li>
+                                        <li> JSX</li>
+                                        <li>  HTML</li>
+                                        <li> CSS</li>
+                                        <li> Git</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+
+
+
                 </div>
+
+
+
             </div>
         </div>
     );

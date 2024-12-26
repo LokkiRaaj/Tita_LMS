@@ -11,6 +11,8 @@ function StudentTechnicalSupportForm() {
     const [ticketsData, setTicketsData] = useState([]);
     const [viewTicketsClicked, setViewTicketsClicked] = useState(false);
 
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'short', day: '2-digit' };
         const date = new Date(dateString);
@@ -34,8 +36,8 @@ function StudentTechnicalSupportForm() {
         };
 console.log(payload)
         try {
-            const response = await axios.post(
-                "http://192.168.1.12:4000/technicalSupport/createTechnicalSupport",
+            const response = await axios.post(`${baseURL}technicalSupport/createTechnicalSupport`,
+          
                 payload
             );
             setLoading(false);
@@ -57,7 +59,7 @@ console.log(payload)
         setShowData(true); // Show table data
 
         try {
-            const response = await axios.get("http://192.168.1.12:4000/technicalSupport/getTechnicalSupports");
+            const response = await axios.get(`${baseURL}technicalSupport/getTechnicalSupports`);
             console.log("Fetched tickets data:", response.data); // Log the entire response
             setTicketsData(response.data.tickets || []);
         } catch (error) {
@@ -102,18 +104,18 @@ console.log(payload)
 
                                                 <td>
                                                     <span
-                                                        className={`text-13 py-2 px-8 ${ticket.status === "Solve the Issue"
+                                                        className={`text-13 py-2 px-8 ${ticket.status === "Created"
                                                             ? "bg-success-50 text-success-600"
                                                             : "bg-warning-50 text-warning-600"
                                                             } d-inline-flex align-items-center gap-8 rounded-pill`}
                                                     >
                                                         <span
-                                                            className={`w-6 h-6 ${ticket.status === "Solve the Issue"
-                                                                ? "bg-success-600"
+                                                            className={`w-6 h-6 ${ticket.status === "Created"
+                                                                ? "bg-danger-600"
                                                                 : "bg-warning-600"
                                                                 } rounded-circle flex-shrink-0`}
                                                         />
-                                                        {ticket.status || "Pending"}
+                                                        {ticket.status }
                                                     </span>
                                                 </td>
                                             </tr>

@@ -84,11 +84,11 @@ function AdminSidebar() {
                                             Create Courses
                                         </Link>
                                     </li>
-                                    <li className="sidebar-submenu__item">
+                                    {/* <li className="sidebar-submenu__item">
                                         <Link to="" className="sidebar-submenu__link" style={submenuLinkStyle}>
                                             Edit Course
                                         </Link>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </li>
 
