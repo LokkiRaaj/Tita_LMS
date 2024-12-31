@@ -71,9 +71,26 @@ function Trainerviewcoursebyid() {
                                 </div>
                             </div>
 
+
+                            <div className="mt-24">
+                                <div className="mb-24 pb-24 border-bottom border-gray-100">
+                                    <h5 className="mb-12 fw-bold">Why You Should Join: </h5>
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> Introduction to React and JSX</li>
+                                        <li> Components, Props, and State</li>
+                                        <li> React Hooks (useState, useEffect, etc.)</li>
+                                        <li> State management with Redux</li>
+                                        <li> Optimizing performance in React applications</li>
+                                        <li> Integration with APIs and backend systems</li>
+
+                                    </ul>
+                                </div>
+
+
                             {/* Why You Should Join */}
                             <div className="mt-24">
                                 <div className="mb-24 pb-24 border-bottom border-gray-100">
+
                                     <h3 className="mb-12 fw-bold">Why You Should Join </h3>
                                     <ul className="text-gray-300 text-18" style={{ paddingLeft: '20px' }}>
                                         {courseDetails?.whyShouldJoin?.length ? (
@@ -91,6 +108,12 @@ function Trainerviewcoursebyid() {
                                     <h3 className="mb-12 fw-bold">Certification</h3>
                                     <p className="text-gray-300 text-18" style={{ marginBottom: '20px' }}>
                                         {courseDetails?.certification}
+
+                                    <h5 className="mb-12 fw-bold">Certification</h5>
+                                    <p style={{ marginBottom: '20px' }}>
+                                        Upon course completion, participants will receive a React.js Developer Certification
+                                        from TITA Technologies.
+
                                     </p>
                                     <img
                                         src={Certi}
@@ -187,6 +210,12 @@ function Trainerviewcoursebyid() {
                                         <div className="d-flex flex-column">
                                             <h6 className="text-15 fw-bold mb-0">Testing</h6>
                                             <span className="text-13 text-gray-300">Web Design Instructor</span>
+
+                                            <div className="flex-align gap-4 mt-4">
+
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -197,6 +226,7 @@ function Trainerviewcoursebyid() {
 
                 {/* Right Section for Next Batch and Study Materials */}
                 <div className="col-md-4">
+
                     {/* What You Will Learn */}
                     <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-0">
@@ -297,6 +327,7 @@ function Trainerviewcoursebyid() {
                     </div>
 
                     {/* IT Skills Covered */}
+
                     <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-0">
                             <div className="course-item">
@@ -326,9 +357,113 @@ function Trainerviewcoursebyid() {
                                     </ul>
                                 </div>
                             </div>
+
+                        </div>
+
+
+
+                       
+                    </div>
+
+                    {/* SKey feature */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
+                        <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">Key Features</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> Introduction to React and JSX</li>
+                                        <li> Components, Props, and State</li>
+                                        <li> React Hooks (useState, useEffect, etc.)</li>
+                                        <li> State management with Redux</li>
+                                        <li> Optimizing performance in React applications</li>
+                                        <li> Integration with APIs and backend systems</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
+                         {/*who can enroll */}
+                         <div className="card" style={{ marginBottom: '20px' }}>
+                     <div className="card-body p-0">
+                        <div className="course-item">
+                            <button
+                                type="button"
+                                className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                            >
+                                <span className="d-block text-start">
+                                    <span className="d-block h5 mb-0 text-line-1">Who can enroll</span>
+                                </span>
+                                <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                    <i className="ph ph-arrow-right" />
+                                </span>
+                            </button>
+                            <div className="course-item-dropdown active border-bottom border-gray-100">
+                            <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                <li> Frontend developers</li>
+                                <li> Web developers looking to upgrade skills</li>
+                                <li> Students aspiring to build dynamic web applications</li>
+                               
+
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </div>
+
+
+                     {/* IT Skills Covered */}
+                     <div className="card" style={{ marginBottom: '20px' }}>
+                     <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">   IT Skills Covered</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+                                        <li> React.js</li>
+                                        <li> Redux</li>
+                                        <li>JavaScript</li>
+                                        <li> JSX</li>
+                                        <li>  HTML</li>
+                                        <li> CSS</li>
+                                        <li> Git</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+
+
+
                 </div>
+
+
+
             </div>
         </div>
     );

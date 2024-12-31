@@ -114,7 +114,9 @@ function StudentTechnicalSupportForm() {
                                                                 : "bg-warning-600"
                                                                 } rounded-circle flex-shrink-0`}
                                                         />
+
                                                         {ticket.status}
+
                                                     </span>
                                                 </td>
                                             </tr>
