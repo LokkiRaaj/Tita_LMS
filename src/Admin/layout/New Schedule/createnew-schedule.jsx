@@ -27,7 +27,7 @@ function CreatenewSchedule() {
         };
 
         try {
-            const response = await axios.post("https://lms-backend-ylpd.onrender.com/meeting/createMeeting", meetingData);
+            const response = await axios.post("http://148.135.138.203:4000/meeting/createMeeting", meetingData);
             setResponseMessage("Meeting created successfully!");
             setShowModal(true);
         } catch (error) {

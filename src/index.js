@@ -8,12 +8,15 @@ import Trainer from './Trainer';
 import Students from './Student/indext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+
 root.render(
   <React.StrictMode>
-   
-    <Admin />
-    <Trainer />
-    <Students />
+  <Admin></Admin>
+  <Trainer></Trainer>
+  <Students></Students>
+  
   </React.StrictMode>
 );
 
@@ -21,3 +24,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+

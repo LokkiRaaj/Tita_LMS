@@ -7,91 +7,51 @@ function StudentCategories() {
             id: 1,
             image: "assets/images/thumbs/web-development.png",
             title: "Web Development",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 2,
             image: "assets/images/thumbs/web-design.png",
             title: "Web Designing",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 3,
             image: "assets/images/thumbs/data-science.png",
             title: "Data Science",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 4,
             image: "assets/images/thumbs/ai.png",
             title: "Artificial Intelligence",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 5,
             image: "assets/images/thumbs/cloud-computing.png",
             title: "Cloud Computing",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 6,
             image: "assets/images/thumbs/database.png",
             title: "Database",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 7,
             image: "assets/images/thumbs/software-testing.png",
             title: "Software Testing",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 8,
             image: "assets/images/thumbs/data-analytics.png",
             title: "Data Analytics",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 9,
             image: "assets/images/thumbs/mobile-app.png",
             title: "Mobile App",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
         {
             id: 10,
             image: "assets/images/thumbs/cyber-security.png",
             title: "Cyber Security",
-            lessons: "24 Lesson",
-            hours: "40 Hours",
-            rating: "4.9",
-            reviews: "(12k)",
         },
     ];
 
@@ -122,12 +82,7 @@ function StudentCategories() {
                                                     {category.title}
                                                 </a>
                                             </h5>
-                                            <div className="flex-between gap-4 flex-wrap mt-24">
-                                                <div className="flex-align gap-4">
-                                                    <span className="text-15 fw-bold text-warning-600 d-flex"><i className="ph-fill ph-star" /></span>
-                                                    <span className="text-13 fw-bold text-gray-600">{category.rating}</span>
-                                                    <span className="text-13 fw-bold text-gray-600">{category.reviews}</span>
-                                                </div>
+                                            <div className="flex-between gap-4 flex-wrap mt-24 float-end">
                                                 <a href={category.buttonLink} className="btn btn-outline-main rounded-pill py-9">View Courses</a>
                                             </div>
                                         </div>

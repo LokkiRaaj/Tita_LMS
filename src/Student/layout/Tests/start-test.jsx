@@ -1,109 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { FaClock } from "react-icons/fa"; // Import the clock icon from react-icons
+import { useLocation } from "react-router-dom";
 
-const questionsData = [
-    {
-        question: "What is React?",
-        options: [
-            "A programming language",
-            "A framework for building mobile applications",
-            "A JavaScript library for building user interfaces",
-            "A database"
-        ],
-        correctAnswer: 2,
-    },
-    {
-        question: "Which of the following is used to create a component in React?",
-        options: [
-            "ReactDOM",
-            "React.createElement()",
-            "class or function",
-            "document.createComponent()"
-        ],
-        correctAnswer: 2,
-    },
-    {
-        question: "What is the virtual DOM in React?",
-        options: [
-            "The actual DOM in the browser",
-            "An optimized version of the real DOM",
-            "A lightweight copy of the real DOM",
-            "A library separate from React"
-        ],
-        correctAnswer: 2,
-    },
-    {
-        question: "How do you pass data to components in React?",
-        options: ["Through methods", "Using state", "Using props", "Using context only"],
-        correctAnswer: 2,
-    },
-    {
-        question: "What is the default behavior of `setState` in React?",
-        options: [
-            "It synchronously updates the state",
-            "It deletes the current state",
-            "It merges the new state with the old state",
-            "It re-renders only the root component"
-        ],
-        correctAnswer: 2,
-    },
-    {
-        question: "Which method is used to update the state in React?",
-        options: ["updateState()", "changeState()", "setState()", "refreshState()"],
-        correctAnswer: 2,
-    },
-    {
-        question: "What is JSX in React?",
-        options: [
-            "A templating language",
-            "A syntax extension for JavaScript",
-            "A JavaScript library",
-            "A type of CSS"
-        ],
-        correctAnswer: 1,
-    },
-    {
-        question: "What is the purpose of the `useEffect` hook in React?",
-        options: [
-            "To manage component state",
-            "To handle side effects in functional components",
-            "To create reusable components",
-            "To optimize rendering performance"
-        ],
-        correctAnswer: 1,
-    },
-    {
-        question: "Which statement is true about React keys?",
-        options: [
-            "They must be unique globally.",
-            "They must be unique among siblings.",
-            "They are optional in lists.",
-            "They are used to bind events."
-        ],
-        correctAnswer: 1,
-    },
-    {
-        question: "How can you optimize performance in a React application?",
-        options: [
-            "Avoid using hooks",
-            "Use React.memo and useCallback for memoization",
-            "Use inline styles for all elements",
-            "Avoid splitting components"
-        ],
-        correctAnswer: 1,
-    },
-];
-
-function StartTestpage() {
+function StartTestPage() {
+    const [questionsData, setQuestionsData] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswers, setSelectedAnswers] = useState(Array(questionsData.length).fill(null));
+    const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(3600); // 2 minutes in seconds
     const [errorMessage, setErrorMessage] = useState("");
+    const query = new URLSearchParams(useLocation().search);
+    const courseId = query.get("id");
+
+    // Fetch test data from API
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch(`http://192.168.1.11:4000/test/getTestByCourseId/${courseId}`);
+                const data = await response.json(); // Ensure the response is parsed as JSON
+
+                // Log the full response data to the console
+                console.log(data);
+
+                // Check if the response contains a 'test' array
+                if (data.success && data.test && data.test.length > 0) {
+                    const testData = data.test[0]; // Get the first item in the test array
+                    const formattedQuestions = Object.keys(testData)
+                        .filter((key) => key.startsWith("question")) // Filter keys that start with 'question'
+                        .map((key) => ({
+                            question: testData[key].question, // Access the question text
+                            options: testData[key].options, // Corrected: should be options, not option
+                            correctAnswer: testData[key].answer, // Correct answer
+                        }));
+
+                    setQuestionsData(formattedQuestions);
+                    setSelectedAnswers(Array(formattedQuestions.length).fill(null)); // Initialize selected answers
+                }
+            } catch (error) {
+                console.error("Error fetching questions:", error);
+            }
+        };
+
+        fetchQuestions();
+    }, [courseId]);
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setTimeLeft(prevTime => {
+            setTimeLeft((prevTime) => {
                 if (prevTime <= 0) {
                     clearInterval(timer);
                     setIsSubmitted(true); // Auto-submit when time runs out
@@ -111,27 +54,23 @@ function StartTestpage() {
                 }
                 return prevTime - 1;
             });
-        }, 1000); // Update every second
+        }, 1000);
 
-        return () => clearInterval(timer); // Cleanup the interval on unmount
+        return () => clearInterval(timer);
     }, []);
 
     const handleOptionChange = (index) => {
         const updatedAnswers = [...selectedAnswers];
         updatedAnswers[currentQuestionIndex] = index;
         setSelectedAnswers(updatedAnswers);
-        setErrorMessage(""); // Reset error message on selection change
+        setErrorMessage("");
     };
 
     const handleNext = () => {
-        // Check if the current answer is correct or not
         if (selectedAnswers[currentQuestionIndex] !== null) {
-            const correctAnswer = questionsData[currentQuestionIndex].correctAnswer;
-           
-        }
-
-        if (currentQuestionIndex < questionsData.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            setErrorMessage("Please select an answer before proceeding.");
         }
     };
 
@@ -149,7 +88,9 @@ function StartTestpage() {
         const attempted = selectedAnswers.filter((ans) => ans !== null).length;
         const correct = selectedAnswers.reduce(
             (count, ans, index) =>
-                ans === questionsData[index].correctAnswer ? count + 1 : count,
+                ans !== null && questionsData[index].options[ans] === questionsData[index].correctAnswer
+                    ? count + 1
+                    : count,
             0
         );
         return { attempted, correct };
@@ -158,7 +99,7 @@ function StartTestpage() {
     const formatTime = (timeInSeconds) => {
         const minutes = Math.floor(timeInSeconds / 60);
         const seconds = timeInSeconds % 60;
-        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
     };
 
     if (isSubmitted) {
@@ -185,7 +126,7 @@ function StartTestpage() {
                 <div style={{ textAlign: "center", marginTop: "20px" }}>
                     <button
                         style={{
-                            backgroundColor: isPass ? "green" : "red",
+                            backgroundColor: isPass ? "green" : "#FF001E",
                             color: "white",
                             padding: "10px 20px",
                             fontSize: "16px",
@@ -206,67 +147,85 @@ function StartTestpage() {
         <div>
             <div className="card mt-24">
                 <div className="card-body">
-                    <div className="mb-20 flex-between flex-wrap gap-8">
-                        <h4 className="mb-0"></h4>
-                    </div>
                     <div className="row">
                         <div>
-                            {/* Timer section */}
-                            <div style={{ position: "fixed", right: "50px", display: "flex", alignItems: "center" }}>
+                            <div
+                                style={{ position: "fixed", right: "50px", display: "flex", alignItems: "center" }}
+                            >
                                 <FaClock style={{ marginRight: "5px", color: "#FF001E" }} />
-                                <span style={{ fontSize: "18px", fontWeight: "bold", color: "#FF001E" }}>
+                                <span
+                                    style={{
+                                        fontSize: "18px",
+                                        fontWeight: "bold",
+                                        color: "#FF001E",
+                                    }}
+                                >
                                     {formatTime(timeLeft)}
                                 </span>
                             </div>
-
-                            <h2 style={{ textAlign: "center", color: "#FF001E" }}>
-                                Question {currentQuestionIndex + 1}
-                            </h2>
-
-                            <h2>{currentQuestion.question}</h2>
-                            <div>
-                                {currentQuestion.options.map((option, index) => (
-                                    <label
-                                        key={index}
-                                        style={{ display: "block", margin: "10px 0", cursor: "pointer" }}
+                            {currentQuestion && (
+                                <>
+                                    <h2 style={{ textAlign: "center", color: "#FF001E" }}>
+                                        Test
+                                    </h2>
+                                    <h2>{currentQuestionIndex + 1}. {currentQuestion.question}</h2>
+                                    <div>
+                                        {currentQuestion.options.map((option, index) => (
+                                            <label
+                                                key={index}
+                                                style={{
+                                                    display: "block",
+                                                    margin: "10px 0",
+                                                    cursor: "pointer",
+                                                }}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    checked={selectedAnswers[currentQuestionIndex] === index}
+                                                    onChange={() => handleOptionChange(index)}
+                                                    style={{ marginRight: "10px" }}
+                                                />
+                                                {option}
+                                            </label>
+                                        ))}
+                                    </div>
+                                    {errorMessage && (
+                                        <p style={{ color: "red", fontWeight: "bold" }}>
+                                            {errorMessage}
+                                        </p>
+                                    )}
+                                    <div
+                                        style={{
+                                            textAlign: "right",
+                                            paddingTop: "5px",
+                                        }}
                                     >
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedAnswers[currentQuestionIndex] === index}
-                                            onChange={() => handleOptionChange(index)}
-                                            style={{ marginRight: "10px" }}
-                                        />
-                                        {option}
-                                    </label>
-                                ))}
-                            </div>
-                            
-                            {/* Display error message */}
-                            {errorMessage && <p style={{ color: "red", fontWeight: "bold" }}>{errorMessage}</p>}
-
-                            <div style={{ textAlign: "right", paddingTop: "5px" }}>
-                                <button
-                                    className="btn btn-primary btn-sm float-start"
-                                    onClick={handleBack}
-                                >
-                                    Back
-                                </button>
-                                {currentQuestionIndex < questionsData.length - 1 ? (
-                                    <button
-                                        className="btn btn-primary btn-sm float-end"
-                                        onClick={handleNext}
-                                    >
-                                        Next
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn btn-primary btn-sm float-end"
-                                        onClick={handleSubmit}
-                                    >
-                                        Submit
-                                    </button>
-                                )}
-                            </div>
+                                        {currentQuestionIndex > 0 && (
+                                            <button
+                                                className="btn btn-primary btn-sm float-start"
+                                                onClick={handleBack}
+                                            >
+                                                Back
+                                            </button>
+                                        )}
+                                        {currentQuestionIndex < questionsData.length - 1 ? (
+                                            <button
+                                                className="btn btn-primary btn-sm float-end"
+                                                onClick={handleNext}
+                                            >
+                                                Next
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="btn btn-primary btn-sm float-end"
+                                                onClick={handleSubmit}
+                                            >
+                                                Submit
+                                            </button>
+                                        )}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -275,4 +234,4 @@ function StartTestpage() {
     );
 }
 
-export default StartTestpage;
+export default StartTestPage;

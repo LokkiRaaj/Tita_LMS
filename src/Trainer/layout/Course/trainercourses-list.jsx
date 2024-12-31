@@ -14,7 +14,7 @@ function TrainerCoursesList() {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get(
-                    "https://lms-backend-ylpd.onrender.com/courses/getAllCourses"
+                    "http://148.135.138.203:4000/courses/getAllCourses"
                 );
                 const data = response.data;
                 const uniqueCategories = [
@@ -79,14 +79,14 @@ function TrainerCoursesList() {
                                                 </a>
                                             </h5>
                                             <div className="flex-align gap-8 mt-12 pt-12 border-top border-gray-100">
-                                                <div className="flex-align gap-4">
+                                                {/* <div className="flex-align gap-4">
                                                     <span className="text-sm text-main-600 d-flex">
                                                         <i className="ph ph-video-camera" />
                                                     </span>
                                                     <span className="text-13 text-gray-600">
-                                                        {course.courseSeat} Seats
+                                                        {course.courseSeat} 15 Seats
                                                     </span>
-                                                </div>
+                                                </div> */}
                                                 <div className="flex-align gap-4">
                                                     <span className="text-sm text-main-600 d-flex">
                                                         <i className="ph ph-clock" />
@@ -97,17 +97,6 @@ function TrainerCoursesList() {
                                                 </div>
                                             </div>
                                             <div className="flex-between gap-4 flex-wrap mt-24">
-                                                <div className="flex-align gap-4">
-                                                    <span className="text-15 fw-bold text-warning-600 d-flex">
-                                                        <i className="ph-fill ph-star" />
-                                                    </span>
-                                                    <span className="text-13 fw-bold text-gray-600">
-                                                        {course.rating}
-                                                    </span>
-                                                    <span className="text-13 fw-bold text-gray-600">
-                                                        ({course.reviews})
-                                                    </span>
-                                                </div>
                                                 <Link to={`/trainer-viewcourses?id=${course._id}`}
                                                     className="btn btn-outline-main rounded-pill py-9"
                                                 >

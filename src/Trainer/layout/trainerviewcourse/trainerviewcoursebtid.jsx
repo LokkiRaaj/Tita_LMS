@@ -11,7 +11,7 @@ function Trainerviewcoursebyid() {
         const fetchCourseDetails = async () => {
             if (courseId) {
                 try {
-                    const response = await fetch(`https://lms-backend-ylpd.onrender.com/courses/getCourseById/${courseId}`);
+                    const response = await fetch(`http://148.135.138.203:4000/courses/getCourseById/${courseId}`);
                     const data = await response.json();
                     setCourseDetails(data.course); // Set the course details
                     console.log(data.course); // Debugging the course details
@@ -29,7 +29,7 @@ function Trainerviewcoursebyid() {
             <div className="row gy-4">
                 {/* Left Section for Course Details */}
                 <div className="col-md-8">
-                    <div className="card">
+                    <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-lg-20 p-sm-3">
                             {/* Course Header */}
                             <div className="flex-between flex-wrap gap-12 mb-20">
@@ -45,20 +45,20 @@ function Trainerviewcoursebyid() {
 
                             {/* Video Container */}
                             <div className="video-container" style={{ flex: "1", marginRight: "20px" }}>
-                                {courseDetails?.courseVideo && (
+                                {courseDetails?.courseVideo ? (
                                     <video
                                         id="player"
                                         className="player"
                                         playsInline
                                         controls
+                                        controlsList="nodownload"
                                         style={{ width: "100%", height: "auto", objectFit: "cover" }}
                                     >
                                         <source src={courseDetails.courseVideo} type="video/mp4" />
                                         <source src={courseDetails.courseVideo} type="video/webm" />
                                         Your browser does not support the video tag.
                                     </video>
-                                )}
-                                {!courseDetails?.courseVideo && (
+                                ) : (
                                     <p className="text-gray-300">No video available for this course.</p>
                                 )}
                             </div>
@@ -66,13 +66,32 @@ function Trainerviewcoursebyid() {
                             {/* About this Course */}
                             <div className="mt-24">
                                 <div className="mb-24 pb-24 border-bottom border-gray-100">
-                                    <h5 className="mb-12 fw-bold">About this course</h5>
-                                    <p className="text-gray-300 text-15">{courseDetails?.courseDescription}</p>
+                                    <h3 className="mb-12 fw-bold">About this course</h3>
+                                    <p className="text-gray-300 text-18">{courseDetails?.courseDescription}</p>
+                                </div>
+                            </div>
+
+                            {/* Why You Should Join */}
+                            <div className="mt-24">
+                                <div className="mb-24 pb-24 border-bottom border-gray-100">
+                                    <h3 className="mb-12 fw-bold">Why You Should Join </h3>
+                                    <ul className="text-gray-300 text-18" style={{ paddingLeft: '20px' }}>
+                                        {courseDetails?.whyShouldJoin?.length ? (
+                                            courseDetails.whyShouldJoin.map((reason, index) => (
+                                                <li key={index}>{reason}</li>
+                                            ))
+                                        ) : (
+                                            <p>No reasons available.</p>
+                                        )}
+                                    </ul>
                                 </div>
 
-                                {/* Certification */}
+                                {/* Certification Section */}
                                 <div className="mb-24 pb-24 border-bottom border-gray-100">
-                                    <h5 className="mb-12 fw-bold">Certification</h5>
+                                    <h3 className="mb-12 fw-bold">Certification</h3>
+                                    <p className="text-gray-300 text-18" style={{ marginBottom: '20px' }}>
+                                        {courseDetails?.certification}
+                                    </p>
                                     <img
                                         src={Certi}
                                         alt="Certification"
@@ -83,7 +102,7 @@ function Trainerviewcoursebyid() {
 
                                 {/* Course Includes Section */}
                                 <div className="mb-24 pb-24 border-bottom border-gray-100">
-                                    <h5 className="mb-16 fw-bold">This Course Includes</h5>
+                                    <h3 className="mb-16 fw-bold">This Course Includes</h3>
                                     <div className="row g-20">
                                         <div className="col-md-4 col-sm-6">
                                             <ul>
@@ -168,13 +187,6 @@ function Trainerviewcoursebyid() {
                                         <div className="d-flex flex-column">
                                             <h6 className="text-15 fw-bold mb-0">Testing</h6>
                                             <span className="text-13 text-gray-300">Web Design Instructor</span>
-                                            <div className="flex-align gap-4 mt-4">
-                                                <span className="text-15 fw-bold text-warning-600 d-flex">
-                                                    <i className="ph-fill ph-star" />
-                                                </span>
-                                                <span className="text-13 fw-bold text-gray-600">4.9</span>
-                                                <span className="text-13 fw-bold text-gray-300">(12k)</span>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -185,8 +197,8 @@ function Trainerviewcoursebyid() {
 
                 {/* Right Section for Next Batch and Study Materials */}
                 <div className="col-md-4">
-                    {/* Study Materials Section */}
-                    <div className="card">
+                    {/* What You Will Learn */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
                         <div className="card-body p-0">
                             <div className="course-item">
                                 <button
@@ -194,39 +206,123 @@ function Trainerviewcoursebyid() {
                                     className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
                                 >
                                     <span className="d-block text-start">
-                                        <span className="d-block h5 mb-0 text-line-1">Study Materials</span>
+                                        <span className="d-block h5 mb-0 text-line-1">What You Will Learn</span>
                                     </span>
                                     <span className="course-item__arrow ms-auto text-20 text-gray-500">
                                         <i className="ph ph-arrow-right" />
                                     </span>
                                 </button>
                                 <div className="course-item-dropdown active border-bottom border-gray-100">
-                                    <ul className="course-list p-16 pb-0">
-                                        <li className="course-list__item flex-align gap-8 mb-16 active">
-                                            <div className="w-100">
-                                                <a
-                                                    href=""
-                                                    className="text-gray-300 fw-medium d-block hover-text-main-600 d-lg-block"
-                                                >
-                                                    <ul className="mt-3">
-                                                        {courseDetails?.courseAttachment.map((attachment, index) => (
-                                                            <li key={index}>
-                                                                <a
-                                                                    href={attachment}
-                                                                    onClick={(e) => {
-                                                                        e.preventDefault(); // Prevent the default anchor behavior
-                                                                        window.open(attachment, '_blank', 'width=800,height=600'); // Open in a new popup window
-                                                                    }}
-                                                                    rel="noopener noreferrer"
-                                                                >
-                                                                    {attachment.split('/').pop()}
-                                                                </a>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                        </li>
+                                    <ul style={{ paddingTop: '10px', paddingLeft: '20px' }}>
+                                        {courseDetails?.whatYouWillLearn?.length ? (
+                                            courseDetails.whatYouWillLearn.map((feature, index) => (
+                                                <li key={index} className="flex-align gap-6 text-gray-300 text-16 mb-12">
+                                                    <i className="ph ph-caret-right" style={{ fontWeight: 'bold', color: '#FF001E' }} />
+                                                    {feature}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <p>No learning outcomes available.</p>
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Key Features */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
+                        <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">Key Features</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ paddingTop: '10px', paddingLeft: '20px' }}>
+                                        {courseDetails?.keyFeatures?.length ? (
+                                            courseDetails.keyFeatures.map((feature, index) => (
+                                                <li key={index} className="flex-align gap-6 text-gray-300 text-16 mb-12">
+                                                    <i className="ph ph-caret-right" style={{ fontWeight: 'bold', color: '#FF001E' }} />
+                                                    {feature}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <p>No key features available.</p>
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Who Can Enroll */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
+                        <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">Who Can Enroll</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ paddingTop: '10px', paddingLeft: '20px' }}>
+                                        {courseDetails?.whoCanEnroll?.length ? (
+                                            courseDetails.whoCanEnroll.map((enrollee, index) => (
+                                                <li key={index} className="flex-align gap-6 text-gray-300 text-16 mb-12">
+                                                    <i className="ph ph-caret-right" style={{ fontWeight: 'bold', color: '#FF001E' }} />
+                                                    {enrollee}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <p>No who can enroll available.</p>
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* IT Skills Covered */}
+                    <div className="card" style={{ marginBottom: '20px' }}>
+                        <div className="card-body p-0">
+                            <div className="course-item">
+                                <button
+                                    type="button"
+                                    className="course-item__button active flex-align gap-4 w-100 p-16 border-bottom border-gray-100"
+                                >
+                                    <span className="d-block text-start">
+                                        <span className="d-block h5 mb-0 text-line-1">IT Skills Covered</span>
+                                    </span>
+                                    <span className="course-item__arrow ms-auto text-20 text-gray-500">
+                                        <i className="ph ph-arrow-right" />
+                                    </span>
+                                </button>
+                                <div className="course-item-dropdown active border-bottom border-gray-100">
+                                    <ul style={{ paddingTop: '10px', paddingLeft: '20px' }}>
+                                        {courseDetails?.itSkillsCovered?.length ? (
+                                            courseDetails.itSkillsCovered.map((skill, index) => (
+                                                <li key={index} className="flex-align gap-6 text-gray-300 text-16 mb-12">
+                                                    <i className="ph ph-caret-right" style={{ fontWeight: 'bold', color: '#FF001E' }} />
+                                                    {skill}
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <p>No IT skills available.</p>
+                                        )}
                                     </ul>
                                 </div>
                             </div>

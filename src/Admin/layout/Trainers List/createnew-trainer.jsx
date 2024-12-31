@@ -68,7 +68,7 @@ function CreatenewTrainer() {
         formData.append('city', document.getElementById('zip').value);
 
         try {
-            const response = await axios.post('https://lms-backend-ylpd.onrender.com/trainer/createTrainer', formData, {
+            const response = await axios.post('http://148.135.138.203:4000/trainer/createTrainer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -197,7 +197,7 @@ function CreatenewTrainer() {
                                                 <div className="col-sm-6 col-xs-6">
                                                     <label htmlFor="course" className="form-label mb-8 h6">Select Course</label>
                                                     <div className="col-12">
-                                                        {["React Js", "Node Js", "Java", "Python", "AI", "Data science", "Data analytics", "Cyber security"].map((course, index) => (
+                                                        {["React Js", "Node Js", "Java", "Python", "Artificial intelligence", "Data science", "Data analytics", "Cyber security"].map((course, index) => (
                                                             <div key={index} className="form-check">
                                                                 <input
                                                                     type="checkbox"

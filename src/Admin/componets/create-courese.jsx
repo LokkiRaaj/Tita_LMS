@@ -21,7 +21,13 @@ function AdmincreateCourses() {
         courseVideoTitle: '',
         courseVideo: null,
         courseThumbnail: null,
-        courseAttachment: [] // Assuming this is an empty array for now
+        courseAttachment: [], // Assuming this is an empty array for now
+        keyFeatures: [], // Added keyFeatures
+        whoCanEnroll: [], // Added whoCanEnroll
+        certification: [], // Added certifications
+        itSkillsCovered: [], // Added itSkillsCovered
+        whyShouldJoin: [], // Added whysShouldJoin
+        whatYouWillLearn: [],
     });
 
 
@@ -69,7 +75,8 @@ function AdmincreateCourses() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}courses/createCourse`, formData, {
+            const response = await axios.post(`http://148.135.138.203:4000/courses/createCourse`, formData, {
+                // const response = await axios.post(`http://192.168.1.12:4000/courses/createCourse`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -107,7 +114,7 @@ function AdmincreateCourses() {
             <div>
                 <AdminSidebar />
                 <div className="dashboard-main-wrapper">
-                    <AdminHeader/>
+                    <AdminHeader />
                     <div className="dashboard-body">
                         <CreatecourseHead currentStep={currentStep} />
                         {currentStep === 1 && <CourseDetails onContinue={handleContinue} />}

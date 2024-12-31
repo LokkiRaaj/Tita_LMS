@@ -13,7 +13,7 @@ function WebinarCalendar() {
     useEffect(() => {
         const fetchMeetings = async () => {
             try {
-                const response = await fetch(`http://192.168.1.12:4000/webinar/getWebinar`);
+                const response = await fetch(`http://148.135.138.203:4000/webinar/getWebinar`);
                 if (!response.ok) throw new Error("Failed to fetch meetings");
                 const data = await response.json();
                 setWebinars(data);

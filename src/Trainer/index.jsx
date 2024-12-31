@@ -13,10 +13,10 @@ import TrainercreateProjects from "./components/create-projects";
 import SubmittedProjects from "./components/submit-projects";
 import TrainerviewMaterials from "./components/view-materilas";
 import CreateTest from "./components/create-test";
+import TrainerviewTest from "./components/view-test";
 import Trainerviewcourse from "./components/trainercourseview";
 import DoubtSession from "./components/doubt-session";
 import TrainerprofileSettings from "./components/profile-settings";
-
 
 
 function Trainer() {
@@ -24,7 +24,7 @@ function Trainer() {
         <Router>
             <Routes>
                 <Route path="/trainer-dashboard" element={<TrainerHome />} />
-                <Route path="/trainer-courseslist" element={<TrainerCourses />} />
+                <Route path="trainer-courseslist" element={<TrainerCourses />} />
                 <Route path="trainer-mycourses" element={<TrainerMycourses />} />
                 <Route path="trainer-calendar" element={<TrainerMymeetings />} />
                 <Route path="trainer-newschedule" element={<TrainerNewSchedule />} />
@@ -36,7 +36,8 @@ function Trainer() {
                 <Route path="trainer-createprojects" element={<TrainercreateProjects />} />
                 <Route path="trainer-submittedprojects" element={<SubmittedProjects />} />
                 <Route path="trainer-createtests" element={<CreateTest />} />
-                <Route path="/trainer-viewcourses" element={<Trainerviewcourse />} />
+                <Route path="trainer-viewtests" element={<TrainerviewTest />} />
+                <Route path="trainer-viewcourses" element={<Trainerviewcourse />} />
                 <Route path="trainer-doubtsession" element={<DoubtSession />} />
                 <Route path="trainer-profilesettings" element={<TrainerprofileSettings />} />
             </Routes>

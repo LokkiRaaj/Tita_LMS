@@ -68,7 +68,7 @@ function StudentSidebar() {
                             </li>
 
                             <li className="sidebar-menu__item">
-                                <Link to="/student-tests" className="sidebar-menu__link">
+                                <Link to="/student-test" className="sidebar-menu__link">
                                     <span class="icon"><i className="ph ph-file"></i></span>
                                     <span className="text">Tests</span>
                                 </Link>

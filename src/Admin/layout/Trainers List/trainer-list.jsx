@@ -19,7 +19,7 @@ function TrainerList() {
     // Fetch trainers with pagination
     const fetchTrainers = async (page = 1) => {
         try {
-            const response = await axios.get("https://lms-backend-ylpd.onrender.com/trainer/getTrainers", {
+            const response = await axios.get("http://148.135.138.203:4000/trainer/getTrainers", {
                 params: {
                     page: page,
                     limit: itemsPerPage
