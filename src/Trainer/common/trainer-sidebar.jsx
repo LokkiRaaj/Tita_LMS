@@ -215,7 +215,7 @@ function TrainerSidebar() {
                                         </Link>
                                     </li>
                                     <li className="sidebar-submenu__item">
-                                        <Link to="" className="sidebar-submenu__link" style={submenuLinkStyle}>
+                                        <Link to="/trainer-viewtests" className="sidebar-submenu__link" style={submenuLinkStyle}>
                                             View Tests
                                         </Link>
                                     </li>

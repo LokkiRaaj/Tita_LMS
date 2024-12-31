@@ -10,9 +10,11 @@ import StudentWebinar from "./componets/webinar";
 import StudentDoubtSession from "./componets/doubt-session";
 import StudentTests from "./componets/tests";
 import StudentTechnicalSupport from "./componets/technical-support";
+import StudentTestPage from "./componets/test-page";
 import StudentviewTest from "./componets/view-test";
 import Studentviewcourse from "./componets/studentviewcourse";
 import StudentprofileSettings from "./componets/profile-settings";
+
 
 
 function Students() {
@@ -27,11 +29,12 @@ function Students() {
                 <Route path="student-calendar" element={<StudentCalendar />} />
                 <Route path="student-webinar" element={<StudentWebinar />} />
                 <Route path="student-doubtsession" element={<StudentDoubtSession />} />
-                <Route path="student-tests" element={<StudentTests />} />
+                <Route path="student-test" element={<StudentTests />} />
+                <Route path="student-viewtest" element={<StudentviewTest />} />
                 <Route path="student-technicalsupport" element={<StudentTechnicalSupport />} />
-                <Route path="student-starttests" element={<StudentviewTest />} />
+                <Route path="student-starttests" element={<StudentTestPage />} />
                 <Route path="student-profilesettings" element={<StudentprofileSettings />} />
-                <Route path="/student-viewcourses" element={<Studentviewcourse/>} />
+                <Route path="student-viewcourses" element={<Studentviewcourse />} />
             </Routes>
         </Router>
     );

@@ -6,40 +6,36 @@ function AdminTechnicalForm() {
             clientID: "001",
             firstName: "Lokkesh",
             lastName: "Raaj",
-            batch: "Batch 1",
             email: "lokkesh@gmail.com",
-            issueDate: "2024-12-19",
-            closeDate: "2024-12-21",
+            creationDate: "2024-12-19",
+            closureDate: "2024-12-21",
             status: "Completed",
         },
         {
             clientID: "002",
             firstName: "John",
             lastName: "Doe",
-            batch: "Batch 1",
             email: "john.doe@gmail.com",
-            issueDate: "2024-12-18",
-            closeDate: "",
+            creationDate: "2024-12-18",
+            closureDate: "",
             status: "In Process",
         }, 
         {
             clientID: "003",
             firstName: "Saravana",
             lastName: "Balaji",
-            batch: "",
             email: "saravana.doe@gmail.com",
-            issueDate: "2024-12-03",
-            closeDate: "",
+            creationDate: "2024-12-03",
+            closureDate: "",
             status: "In Process",
         },
         {
             clientID: "004",
             firstName: "Monish",
             lastName: "R",
-            batch: "",
             email: "monish@gmail.com",
-            issueDate: "2024-12-15",
-            closeDate: "2024-12-17",
+            creationDate: "2024-12-15",
+            closureDate: "2024-12-17",
             status: "Completed",
         },
     ];
@@ -53,10 +49,9 @@ function AdminTechnicalForm() {
                             <th className="h6 text-gray-300">Client ID</th>
                             <th className="h6 text-gray-300">First Name</th>
                             <th className="h6 text-gray-300">Last Name</th>
-                            <th className="h6 text-gray-300">Batch</th>
                             <th className="h6 text-gray-300">Email ID</th>
-                            <th className="h6 text-gray-300">Issue Date</th>
-                            <th className="h6 text-gray-300">Close Date</th>
+                            <th className="h6 text-gray-300">Creation Date</th>
+                            <th className="h6 text-gray-300">Closure Date</th>
                             <th className="h6 text-gray-300">Status</th>
                         </tr>
                     </thead>
@@ -80,22 +75,17 @@ function AdminTechnicalForm() {
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {technical.batch}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className="h6 mb-0 fw-medium text-gray-300">
                                         {technical.email}
                                     </span>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {technical.issueDate}
+                                        {technical.creationDate}
                                     </span>
                                 </td>
                                 <td>
                                     <span className="h6 mb-0 fw-medium text-gray-300">
-                                        {technical.closeDate}
+                                        {technical.closureDate}
                                     </span>
                                 </td>
                                 <td>

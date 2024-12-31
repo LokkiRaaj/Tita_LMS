@@ -34,10 +34,10 @@ function StudentTechnicalSupportForm() {
             emailId: data.email_from,
             message: data.message,
         };
-console.log(payload)
+        console.log(payload)
         try {
             const response = await axios.post(`${baseURL}technicalSupport/createTechnicalSupport`,
-          
+
                 payload
             );
             setLoading(false);
@@ -73,11 +73,8 @@ console.log(payload)
             <div className="card shadow">
                 <div className="card-header">
                     <h5 className="mb-0">Technical Support</h5>
-                    <button
-                        className="btn btn-primary btn-sm float-end"
-                        onClick={handleViewTicketsClick}
-                    >
-                        View Tickets
+                    <button className="btn btn-primary btn-sm float-end" onClick={handleViewTicketsClick}>
+                        View Submitted Tickets
                     </button>
                 </div>
                 <div className="card-body py-10">
@@ -90,7 +87,8 @@ console.log(payload)
                                             <th>Client Id</th>
                                             <th>Name</th>
                                             <th>Email ID</th>
-                                            <th>Issues</th>
+                                            <th>Creation Date</th>
+                                            <th>Closure Date</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -101,6 +99,7 @@ console.log(payload)
                                                 <td style={{ color: 'black' }}>{ticket.firstname}&nbsp;{ticket.lastname}</td>
                                                 <td style={{ color: 'black' }}>{ticket.emailId}</td>
                                                 <td style={{ color: 'black' }}>{formatDate(ticket.createdAt)}</td>
+                                                <td style={{ color: 'black' }}>{formatDate(ticket.closurAt)}</td>
 
                                                 <td>
                                                     <span
@@ -115,7 +114,9 @@ console.log(payload)
                                                                 : "bg-warning-600"
                                                                 } rounded-circle flex-shrink-0`}
                                                         />
-                                                        {ticket.status }
+
+                                                        {ticket.status}
+
                                                     </span>
                                                 </td>
                                             </tr>
@@ -139,67 +140,28 @@ console.log(payload)
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="firstName" className="form-label">First Name :</label>
-                                    <input
-                                        type="text"
-                                        name="first_name"
-                                        id="firstName"
-                                        className="form-control"
-                                        placeholder="Your First Name"
-                                        required
-                                    />
+                                    <input type="text" name="first_name" id="firstName" className="form-control" placeholder="Your First Name" required />
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="lastName" className="form-label">Last Name :</label>
-                                    <input
-                                        type="text"
-                                        name="last_name"
-                                        id="lastName"
-                                        className="form-control"
-                                        placeholder="Your Last Name"
-                                        required
-                                    />
+                                    <input type="text" name="last_name" id="lastName" className="form-control" placeholder="Your Last Name" required />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="clientid" className="form-label">Your Client ID :</label>
-                                    <input
-                                        type="text"
-                                        name="client_id"
-                                        id="clientid"
-                                        className="form-control"
-                                        placeholder="Enter Your Client ID"
-                                        required
-                                    />
+                                    <input type="text" name="client_id" id="clientid" className="form-control" placeholder="Enter Your Client ID" required />
                                 </div>
-                          
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Your Email ID :</label>
-                                <input
-                                    type="email"
-                                    name="email_from"
-                                    id="email"
-                                    className="form-control"
-                                    placeholder="person@example.com"
-                                    required
-                                />
+                                <input type="email" name="email_from" id="email" className="form-control" placeholder="person@example.com" required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="message" className="form-label">Describe your issue :</label>
-                                <textarea
-                                    className="form-control"
-                                    name="message"
-                                    id="message"
-                                    placeholder="Write your message here..."
-                                    required
-                                ></textarea>
+                                <textarea className="form-control" name="message" id="message" placeholder="Write your message here..." required ></textarea>
                             </div>
-                            <button
-                                className="btn btn-primary my-5"
-                                type="submit"
-                                disabled={loading}
-                            >
+                            <button className="btn btn-primary my-5" type="submit" disabled={loading} >
                                 {loading ? 'Sending...' : <><SendIcon /> Send</>}
                             </button>
                             {message && <p className="feedback__message mt-3">{message}</p>}

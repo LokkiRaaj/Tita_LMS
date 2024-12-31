@@ -50,10 +50,7 @@ function TrainerTechnicalSupportForm() {
             <div className="card shadow">
                 <div className="card-header">
                     <h5 className="mb-0">Technical Support</h5>
-                    <button
-                        className="btn btn-primary btn-sm float-end"
-                        onClick={handleViewTicketsClick}
-                    >
+                    <button className="btn btn-primary btn-sm float-end" onClick={handleViewTicketsClick} >
                         View Tickets
                     </button>
                 </div>
@@ -80,7 +77,8 @@ function TrainerTechnicalSupportForm() {
                                             <th className="h6 text-gray-300">First Name</th>
                                             <th className="h6 text-gray-300">Last Name</th>
                                             <th className="h6 text-gray-300">Email ID</th>
-                                            <th className="h6 text-gray-300">Issues</th>
+                                            <th className="h6 text-gray-300">Creation Date</th>
+                                            <th className="h6 text-gray-300">Closure Date</th>
                                             <th className="h6 text-gray-300">Status</th>
                                         </tr>
                                     </thead>
@@ -105,18 +103,23 @@ function TrainerTechnicalSupportForm() {
                                             </td>
                                             <td>
                                                 <span className="h6 mb-0 fw-medium text-gray-300">
-                                                    {submittedData?.message}
+                                                    {submittedData?.creationDate}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span className="h6 mb-0 fw-medium text-gray-300">
+                                                    {submittedData?.closurDate}
                                                 </span>
                                             </td>
                                             <td>
                                                 <span
-                                                    className={`text-13 py-2 px-8 ${submittedData?.status === "Solve the Issue"
+                                                    className={`text-13 py-2 px-8 ${submittedData?.status === "Solved"
                                                         ? "bg-success-50 text-success-600"
                                                         : "bg-warning-50 text-warning-600"
                                                         } d-inline-flex align-items-center gap-8 rounded-pill`}
                                                 >
                                                     <span
-                                                        className={`w-6 h-6 ${submittedData?.status === "Solve the Issue"
+                                                        className={`w-6 h-6 ${submittedData?.status === "Solved"
                                                             ? "bg-success-600"
                                                             : "bg-warning-600"
                                                             } rounded-circle flex-shrink-0`}
@@ -135,56 +138,24 @@ function TrainerTechnicalSupportForm() {
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="firstName" className="form-label">First Name :</label>
-                                    <input
-                                        type="text"
-                                        name="first_name"
-                                        id="firstName"
-                                        className="form-control"
-                                        placeholder="Your First Name"
-                                        required
-                                    />
+                                    <input type="text" name="first_name" id="firstName" className="form-control" placeholder="Your First Name" required />
                                 </div>
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="lastName" className="form-label">Last Name :</label>
-                                    <input
-                                        type="text"
-                                        name="last_name"
-                                        id="lastName"
-                                        className="form-control"
-                                        placeholder="Your Last Name"
-                                        required
-                                    />
+                                    <input type="text" name="last_name" id="lastName" className="form-control" placeholder="Your Last Name" required />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 mb-3">
                                     <label htmlFor="email" className="form-label">Your Email ID :</label>
-                                    <input
-                                        type="email"
-                                        name="email_from"
-                                        id="email"
-                                        className="form-control"
-                                        placeholder="person@example.com"
-                                        required
-                                    />
+                                    <input type="email" name="email_from" id="email" className="form-control" placeholder="person@example.com" required />
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="message" className="form-label">Describe your issue :</label>
-                                <textarea
-                                    className="form-control"
-                                    name="message"
-                                    id="message"
-                                    placeholder="Write your message here..."
-                                    required
-                                ></textarea>
+                                <textarea className="form-control" name="message" id="message" placeholder="Write your message here..." required ></textarea>
                             </div>
-                            <button
-                                className="btn btn-primary  my-5"
-                                type="submit"
-                                disabled={loading}
-                                s
-                            >
+                            <button className="btn btn-primary  my-5" type="submit" disabled={loading} >
                                 {loading ? 'Sending...' : <><SendIcon /> Send</>}
                             </button>
                             {message && <p className="feedback__message mt-3">{message}</p>}

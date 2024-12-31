@@ -98,7 +98,7 @@ function TrainerEditModal({ isOpen, onClose, trainer, onUpdateTrainer }) {
 
         try {
             const response = await axios.put(
-                `https://lms-backend-ylpd.onrender.com/trainer/updateTrainer/${trainer._id}`, 
+                `http://148.135.138.203:4000/trainer/updateTrainer/${trainer._id}`, 
                 formDataToSubmit,
                 {
                     headers: {

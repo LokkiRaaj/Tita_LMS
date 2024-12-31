@@ -1,14 +1,14 @@
 import React from "react";
-import StudentSidebar from "../common/student-sidebar";
-import StudentHeader from "../common/student-header";
-import ViewTestTable from "../layout/Tests/viewtest-table";
+import TrainerSidebar from "../common/trainer-sidebar";
+import TrainerHeader from "../common/trainer-header";
+import ViewTestTable from "../layout/Tests/viewtest-page";
 
-function StudentviewTest() {
+function TrainerviewTest() {
     return (
         <div>
-            <StudentSidebar />
+            <TrainerSidebar />
             <div className="dashboard-main-wrapper">
-                <StudentHeader />
+                <TrainerHeader />
                 <div className="dashboard-body">
                     <div className="row gy-4">
                         <ViewTestTable />
@@ -19,4 +19,4 @@ function StudentviewTest() {
     );
 }
 
-export default StudentviewTest;
+export default TrainerviewTest;

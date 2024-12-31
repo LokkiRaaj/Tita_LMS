@@ -12,7 +12,7 @@ function StudentcalendarPage() {
 
   useEffect(() => {
     const fetchMeetings = async () => {
-      const response = await fetch("https://lms-backend-ylpd.onrender.com/meeting/getMeeting");
+      const response = await fetch("http://148.135.138.203:4000/meeting/getMeeting");
       const data = await response.json();
       setMeetings(data);
     };

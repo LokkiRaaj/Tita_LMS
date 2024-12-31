@@ -68,7 +68,7 @@ function CreatenewTrainer() {
         formData.append('city', document.getElementById('zip').value);
 
         try {
-            const response = await axios.post('https://lms-backend-ylpd.onrender.com/trainer/createTrainer', formData, {
+            const response = await axios.post('http://148.135.138.203:4000/trainer/createTrainer', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

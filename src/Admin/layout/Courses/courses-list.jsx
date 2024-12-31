@@ -17,7 +17,7 @@ function AdminCoursesList() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${baseURL}courses/getAllCourses`);
+                const response = await axios.get(`http://148.135.138.203:4000/courses/getAllCourses`);
                 const data = response.data;
                 const uniqueCategories = [
                     ...new Set(data.courses.map((course) => course.level)),
@@ -82,6 +82,7 @@ function AdminCoursesList() {
                                                     </a>
                                                 </h5>
                                                 <div className="flex-align gap-8 mt-12 pt-12 border-top border-gray-100">
+
                                                     <div className="flex-align gap-4">
                                                         <span className="text-sm text-main-600 d-flex">
                                                             <i className="ph ph-video-camera" />
@@ -90,6 +91,7 @@ function AdminCoursesList() {
                                                             {course.courseSeat} Seats
                                                         </span>
                                                     </div>
+
                                                     <div className="flex-align gap-4">
                                                         <span className="text-sm text-main-600 d-flex">
                                                             <i className="ph ph-clock" />
@@ -100,6 +102,10 @@ function AdminCoursesList() {
                                                     </div>
                                                 </div>
                                                 <div className="flex-between gap-4 flex-wrap mt-24">
+
+                                                    <Link to={`/admin-viewcourses?id=${course._id}`}
+                                                        className="btn btn-outline-main rounded-pill py-9">
+
                                                     <div className="flex-align gap-4">
                                                         <span className="text-15 fw-bold text-warning-600 d-flex">
                                                             <i className="ph-fill ph-star" />
@@ -114,6 +120,7 @@ function AdminCoursesList() {
                                                     <Link to={`/admin-viewcourses?id=${course._id}`}
                                                         className="btn btn-outline-main rounded-pill py-9"
                                                     >
+
                                                         View Details
                                                     </Link>
                                                 </div>

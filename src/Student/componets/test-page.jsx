@@ -1,9 +1,9 @@
 import React from "react";
 import StudentSidebar from "../common/student-sidebar";
 import StudentHeader from "../common/student-header";
-import ViewTestTable from "../layout/Tests/viewtest-table";
+import StartTestpage from "../layout/Tests/start-test";
 
-function StudentviewTest() {
+function StudentTestPage() {
     return (
         <div>
             <StudentSidebar />
@@ -11,7 +11,7 @@ function StudentviewTest() {
                 <StudentHeader />
                 <div className="dashboard-body">
                     <div className="row gy-4">
-                        <ViewTestTable />
+                        <StartTestpage />
                     </div>
                 </div>
             </div>
@@ -19,4 +19,4 @@ function StudentviewTest() {
     );
 }
 
-export default StudentviewTest;
+export default StudentTestPage;
